@@ -1,0 +1,30 @@
+/*
+ * generateTrame.c
+ *
+ *  Created on: 14 août 2012
+ *      Author: favrebm1
+ */
+
+#include "generateTrame.h"
+
+void generateTrame(kTrameDestEnum aDest,kTrameTypeEnum aType, UInt8 aData[4][8], UInt8* aAddrReturn,UInt8 lengthData)
+{
+	UInt8 i=0;
+	UInt8 j=0;
+	
+	aAddrReturn[0]=kStartByte;
+	aAddrReturn[1]=aDest;
+	aAddrReturn[2]=aType;
+	for(i=0;i<lengthData;i++)
+	{
+		for(j=0;j<8;j++)
+		{
+			aAddrReturn[3+9*i+j]=aData[i][j];
+		}
+		aAddrReturn[3+9*i+j]='|';
+	}
+	aAddrReturn[3+9*(i-1)+j]=kStopByte;
+	aAddrReturn[4+9*(i-1)+j]='\r';
+	aAddrReturn[5+9*(i-1)+j]='\n';
+	aAddrReturn[6+9*(i-1)+j]='\0';
+}

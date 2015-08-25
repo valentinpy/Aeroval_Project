@@ -1,0 +1,54 @@
+Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Quantity~Integer~Quantity~100|Field=Footprint~String~Footprint~100|Field=Designator~String~Designator~100|Field=Manufacturer 1~String~Manufacturer 1~100|Field=Manufacturer Part Number 1~String~Manufacturer Part Number 1~100|Field=Supplier 1~String~Supplier 1~100|Field=Supplier Part Number 1~String~Supplier Part Number 1~100|Field=Supplier Subtotal 1~Float~Supplier Subtotal 1~100|Field=Supplier Unit Price 1~Float~Supplier Unit Price 1~100|Field=Value~String~Value~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~10|ReportField=ProjectFileName~Aeroval.PrjPcb|ReportField=ProjectFullPath~C:\Users\valentin.py\Documents\Aeroval\Altium\Aeroval\Aeroval.PrjPcb|ReportField=Title~Bill of Materials For Project [Aeroval.PrjPcb] (No PCB Document Selected)|ReportField=TotalQuantity~200|ReportField=ReportTime~00:12:21|ReportField=ReportDate~11.06.2015|ReportField=ReportDateTime~11.06.2015 00:12:21|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~valentin.py@gmail.com|ReportField=Address2~|ReportField=Address3~|ReportField=Address4~|ReportField=Application_BuildNumber~|ReportField=ApprovedBy~|ReportField=Author~Valentin Py|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=ConfigurationParameters~|ReportField=CurrentDate~10.06.2015|ReportField=CurrentTime~23:52:07|ReportField=Date~|ReportField=DocumentFullPathAndName~C:\Users\valentin.py\Documents\Aeroval\Altium\Aeroval\Interfaces.SchDoc|ReportField=DocumentName~Interfaces.SchDoc|ReportField=DocumentNumber~|ReportField=DrawnBy~Valentin Py|ReportField=Engineer~Valentin Py|ReportField=ImagePath~|ReportField=ModifiedDate~10.06.2015|ReportField=Organization~|ReportField=PageSetup~Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintScale=0.24|XCorrection=1.00|YCorrection=1.00|PrintKind=0|BorderSize=5000000|LeftOffset=0|BottomOffset=0|Orientation=2|PaperLength=1000|PaperWidth=1000|Scale=100|PaperSource=7|PrintQuality=-4|MediaType=1|DitherType=10|PaperKind=A4|PrintScaleMode=1|ReportField=ProjectName~Aeroval.PrjPcb|ReportField=Revision~|ReportField=Rule~|ReportField=SheetNumber~3|ReportField=SheetTotal~5|ReportField=Time~|ReportField=Title~Interfaces|ReportField=DataSourceFileName~Aeroval.PrjPcb|ReportField=DataSourceFullPath~C:\Users\valentin.py\Documents\Aeroval\Altium\Aeroval\Aeroval.PrjPcb|ReportField=PCBDataSourceFileName~Aeroval-PCB1.PcbDoc|ReportField=PCBDataSourceFullPath~C:\Users\valentin.py\Documents\Aeroval\Altium\Aeroval\Aeroval-PCB1.PcbDoc
+100nF|CAP CER 0.1UF 25V 10% X7R 0805|30|080503|C1, C5, C14, C15, C19, C20, C29, C30, C31, C32, C33, C35, C39, C41, C42, C52, C53, C57, C63, C64, C65, C66, C67, C68, C69, C70, C71, C72, C74, C75|Samsung Electro-Mechanics America, Inc|CL21B104KACNNNC|Digi-Key|1276-1099-1-ND|6,12|0,0204|100nF
+1uF|CAP CER 1UF 25V 10% X7R 0805|10|080503|C2, C3, C4, C6, C12, C17, C23, C24, C27, C62|Kemet|C0805C104K3RACTU|Digi-Key|399-1168-1-ND|2,3|0,023|1uF
+10uF|CAP CER 10UF 16V 20% X6S 0805|2|080501|C21, C22|TDK Corporation|C2012X6S1C106M125AC|Digi-Key|445-7612-1-ND|7,14|0,357|10uF
+10nF|CAP CER 10nF 50V 10% X7R 0805|2|080503|C25, C38|Kemet|C0805C103K5RACTU|Digi-Key|399-1158-1-ND|0,68|0,034|10nF
+220uF|CAP TANT 220UF 4V 20% 1411|1|1411|C26|Kemet|T491B227M004AT|Digi-Key|399-4625-6-ND|9,56|0,956|220uF
+22uF|CAP TANT 22UF 25V 10% 2413|1|2413|C28|Kemet|T491C226K025AT|Digi-Key|399-3746-1-ND|8,88|0,888|22uF
+4.7uF|CAP TANT 4.7uF 10V 10% 1206|2|120605|C34, C55|Kemet|T491A475K010AT|Digi-Key|399-3696-1-ND|6|0,30|4.7uF
+220nF|CAP CER 0.22uF 50V X7R 10% 0805|2|080503|C36, C59|Kemet|C0805C224K5RACTU|Digi-Key|399-3491-1-ND|1,9|0,095|220nF
+2.2nF|CAP CER 2.2nF 50V|1|080503|C40|Kemet|C0805C222F5GACTU|Digi-Key|399-11167-2-ND|||2.2nF
+10uF|CAP CER 10UF 16V 20% X6S 0805|1|080503|C73|TDK Corporation|C2012X6S1C106M125AC|Digi-Key|445-7612-1-ND|3,57|0,357|10uF
+18pF|CAP CER 18PF 50V 5% NP0 0603|2|060301|C76, C77|Kemet|C0603C180J5GACTU|Digi-Key|399-1052-6-ND|0,68|0,034|18pF
+SP0504BAHTG|TVS AVAL DIODE ARRAY 4CH, 5.5V|1|SOT23501|D1|Littelfuse Inc|SP0504BAHTG|Digi-Key|F3157CT-ND|8,99|0,899|
+LED|LED 2X1.2MM 570NM GN WTR CLR SMD|9|LED_0805 - GREEN|D2, D3, D4, D5, D6, D7, D8, D9, D10|Kingbright|APT2012CGCK|Digi-Key|754-1127-1-ND|10,692|0,1188|
+TVS DIODE 3.3V|Zener 3V3|10|SOD-523|D11, D13, D14, D15, D16, D17, D18, D19, D20, D21|Comchip Technology|CPDH3V3UP|Digi-Key|641-1395-1-ND|37,08|0,3708|
+B230A-13-F|B230A-13-F|1|SMA|D12|Diodes Incorporated|B230A-13-F|Digi-Key|B230A-FDICT-ND|3,8|0,38|500mV
+EM7180SFP||1||EM1|||||||
+BLM21BB331SN1D|EMI Filter Beads, Chips & Arrays 0805 330 OHM|1|080501|FB1|Murata Electronics|BLM21BB331SN1D|Mouser|81-BLM21BB331SN1D|0,84|0,084|300R@100MHz
+CONN_3||23||J1, J17, J20, J27, J28, J29, J30, J31, J32, J33, J34, J35, J36, J37, J38, J39, J40, J41, J42, J43, J44, J45, J46|||Stock||||
+CONN_2||8||J2, J6, J8, J11, J24, J25, J26, J47|||Stock||||
+CONN_4||2||J3, J9|||Stock||||
+UX60-MB-5ST|CONN RECEPT MINI B USB2.0|1|USB/UX60-MB-5ST|J5|Hirose Electric Co Ltd|UX60-MB-5ST|Digi-Key|H2959CT-ND|9,44|0,944|
+CONN_5||2||J7, J10|||Stock||||
+CONN_9||1||J18|||Stock||||
+CONN_SD|CON 8 SD CARD PUSH SMT 1.1MM SP 75H AU|1|con8_sdcard_push_sm|J21|Molex Inc|1050270001|Digi-Key|WM6825CT-ND|12,61|1,261|
+FTSH-105-01-F-DV-K|CONN HEADER 10POS DUAL .05" SMD|1|FTSH-105-01-F-DV-K|J22|Samtec Inc|FTSH-105-01-F-DV-K|Digi-Key|FTSH-105-01-F-DV-K-ND|30,2|3,02|
+CONN_BAT|TERM BLOCK HDR 2POS R/A 5.08MM|1|SL508_2C|J23|Weidmuller|1514910000|Digi-Key|281-1279-ND|4,86|0,486|282857-2
+82uH|SDR1307-820KL|1|L1|L1|Bourns Inc.|SDR1307-820KL|Digi-Key|SDR1307-820KLCT-ND|7,8|0,78|82uH
+HMC5983||2||MAG1, MAG3|Honeywell Microelectronics & Precision Sensors|HMC5983-TR|Digi-Key|342-1092-1-ND|46,06|2,303|
+MPU-6000||1||MPU1|InvenSense|MPU-6000|Digi-Key|1428-1005-1-ND|85,49|8,549|
+MS5611||1||MSC1|TE Connectivity Measurement Specialties|MS561101BA03-50|Digi-Key|223-1622-1-ND|113,85|11,385|
+1.69k|RES 1.69K OHM 1% 1/8W 0805|5|080503|R1, R3, R4, R5, R37|Stackpole Electronics Inc|RMCF0805FT1K69|Digi-Key|RMCF0805FT1K69CT-ND|0,81|0,0162|1.69K
+4k7|RES 4.7K 0805|14|080503|R2, R11, R12, R13, R14, R21, R22, R23, R24, R58, R59, R60, R61, R67|Stackpole Electronics Inc|RMCF0805FT4K70|Digi-Key|RMCF0805FT4K70CT-ND|1,722|0,0123|4k7
+220R|RES 220R 0805|8|080503|R6, R7, R8, R15, R16, R17, R20, R25|Stackpole Electronics Inc|RMCF0805FT220R|Digi-Key|RMCF0805FT220RCT-ND|1,296|0,0162|220R
+15k|RES 15K 0805|3|080503|R19, R27, R68|Rohm Semiconductor|MCR10ERTF1502|Digi-Key|RHM15.0KCHCT-ND|0,588|0,0196|15k
+10k|RES 10K 0805|4|080501|R28, R30, R31, R71|Panasonic Electronic Components|ERJ-6GEYJ103V|Digi-Key|P10KACT-ND|4|0,10|10k
+2k2|RES 2.2k 0805|2|080501|R29, R32|Stackpole Electronics Inc|RMCF0805FT2K20|Digi-Key|RMCF0805FT2K20CT-ND|0,58|0,029|2k2
+4k7|RES 4.7K 1% 0603|1|060301|R33|Panasonic Electronic Components|ERJ-3EKF4701V|Digi-Key|P4.70KHTR-ND|||4k7
+2k|RES 2K 1% 0805|1|080501|R34|Panasonic Electronic Components|ERJ-6ENF2001V|Digi-Key|P2.00KCCT-ND|1|0,10|2k
+1k|RES 1k 0805|2|080503|R35, R36|Panasonic Electronic Components|ERJ-6ENF1001V|Digi-Key|P1.00KCCT-ND|2|0,10|1k
+330R|RES 330R 0805|8|080503|R38, R39, R40, R41, R42, R43, R44, R45|Stackpole Electronics Inc|RMCF0805FT330R|Digi-Key|RMCF0805FT330RCT-ND|1,296|0,0162|330R
+150R|RES 150R 0805|12|080503|R46, R47, R48, R49, R50, R51, R52, R53, R54, R55, R56, R57|Stackpole Electronics Inc|RMCF0805FT150R|Digi-Key|RMCF0805FT150RCT-ND|1,476|0,0123|150R
+1M|RES 1M 0603|1|060301|R72|Yageo|RC0603FR-071ML|Digi-Key|311-1.00MHRCT-ND|0,14|0,014|1M
+SWITCH|SWITCH DIP TOP SLIDE 4POS SMD|2|GDS04|SW1, SW2|C&K Components|SDA04H1SBD|Digi-Key|CKN6068-ND|32,88|1,644|
+EVQ-PAG05R|SWITCH LT 6MM 260GF 5MM HEIGHT|1|EVQ-PAG05R|SW3|Panasonic Electronic Components|EVQ-PAG05R|Digi-Key|P12195S-ND|2,56|0,256|EVQ-PAG05R
+BCV27||4||T1, T2, T3, T4|Fairchild Semiconductor|BCV27|Digi-Key|BCV27CT-ND|6|0,15|
+CP2102|Single-Chip USB to UART Bridge|1|QFN-28|U1|Silicon Labs|CP2102-GM|Digi-Key|336-1160-5-ND|27,5|2,75|
+NCV1117ST50T3G|Low Dropout (LDO) Regulators ANA 800mA LDO|1|SOT223|U2|ON Semiconductor|NCV1117ST50T3G|Digi-Key|NCV1117ST50T3GOSCT-ND|8,72|0,872|
+REG1117-3.3/2K5|IC REG LDO 3.3V 0.8A SOT223|1|SOT223|U3|Texas Instruments|REG1117-3.3/2K5|Digi-Key|296-21321-1-ND|16,3|1,63|
+LM2596||1|TO263|U4|Texas Instruments|LM2596SX-ADJ/NOPB|Digi-Key|296-35399-1-ND|40,5|4,05|
+SN74LV4T125||3||U5, U6, U7|Texas Instruments|SN74LV4T125PWR|Digi-Key|296-40545-1-ND|24,192|0,8064|
+MK64FN1M0VLQ12||1|LQFP 144|uC1|Freescale Semiconductor|MK64FN1M0VLQ12|Digi-Key|MK64FN1M0VLQ12-ND|115,26|11,526|
+CRYSTAL 32.768k|CRYSTAL 32.768 KHZ 12.5PF SMD|1|XT-5|Y1|ECS Inc|ECS-.327-12.5-17X-C-TR|Digi-Key|XC1912CT-ND|10,73|1,073|32.768kHz
+ABM3-8.000MHZ-D2Y-T|CRYSTAL 8MHZ 18PF SMD|1|XT8_2-SMD|Y2|Abracon LLC|ABM3-8.000MHZ-D2Y-T|Digi-Key|535-10630-6-ND|9,68|0,968|8 MHz

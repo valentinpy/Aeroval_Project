@@ -1,0 +1,28 @@
+Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=LibRef~String~LibRef~100|Field=Quantity~Integer~Quantity~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~Control_Quadri.PrjPCB|ReportField=ProjectFullPath~P:\Formation\010-Bachelor\040-TravailBachelor\GEL\12GEL-TB205-ControlQuadri\010-Etudiants\02_DesignAltium\Control_Quadri.PrjPCB|ReportField=Title~Bill of Materials For Project [Control_Quadri.PrjPCB] (No PCB Document Selected)|ReportField=TotalQuantity~46|ReportField=ReportTime~13:27:51|ReportField=ReportDate~04.06.2012|ReportField=ReportDateTime~04.06.2012 13:27:51|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~Laboratoire de Systèmes Embarqués|ReportField=Address2~7, rue de la Serre|ReportField=Address3~2610 Saint-Imier / Switzerland|ReportField=Address4~|ReportField=ApprovedBy~|ReportField=Author~|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=ConfigurationParameters~|ReportField=CurrentDate~04.06.2012|ReportField=CurrentTime~13:27:07|ReportField=Date~|ReportField=DocumentFullPathAndName~P:\Formation\010-Bachelor\040-TravailBachelor\GEL\12GEL-TB205-ControlQuadri\010-Etudiants\02_DesignAltium\SCH\Alimentation.SchDoc|ReportField=DocumentName~Alimentation.SchDoc|ReportField=DocumentNumber~|ReportField=DrawnBy~|ReportField=Engineer~|ReportField=ImagePath~|ReportField=ModifiedDate~04.06.2012|ReportField=Organization~Altium Limited|ReportField=PageSetup~Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintScale=0.24|XCorrection=1.00|YCorrection=1.00|PrintKind=0|BorderSize=5000000|LeftOffset=0|BottomOffset=0|Orientation=2|PaperLength=1000|PaperWidth=1000|Scale=100|PaperSource=7|PrintQuality=-4|MediaType=1|DitherType=10|PaperKind=A4|PrintScaleMode=1|ReportField=ProjectName~Control_Quadri.PrjPCB|ReportField=Revision~|ReportField=Rule~|ReportField=SheetNumber~|ReportField=SheetTotal~|ReportField=Time~|ReportField=Title~|ReportField=DataSourceFileName~Control_Quadri.PrjPCB|ReportField=DataSourceFullPath~P:\Formation\010-Bachelor\040-TravailBachelor\GEL\12GEL-TB205-ControlQuadri\010-Etudiants\02_DesignAltium\Control_Quadri.PrjPCB
+4.7uF||C1|080501|CAPA|1
+20 pF||C1, C2|080501|CAPA|2
+0.22 uF||C2|120601|CAPA|1
+10 uF||C3, C5, C9|080501|CAPA|3
+100 nF||C4, C6|120601|CAPA|2
+10 nF||C7|080501|CAPA|1
+470 nF||C8|060301|CAPA|1
+22 uF||C10|080501|CAPA|1
+32kHz||G1|XT-5|CRYSTAL|1
+CRYSTAL||G2|Crystal|CRYSTAL|1
+2.2 uH||L1|080503|INDUCTOR|1
+||LED1|060301_led|LED|1
+10k||R1, R2, R3, R4, R5|080501|RES|5
+820 Ohm||R6, R11, R12, R13, R14|080501|RES|5
+1.6 kOhm||R7, R8, R9, R10, R17|080501|RES|5
+8.2 kOhm||R16|080501|RES|1
+100 kOhm||R18|080501|RES|1
+DC/DC|TPS62162|U1||TPS62160|1
+MK10||U1|QFP100-1|MK10|1
+MS5534_CM|Barometer Module|U2|MS5534B|MS5534B|1
+LSM303DLHC|Accéléromètre et magnétomètre|U3|LGA-14L|LSM303DLHC|1
+L3G4200D|Gyroscope|U4|LGA-16|L3G4200D|1
+MaxStream XBee-PRO||U5|XBee-Pro|MaxStream XBee-PRO|1
+LineDriver||U6||LineDriver|1
+MIC4468||U7|SOIC127P1030-16M|MIC4468|1
+Max4173|ificateur capteur de courant|U8|SOT26A-6AM|Max4173|1
+CON6/CP|Connecteur contrôleur moteurs 1 (avant) & 2 (droite), Connecteur contrôleur moteurs 3 (arrière) & 4 (gauche), Connecteur récepteur télécommande cannaux 1 & 2, Connecteur récepteur télécommande cannaux 3 & 4|X1, X2, X3, X4|J2X3_2.54|CON6/CP|4

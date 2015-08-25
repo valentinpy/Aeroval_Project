@@ -1,0 +1,4 @@
+Added Component: Designator=L1(InductanceAlim)
+Added Pin To Net: NetName=NetL1_1 Pin=L1-1
+Added Pin To Net: NetName=3.3V Pin=L1-2
+Added Member To Class: ClassName=Alimentation Member=Component L1 VLF3012ST-2R2M1R4

@@ -1,0 +1,74 @@
+/*
+------------------------------------------------------------
+Copyright 2003-2013 Haute Ecole ARC Ingénierie,
+Switzerland. All rights reserved
+------------------------------------------------------------
+Nom du fichier :	gInput.c
+Auteurs:			Alexandre Schnegg
+					Guillaume Jacot
+Date:				23.01.13
+Description dans le fichier gInput.h
+------------------------------------------------------------
+*/
+
+#include "gMBox.h"
+#include "gInput.h"
+#include "mCapteurAccelMagn.h"
+#include "mCapteurGyro.h"
+#include "mCapteurPression.h"
+#include "mMesureAlimentation.h"
+#include "mPwm.h"
+
+//-----------------------------------------------------------------------------
+// Configuration du gestionnaire
+//-----------------------------------------------------------------------------
+void gInput_Setup(void)
+{
+	gInput.captAccelOK = false;
+	gInput.captMagnOK = false;
+	gInput.captTempPressionOK = false;
+}
+
+//-----------------------------------------------------------------------------
+// Exécution du gestionnaire
+//-----------------------------------------------------------------------------
+void gInput_Execute(void)
+{
+	// Température et pression
+	if (mCapteurPression_Compute())
+	{
+		//Température
+		gInput.captTempData = mCapteurPression_ReadTemperature();
+
+		//Pression
+		gInput.captPressionData = mCapteurPression_ReadPression();
+
+		gInput.captTempPressionOK = true;
+	}
+
+	// Tension batterie
+	gInput.captTensionData = mMesureAlimentation_TensionBatterie();
+
+	// Courant batterie
+	gInput.captCourantData = mMesureAlimentation_CourantBatterie();
+
+	// PWM
+	gInput.captPWMData[0] = mPwm_ReadSignauxTelecommande(kPwmCh0);
+	gInput.captPWMData[1] = mPwm_ReadSignauxTelecommande(kPwmCh1);
+	gInput.captPWMData[2] = mPwm_ReadSignauxTelecommande(kPwmCh2);
+	gInput.captPWMData[3] = mPwm_ReadSignauxTelecommande(kPwmCh3);
+}
+
+void gInput_ExecuteInt(void)
+{
+	// Accéléromètre
+	gInput.captAccelOK = mCapteurAccelMagn_ReadAllAccelAxes(gInput.captAccelData);
+	
+	// Magnétomètre
+	gInput.captMagnOK = mCapteurAccelMagn_ReadAllMagnAxes(gInput.captMagnData);
+	
+	// Gyroscope
+	gInput.captGyroData[0] = mCapteurGyro_ReadGyroAxe(GyroAxe_X);
+	gInput.captGyroData[1] = mCapteurGyro_ReadGyroAxe(GyroAxe_Y);
+	gInput.captGyroData[2] = mCapteurGyro_ReadGyroAxe(GyroAxe_Z);
+}

@@ -1,0 +1,164 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+-include ../../makefile.local
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS_QUOTED += \
+"../Sources/Modules/mCapteurAccelMagn.c" \
+"../Sources/Modules/mCapteurGyro.c" \
+"../Sources/Modules/mCapteurPression.c" \
+"../Sources/Modules/mCpu.c" \
+"../Sources/Modules/mDelay.c" \
+"../Sources/Modules/mLeds.c" \
+"../Sources/Modules/mMesureAlimentation.c" \
+"../Sources/Modules/mPwm.c" \
+"../Sources/Modules/mRfInterface.c" \
+
+C_SRCS += \
+../Sources/Modules/mCapteurAccelMagn.c \
+../Sources/Modules/mCapteurGyro.c \
+../Sources/Modules/mCapteurPression.c \
+../Sources/Modules/mCpu.c \
+../Sources/Modules/mDelay.c \
+../Sources/Modules/mLeds.c \
+../Sources/Modules/mMesureAlimentation.c \
+../Sources/Modules/mPwm.c \
+../Sources/Modules/mRfInterface.c \
+
+OBJS += \
+./Sources/Modules/mCapteurAccelMagn.obj \
+./Sources/Modules/mCapteurGyro.obj \
+./Sources/Modules/mCapteurPression.obj \
+./Sources/Modules/mCpu.obj \
+./Sources/Modules/mDelay.obj \
+./Sources/Modules/mLeds.obj \
+./Sources/Modules/mMesureAlimentation.obj \
+./Sources/Modules/mPwm.obj \
+./Sources/Modules/mRfInterface.obj \
+
+OBJS_QUOTED += \
+"./Sources/Modules/mCapteurAccelMagn.obj" \
+"./Sources/Modules/mCapteurGyro.obj" \
+"./Sources/Modules/mCapteurPression.obj" \
+"./Sources/Modules/mCpu.obj" \
+"./Sources/Modules/mDelay.obj" \
+"./Sources/Modules/mLeds.obj" \
+"./Sources/Modules/mMesureAlimentation.obj" \
+"./Sources/Modules/mPwm.obj" \
+"./Sources/Modules/mRfInterface.obj" \
+
+C_DEPS += \
+./Sources/Modules/mCapteurAccelMagn.d \
+./Sources/Modules/mCapteurGyro.d \
+./Sources/Modules/mCapteurPression.d \
+./Sources/Modules/mCpu.d \
+./Sources/Modules/mDelay.d \
+./Sources/Modules/mLeds.d \
+./Sources/Modules/mMesureAlimentation.d \
+./Sources/Modules/mPwm.d \
+./Sources/Modules/mRfInterface.d \
+
+C_DEPS_QUOTED += \
+"./Sources/Modules/mCapteurAccelMagn.d" \
+"./Sources/Modules/mCapteurGyro.d" \
+"./Sources/Modules/mCapteurPression.d" \
+"./Sources/Modules/mCpu.d" \
+"./Sources/Modules/mDelay.d" \
+"./Sources/Modules/mLeds.d" \
+"./Sources/Modules/mMesureAlimentation.d" \
+"./Sources/Modules/mPwm.d" \
+"./Sources/Modules/mRfInterface.d" \
+
+OBJS_OS_FORMAT += \
+./Sources/Modules/mCapteurAccelMagn.obj \
+./Sources/Modules/mCapteurGyro.obj \
+./Sources/Modules/mCapteurPression.obj \
+./Sources/Modules/mCpu.obj \
+./Sources/Modules/mDelay.obj \
+./Sources/Modules/mLeds.obj \
+./Sources/Modules/mMesureAlimentation.obj \
+./Sources/Modules/mPwm.obj \
+./Sources/Modules/mRfInterface.obj \
+
+
+# Each subdirectory must supply rules for building sources it contributes
+Sources/Modules/mCapteurAccelMagn.obj: ../Sources/Modules/mCapteurAccelMagn.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #4 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Modules/mCapteurAccelMagn.args" -o "Sources/Modules/mCapteurAccelMagn.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Modules/%.d: ../Sources/Modules/%.c
+	@echo 'Regenerating dependency file: $@'
+	
+	@echo ' '
+
+Sources/Modules/mCapteurGyro.obj: ../Sources/Modules/mCapteurGyro.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #5 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Modules/mCapteurGyro.args" -o "Sources/Modules/mCapteurGyro.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Modules/mCapteurPression.obj: ../Sources/Modules/mCapteurPression.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #6 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Modules/mCapteurPression.args" -o "Sources/Modules/mCapteurPression.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Modules/mCpu.obj: ../Sources/Modules/mCpu.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #7 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Modules/mCpu.args" -o "Sources/Modules/mCpu.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Modules/mDelay.obj: ../Sources/Modules/mDelay.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #8 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Modules/mDelay.args" -o "Sources/Modules/mDelay.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Modules/mLeds.obj: ../Sources/Modules/mLeds.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #9 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Modules/mLeds.args" -o "Sources/Modules/mLeds.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Modules/mMesureAlimentation.obj: ../Sources/Modules/mMesureAlimentation.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #10 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Modules/mMesureAlimentation.args" -o "Sources/Modules/mMesureAlimentation.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Modules/mPwm.obj: ../Sources/Modules/mPwm.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #11 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Modules/mPwm.args" -o "Sources/Modules/mPwm.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Modules/mRfInterface.obj: ../Sources/Modules/mRfInterface.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #12 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Modules/mRfInterface.args" -o "Sources/Modules/mRfInterface.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+

@@ -1,0 +1,31 @@
+/*
+------------------------------------------------------------
+Copyright 2003-2013 Haute Ecole ARC Ingénierie,
+Switzerland. All rights reserved
+------------------------------------------------------------
+Nom du fichier : 	mOrientationProcessing.h
+Auteurs:			Alexandre Schnegg
+					Guillaume Jacot
+Date:				23.01.13
+But :	Convertir les données brutes des capteurs pour en 
+		faire des valeurs utilisable pour la régulation
+------------------------------------------------------------
+*/
+
+#ifndef MORIENTATIONPROCESSING_H_
+#define MORIENTATIONPROCESSING_H_
+
+typedef enum
+{
+	kFirstOrder, kSecondOrder,
+} filterOrderEnum;
+
+void mOrientationProcessing_setup(void);
+void mOrientationProcessing_computeSensor(UInt16 *aAccelTabIn, UInt16 *aGyroTabIn, float *aRacc, float *aGyroTab);
+void mOrientationProcessing_convertToGyroSystem(float *aRacc, float *aA);
+void mOrientationProcessing_FilterFirstOrder(float *aAngle, float *aAngleRate, float *aResult);
+void mOrientationProcessing_FilterSecondOrder(float *aAngle, float *aAngleRate, float *aResult);
+double mOrientationProcessing_RadToDeg(float aRad);
+void mOrientationProcessing_open(void);
+
+#endif /* MORIENTATIONPROCESSING_H_ */

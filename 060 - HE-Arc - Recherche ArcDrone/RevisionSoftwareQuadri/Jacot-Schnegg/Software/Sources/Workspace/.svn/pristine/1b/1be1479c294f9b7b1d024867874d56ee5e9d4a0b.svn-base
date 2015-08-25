@@ -1,0 +1,18 @@
+
+**** Build of configuration MK10DN512Z_INTERNAL_RAM for project SoftQuadriCoptere ****
+
+C:\Freescale\CW MCU v10.2\gnu\bin\mingw32-make -j8 all 
+'Regenerating dependency file: Sources/main.d'
+' '
+'Building file: ../Sources/main.c'
+'Executing target #1 ../Sources/main.c'
+'Invoking: ARM Compiler'
+"C:/Freescale/CW MCU v10.2/MCU/ARM_Tools/Command_Line_Tools/mwccarm" -gccinc @@"Sources/main.args" -o "Sources/main.obj" -c "../Sources/main.c" -MD -gccdep
+'Finished building: ../Sources/main.c'
+' '
+'Building target: SoftQuadriCoptere.afx'
+'Executing target #22 SoftQuadriCoptere.afx'
+'Invoking: ARM Linker'
+"C:/Freescale/CW MCU v10.2/MCU/ARM_Tools/Command_Line_Tools/mwldarm" @@"SoftQuadriCoptere.args" -o "SoftQuadriCoptere.afx"   
+'Finished building target: SoftQuadriCoptere.afx'
+' '

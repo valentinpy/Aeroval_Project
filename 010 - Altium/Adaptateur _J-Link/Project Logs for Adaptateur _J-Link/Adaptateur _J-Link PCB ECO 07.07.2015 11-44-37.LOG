@@ -1,0 +1,34 @@
+Added Component: Designator=J1(FTSH-105-01-F-DV-K)
+Added Component: Designator=J2(PCBComponent_1)
+Added Pin To Net: NetName=NetJ1_1 Pin=J1-1
+Added Pin To Net: NetName=NetJ1_1 Pin=J2-1
+Added Net: Name=NetJ1_1
+Added Pin To Net: NetName=NetJ1_2 Pin=J1-2
+Added Pin To Net: NetName=NetJ1_2 Pin=J2-7
+Added Net: Name=NetJ1_2
+Added Pin To Net: NetName=NetJ1_3 Pin=J1-3
+Added Pin To Net: NetName=NetJ1_3 Pin=J1-5
+Added Pin To Net: NetName=NetJ1_3 Pin=J2-4
+Added Pin To Net: NetName=NetJ1_3 Pin=J2-6
+Added Pin To Net: NetName=NetJ1_3 Pin=J2-8
+Added Pin To Net: NetName=NetJ1_3 Pin=J2-10
+Added Pin To Net: NetName=NetJ1_3 Pin=J2-12
+Added Pin To Net: NetName=NetJ1_3 Pin=J2-14
+Added Pin To Net: NetName=NetJ1_3 Pin=J2-16
+Added Pin To Net: NetName=NetJ1_3 Pin=J2-18
+Added Pin To Net: NetName=NetJ1_3 Pin=J2-20
+Added Net: Name=NetJ1_3
+Added Pin To Net: NetName=NetJ1_4 Pin=J1-4
+Added Pin To Net: NetName=NetJ1_4 Pin=J2-9
+Added Net: Name=NetJ1_4
+Added Pin To Net: NetName=NetJ1_6 Pin=J1-6
+Added Pin To Net: NetName=NetJ1_6 Pin=J2-13
+Added Net: Name=NetJ1_6
+Added Pin To Net: NetName=NetJ1_8 Pin=J1-8
+Added Pin To Net: NetName=NetJ1_8 Pin=J2-5
+Added Net: Name=NetJ1_8
+Added Pin To Net: NetName=NetJ1_10 Pin=J1-10
+Added Pin To Net: NetName=NetJ1_10 Pin=J2-15
+Added Net: Name=NetJ1_10
+Added Class: Name=adaptateur
+Added Room: Name=adaptateur

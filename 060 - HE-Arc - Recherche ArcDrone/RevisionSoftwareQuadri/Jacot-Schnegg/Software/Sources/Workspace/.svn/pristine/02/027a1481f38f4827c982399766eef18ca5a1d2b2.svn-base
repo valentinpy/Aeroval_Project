@@ -1,0 +1,113 @@
+/*
+------------------------------------------------------------
+Copyright 2003-2012 Haute école ARC Ingéniérie, Switzerland. 
+All rights reserved.
+------------------------------------------------------------
+File name :	mPwm.c
+Author and date :	Monnerat Serge 5 mars 2012
+
+Description in the header (.h)
+
+-----------------------------------------------------------------------------
+History:
+-----------------------------------------------------------------------------
+
+$History: $
+
+-----------------------------------------------------------------------------
+*/
+
+#include "mPwm.h"
+#include "iDio.h"
+#include "MK10DZ10.h"
+
+#define sClockCaptPressure 0.5
+
+//-----------------------------------------------------------------------------
+// Pwm module setup
+//-----------------------------------------------------------------------------
+void mPwm_Setup(void)
+{
+	// Flextimer setup
+	iFlextimer_Config();
+	
+	//Config des I/O FMT0
+	iDio_SetPortDirection(kIoInput,kMaskIo1,kPortC);
+	iDio_SetPortDirection(kIoInput,kMaskIo2,kPortC);
+	iDio_SetPortDirection(kIoInput,kMaskIo3,kPortC);
+	iDio_SetPortDirection(kIoInput,kMaskIo4,kPortC);
+	iDio_SetPortDirection(kIoOutput,kMaskIo4,kPortD);
+	iDio_SetPortDirection(kIoOutput,kMaskIo5,kPortD);
+	iDio_SetPortDirection(kIoOutput,kMaskIo6,kPortD);
+	iDio_SetPortDirection(kIoOutput,kMaskIo7,kPortD);
+	//Config des I/O FMT1
+	//iDio_SetPortDirection(kIoInput,kMaskIo1,kPortC);
+	//iDio_SetPortDirection(kIoInput,kMaskIo2,kPortC);
+	//Config des I/O FMT2
+	//iDio_SetPortDirection(kIoOutput,kMaskIo18,kPortB);
+	//iDio_SetPortDirection(kIoInput,kMaskIo19,kPortB);
+
+}
+
+//-----------------------------------------------------------------------------
+// Open des modules Pwm
+//-----------------------------------------------------------------------------
+void mPwm_Open(void)
+{
+	iFlextimer_Open(kPwm0);
+}
+
+//-----------------------------------------------------------------------------
+// Close des modules Pwm
+//-----------------------------------------------------------------------------
+void mPwm_Close(void)
+{
+	iFlextimer_Close(kPwm0);
+}
+
+//-----------------------------------------------------------------------------
+// Pwm Mesure signaux télécommande
+//-----------------------------------------------------------------------------
+UInt16 mPwm_ReadSignauxTelecommande(PwmChannelEnum aChannel)
+{
+	return iFlextimer_ReadTelecommandePWM(aChannel);
+}
+
+//------------------------------------------------------------
+// Set signaux pour la vitesse des moteurs
+//------------------------------------------------------------
+void mPwm_WriteVitesseMoteur(PwmChannelEnum aChannel, UInt16 aEcart)
+{
+	iFlextimer_UpdateTelecommandePWM(aChannel, aEcart);
+}
+
+//------------------------------------------------------------
+// Set clock capteur pression
+//------------------------------------------------------------
+void mPwm_ClockCapteurPression(void)
+{
+	iFlextimer_UpdatePWM(kPwm2, kPwmCh0, sClockCaptPressure);
+}
+
+
+//------------------------------------------------------------
+// Read qualité réception xBee
+//------------------------------------------------------------
+float mPwm_ReceptionxBee(void)
+{
+	float aTmp=0;
+	
+	aTmp=iFlextimer_ReadPWM(kPwm2, kPwmCh1);
+	
+	return aTmp;
+}
+
+UInt16 mPwm_convertPercentToCmd(float aPercent)
+{
+	return (UInt16)((aPercent+1)/(float)20)*FTM0_MOD;
+}
+
+float mPwm_convertCmdToPercent(UInt16 aCmd)
+{
+	return ((float)(aCmd / (float)FTM0_MOD) * 2000) - 100;
+}

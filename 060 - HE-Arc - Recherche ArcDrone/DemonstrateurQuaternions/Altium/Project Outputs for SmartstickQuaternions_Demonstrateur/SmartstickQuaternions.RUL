@@ -1,0 +1,5 @@
+DRC Rules Export File for PCB: P:\RaD\ISIC\030-Projets RaD\13IT50 DDC - iMoMo bridge\04 Documents\Documents de travail\Sensors\Smartstick Quaternions\Demonstrateur\Altium\SmartstickQuaternions.PcbDoc
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=10.00
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=10.00
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0

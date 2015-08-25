@@ -1,0 +1,131 @@
+/*
+------------------------------------------------------------
+Copyright 2003-2013 Haute Ecole ARC Ingénierie,
+Switzerland. All rights reserved
+------------------------------------------------------------
+Nom du fichier :	gLabview.c
+Auteurs:			Alexandre Schnegg
+					Guillaume Jacot
+Date:				23.01.13
+Description dans le fichier gLabview.h
+------------------------------------------------------------
+*/
+
+#include "gMBox.h"
+#include "gCompute.h"
+#include "stringConvert.h"
+#include "generateTrame.h"
+#include "mRfInterface.h"
+#include "mPwm.h"
+
+//-----------------------------------------------------------------------------
+// Configuration du gestionnaire
+//-----------------------------------------------------------------------------
+void gLabview_Setup(void)
+{
+
+}
+
+//-----------------------------------------------------------------------------
+// Exécution du gestionnaire
+//-----------------------------------------------------------------------------
+void gLabview_Execute(void)
+{
+	UInt8 aVarData[kNbCapteursMax][kNbDigitsMax];
+	UInt8 aVarTrame[kMaxTrameLength];
+
+	// Accéléromètre
+	if (gInput.captAccelOK)
+	{
+		gInput.captAccelOK = false;
+		
+		stringConvert_UInt16ToChar(gInput.captAccelData[0], aVarData[0]);
+		stringConvert_UInt16ToChar(gInput.captAccelData[1], aVarData[1]);
+		stringConvert_UInt16ToChar(gInput.captAccelData[2], aVarData[2]);
+
+		generateTrame(kDestAccel, kUInt16, aVarData, aVarTrame, 3);
+		mRfInterface_SendString(aVarTrame);
+	}
+
+	// Magnétomètre
+	if (gInput.captMagnOK)
+	{
+		gInput.captMagnOK = false;
+		
+		stringConvert_UInt16ToChar(gInput.captMagnData[0], aVarData[0]);
+		stringConvert_UInt16ToChar(gInput.captMagnData[1], aVarData[1]);
+		stringConvert_UInt16ToChar(gInput.captMagnData[2], aVarData[2]);
+
+		generateTrame(kDestMagn, kUInt16, aVarData, aVarTrame, 3);
+		mRfInterface_SendString(aVarTrame);
+	}
+
+	// Gyroscope
+	stringConvert_UInt16ToChar(gInput.captGyroData[0], aVarData[0]);
+	stringConvert_UInt16ToChar(gInput.captGyroData[1], aVarData[1]);
+	stringConvert_UInt16ToChar(gInput.captGyroData[2], aVarData[2]);
+
+	generateTrame(kDestGyro, kUInt16, aVarData, aVarTrame, 3);
+	mRfInterface_SendString(aVarTrame);
+
+	// Température et pression
+	if (gInput.captTempPressionOK)
+	{
+		gInput.captTempPressionOK = false;
+		
+		//Température
+		stringConvert_FloatToChar(gInput.captTempData, aVarData[0]);
+
+		generateTrame(kDestTemperature, kFloat, aVarData, aVarTrame, 1);
+		mRfInterface_SendString(aVarTrame);
+
+		//Pression
+		stringConvert_FloatToChar(gInput.captPressionData, aVarData[0]);
+
+		generateTrame(kDestPression, kFloat, aVarData, aVarTrame, 1);
+		mRfInterface_SendString(aVarTrame);
+	}
+
+	// Tension batterie
+	stringConvert_FloatToChar(gInput.captTensionData, aVarData[0]);
+	generateTrame(kDestTensionAccu, kFloat, aVarData, aVarTrame, 1);
+	mRfInterface_SendString(aVarTrame);
+
+	// Courant batterie
+	stringConvert_FloatToChar(gInput.captCourantData, aVarData[0]);
+	generateTrame(kDestCourantAccu, kFloat, aVarData, aVarTrame, 1);
+	mRfInterface_SendString(aVarTrame);
+
+	// Angles
+	//if (gCompute.regulationAcvtive)
+	//{
+		stringConvert_FloatToChar(gCompute.angles[0], aVarData[0]);
+		stringConvert_FloatToChar(gCompute.angles[1], aVarData[1]);
+		stringConvert_FloatToChar(gCompute.angles[2], aVarData[2]);
+
+		generateTrame(kDestAngle, kFloat, aVarData, aVarTrame, 3);
+		mRfInterface_SendString(aVarTrame);
+	//}
+
+	// PWM
+	if (gCompute.regulationAcvtive)
+	{
+		stringConvert_FloatToChar(100 * mPwm_convertCmdToPercent(gCompute.commandesMoteurs[0]), aVarData[0]);
+		stringConvert_FloatToChar(100 * mPwm_convertCmdToPercent(gCompute.commandesMoteurs[1]), aVarData[1]);
+		stringConvert_FloatToChar(100 * mPwm_convertCmdToPercent(gCompute.commandesMoteurs[2]), aVarData[2]);
+		stringConvert_FloatToChar(100 * mPwm_convertCmdToPercent(gCompute.commandesMoteurs[3]), aVarData[3]);
+
+		generateTrame(kDestDutyCyclePwm, kFloat, aVarData, aVarTrame, 4);
+		mRfInterface_SendString(aVarTrame);
+	}
+	else
+	{
+		stringConvert_FloatToChar(100 * mPwm_convertCmdToPercent(kToleranceZero), aVarData[0]);
+		stringConvert_FloatToChar(100 * mPwm_convertCmdToPercent(kToleranceZero), aVarData[1]);
+		stringConvert_FloatToChar(100 * mPwm_convertCmdToPercent(kToleranceZero), aVarData[2]);
+		stringConvert_FloatToChar(100 * mPwm_convertCmdToPercent(kToleranceZero), aVarData[3]);
+
+		generateTrame(kDestDutyCyclePwm, kFloat, aVarData, aVarTrame, 4);
+		mRfInterface_SendString(aVarTrame);
+	}
+}

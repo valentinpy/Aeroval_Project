@@ -1,0 +1,232 @@
+/*
+ * mCapteurPression.c
+ *
+ *  Created on: 3 juil. 2012
+ *      Author: favrebm1
+ */
+
+#include "mCapteurPression.h"
+#include "iFlextimer.h"
+#include "iSpi.h"
+#include "iDio.h"
+#include "mDelay.h"
+#include <math.h>
+
+// Coefficients de calibration du capteur MS5534
+static UInt32 sC1 = 0;
+static UInt32 sC2 = 0;
+static UInt32 sC3 = 0;
+static UInt32 sC4 = 0;
+static UInt32 sC5 = 0;
+static UInt32 sC6 = 0;
+static float sTemperature;
+static float sPression;
+static float sAltitude;
+static float sSeaPression;
+
+//-----------------------------------------------------------------------------
+// Fonction de lecture et de calcul des valeurs de calibration
+//-----------------------------------------------------------------------------
+void
+mCapteurPression_Calibration(void);
+
+//-----------------------------------------------------------------------------
+// Read value
+//-----------------------------------------------------------------------------
+UInt16
+mCapteurPression_ReadValue(CapteurPressionRegistreEnum aReg);
+
+//-----------------------------------------------------------------------------
+// capteur pression module setup
+//-----------------------------------------------------------------------------
+void
+mCapteurPression_Setup(void)
+{
+	iDio_SetPortDirection(kPortE, kMaskIo1, kIoOutput);
+	iDio_SetPortDirection(kPortE, kMaskIo2, kIoOutput);
+	iDio_SetPortDirection(kPortE, kMaskIo3, kIoInput);
+
+	//Calibration capteur
+	mCapteurPression_Calibration();
+
+}
+
+//-----------------------------------------------------------------------------
+// Fonction de lecture et de calcul des valeurs de calibration
+//-----------------------------------------------------------------------------
+void
+mCapteurPression_Calibration(void)
+{
+	UInt16 W1 = 0, W2 = 0, W3 = 0, W4 = 0;
+
+	//lecture des variables de calibration
+	W1 = mCapteurPression_ReadValue(kCalibWord1);
+	W2 = mCapteurPression_ReadValue(kCalibWord2);
+	W3 = mCapteurPression_ReadValue(kCalibWord3);
+	W4 = mCapteurPression_ReadValue(kCalibWord4);
+
+	//------------------------------------------------------------------------- 
+	// Convertion des mots de calibration en coefficients 
+	// (voir datasheet MS5534 page 11)
+	//------------------------------------------------------------------------- 
+	sC1 = (W1 >> 1) & 0x7FFF;
+	sC2 = ((W4 & 0x003F) | ((W3 & 0x003F) << 6)) & 0x0fff;
+	sC3 = (W4 >> 6) & 0x03FF;
+	sC4 = (W3 >> 6) & 0x03FF;
+	sC5 = (((W2 >> 6) & 0x03FF) | ((W1 & 0x0001) << 10)) & 0x07ff;
+	sC6 = W2 & 0x003F;
+}
+
+//-----------------------------------------------------------------------------
+// capteur pression module setup
+//-----------------------------------------------------------------------------
+void
+mCapteurPression_Open(void)
+{
+	iFlextimer_Open(kPwm2);
+
+}
+
+//-----------------------------------------------------------------------------
+// Lecture des valeurs et calcul de la pression
+// ATTENTION, doit toujours être exécuté avant la lecture des valeur pour les avoir à jour
+//-----------------------------------------------------------------------------
+void
+mCapteurPression_Compute(void)
+{
+	Int32 aDT, aUT1, aOffset, aSens, aX;
+	float aTempAtSea, aTmp;
+
+	//------------------------------------------------------------------------- 
+	// Calcul de la température (voir datasheet MS5534 page 10)
+	//------------------------------------------------------------------------- 
+	// Calcul de la température de référence
+	aUT1 = 8 * sC5 + 20224;
+	// Calcul de la différence de température entre
+	// la temp. de référence et la temp. mesurée
+	aDT = mCapteurPression_ReadValue(kD2) - aUT1;
+	// Calcul de la température actuelle
+	sTemperature = (200 + ((aDT * (sC6 + 50)) / 1024)) / 10.0;
+
+	//------------------------------------------------------------------------- 
+	// Calcul de la pression (voir datasheet MS5534 page 10)
+	//------------------------------------------------------------------------- 
+	// Calcul de l'offset à la température actuelle
+	aOffset = (sC2 * 4) + ((sC4 - 512) * aDT) / 4096;
+	// Calcul de la sensibilité à la température actuelle
+	aSens = sC1 + ((sC3 * aDT) / 1024) + 24576;
+	// Calcul de la pression
+	aX = ((aSens * (mCapteurPression_ReadValue(kD1) - 7168)) / 16384) - aOffset;
+	sPression = (((aX * 10) / 32) + (250 * 10)) / 10.0;
+
+	//------------------------------------------------------------------------- 
+	// Calcul de l'altitude
+	// Altitude= (288.15/0.0065)*(1-((Pression mesurée/1013.25)^0.19))
+	//------------------------------------------------------------------------- 
+	//sAltitude=(288.15/0.0065)*(1-powf((sPression/1013.25),0.19));
+	sAltitude = (288.15 / 0.0065) * (1.0 - pow((sPression / 1013.25), 0.19));
+
+	//------------------------------------------------------------------------- 
+	// Calcul de la pression ramenée au niveau de la mer
+	// Temp(niveau de la mer)=(15+((-0.0065/2)*Altitude))+273.15
+	// Pression(niveau de la mer)=Pression * e^((0.03418248*Altitude)/Temp(niveau de la mer))
+	//------------------------------------------------------------------------- 
+	aTempAtSea = (15.0 + ((-0.0065 / 2.0) * sAltitude)) + 273.15;
+	aTmp = (0.03418248 * sAltitude) / aTempAtSea;
+	sSeaPression = sPression * pow(2.718281, aTmp);
+}
+
+//-----------------------------------------------------------------------------
+// Lecture la température mesurée
+//-----------------------------------------------------------------------------
+float
+mCapteurPression_ReadTemperature(void)
+{
+	return sTemperature;
+}
+
+//-----------------------------------------------------------------------------
+// Lecture de la pression mesurée
+//-----------------------------------------------------------------------------
+float
+mCapteurPression_ReadPression(void)
+{
+	return sPression;
+}
+
+//-----------------------------------------------------------------------------
+// Lecture de l'altitude
+//-----------------------------------------------------------------------------
+float
+mCapteurPression_ReadAltitude(void)
+{
+	return sAltitude;
+}
+
+//-----------------------------------------------------------------------------
+// Lecture de la pression au niveau de la mer
+//-----------------------------------------------------------------------------
+mCapteurPression_ReadSeaPression(void)
+{
+	return sSeaPression;
+}
+
+//-----------------------------------------------------------------------------
+// Read value
+//-----------------------------------------------------------------------------
+UInt16
+mCapteurPression_ReadValue(CapteurPressionRegistreEnum aReg, UInt16 *aRetValPtr)
+{
+	UInt32 i = 0;
+	UInt8 aNumTempo = 0;
+
+	aNumTempo = mDelay_GetDelay(kPit0, 1);
+
+	//Data valid au flanc montant du clock
+	iSpi_ConfigClockPhase(kSpi1, kCTAR0, kCaptureLeadingEdge);
+	//Reset du buffer de transmission
+	iSpi_ClearTxFifo(kSpi1);
+	//Ecriture de l'adresse dans le buffer spi
+	iSpi_PushDataIntoFifo(kSpi1, kCTAR0, kCONTDis, false, kCS0, (UInt8) (aReg
+			>> 8));
+	iSpi_PushDataIntoFifo(kSpi1, kCTAR0, kCONTDis, true, kCS0, (UInt8) aReg);
+	//attente que le buffer de transmission soit vide
+	while (true != iSpi_GetStatus(kSpi1, kEOQF))
+		;
+	//Reset Flag EOQF
+	SPI1_SR |= SPI_SR_EOQF_MASK;
+
+	//Delay
+	mDelay_ReStart(kPit0, aNumTempo, 35);
+	if (Delay_IsDelayDone(kPit0, aNumTempo))
+	{
+
+		//Changement de la phase
+		iSpi_ConfigClockPhase(kSpi1, kCTAR0, kDataChangeLeadingEdge);
+		//Reset du buffer de réception
+		iSpi_FlushRXFifo(kSpi1);
+		//Write dummy byte
+		iSpi_PushDataIntoFifo(kSpi1, kCTAR0, kCONTDis, false, kCS0, 0x00);
+		iSpi_PushDataIntoFifo(kSpi1, kCTAR0, kCONTDis, true, kCS0, 0x00);
+		//attente que le buffer de transmission soit vide
+		while (true != iSpi_GetStatus(kSpi1, kEOQF))
+			;
+		//Reset Flag EOQF
+		SPI1_SR |= SPI_SR_EOQF_MASK;
+
+		*aRetVal = iSpi_ReadData(kSpi1);
+		*aRetVal <<= 8;
+		*aRetVal |= iSpi_ReadData(kSpi1);
+
+		//Release delay
+		mDelay_DelayRelease(kPit0, aNumTempo);
+
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+}
+

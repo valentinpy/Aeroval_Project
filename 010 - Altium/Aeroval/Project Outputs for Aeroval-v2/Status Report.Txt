@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [Aeroval-v2-PCB1.PcbDoc]
+   Generated File[Aeroval-v2-PCB1.TXT]
+   Generated File[Aeroval-v2-PCB1.LDP]
+   Generated File[Aeroval-v2-PCB1.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 16:36:24 On 22.08.2015

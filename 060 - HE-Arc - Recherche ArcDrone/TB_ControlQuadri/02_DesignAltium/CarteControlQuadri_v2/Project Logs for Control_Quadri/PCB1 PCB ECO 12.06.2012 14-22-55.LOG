@@ -1,0 +1,28 @@
+Change Component DesignItemId : Designator=X7 Old DesignItemId=CON10 New DesignItemId=CON20_JTAG
+Change Component Footprint: Designator=X7 Old Footprint=FTSH-105-XX-X-DV-K New Footprint=FTSH-110-01-X-DV-EJ
+Change Component Comment : Designator=X7 Old Comment=CON10 New Comment=FTSH-110-01-l-DV-K
+Added Component: Designator=R31(080501)
+Added Component: Designator=R32(080501)
+Added Component: Designator=R33(080501)
+Added Pin To Net: NetName=3.3V Pin=R31-2
+Added Pin To Net: NetName=3.3V Pin=R32-2
+Added Pin To Net: NetName=GND Pin=X7-15
+Added Pin To Net: NetName=GND Pin=X7-17
+Added Pin To Net: NetName=GND Pin=X7-19
+Added Pin To Net: NetName=NetR31_1 Pin=R31-1
+Added Pin To Net: NetName=NetR31_1 Pin=U9-34
+Added Pin To Net: NetName=NetR31_1 Pin=X7-4
+Added Net: Name=NetR31_1
+Added Pin To Net: NetName=NetR32_1 Pin=R32-1
+Added Pin To Net: NetName=NetR32_1 Pin=U9-35
+Added Pin To Net: NetName=NetR32_1 Pin=X7-8
+Added Net: Name=NetR32_1
+Added Pin To Net: NetName=NetR33_1 Pin=R33-1
+Added Pin To Net: NetName=NetR33_1 Pin=X7-9
+Added Net: Name=NetR33_1
+Added Pin To Net: NetName=NetR33_2 Pin=R33-2
+Added Pin To Net: NetName=NetR33_2 Pin=U9-38
+Added Net: Name=NetR33_2
+Added Member To Class: ClassName=Microcontroleur Member=Component R31 ERJ-6GEYJ103V
+Added Member To Class: ClassName=Microcontroleur Member=Component R32 ERJ-6GEYJ103V
+Added Member To Class: ClassName=Microcontroleur Member=Component R33 RMCF0805JT820R

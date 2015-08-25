@@ -1,0 +1,74 @@
+/*
+ * Compute.c
+ *
+ *  Created on: 10 juil. 2012
+ *      Author: favrebm1
+ */
+
+//-----------------------------------------------------------------------------
+// Configuration du gestionnaire
+//-----------------------------------------------------------------------------
+void gCompute_Setup(void)
+{
+  
+}
+
+
+
+//-----------------------------------------------------------------------------
+// Exécution du gestionnaire
+//-----------------------------------------------------------------------------
+void gCompute_Execute(void)
+{
+  //Calcul pression, température
+	SInt32 aDT,aUT1,aOffset,aSens,aX;
+    float  aTempAtSea,aTmp; 
+ 
+    
+//Calcul de pression et de température
+//--------------------------------------------------------------------------------------------------------
+   //------------------------------------------------------------------------- 
+   // Calcul de la température (voir datasheet MS5534 page 10)
+   //------------------------------------------------------------------------- 
+   // Calcul de la température de référence
+   aUT1=8*sC5+20224;
+   // Calcul de la différence de température entre
+   // la temp. de référence et la temp. mesurée
+   aDT=gInput.D2-aUT1;
+   // Calcul de la température actuelle
+   gCompute.Temperature=(200+((aDT*(sC6+50))/1024))/10.0;
+
+   //------------------------------------------------------------------------- 
+   // Calcul de la pression (voir datasheet MS5534 page 10)
+   //------------------------------------------------------------------------- 
+   // Calcul de l'offset à la température actuelle
+   aOffset=(sC2*4)+((sC4-512)*aDT)/4096;
+   // Calcul de la sensibilité à la température actuelle
+   aSens=sC1+((sC3*aDT)/1024)+24576;
+   // Calcul de la pression
+   aX=((aSens*(gInput.D1-7168))/16384)-aOffset;
+   gCompute.Pressure=(((aX*10)/32)+(250*10))/10.0; 
+
+   //------------------------------------------------------------------------- 
+   // Calcul de l'altitude
+   // Altitude= (288.15/0.0065)*(1-((Pression mesurée/1013.25)^0.19))
+   //------------------------------------------------------------------------- 
+   gCompute.Altitude=(288.15/0.0065)*(1-powf((gCompute.Pressure/1013.25),0.19));
+
+   //------------------------------------------------------------------------- 
+   // Calcul de la pression ramenée au niveau de la mer
+   // Temp(niveau de la mer)=(15+((-0.0065/2)*Altitude))+273.15
+   // Pression(niveau de la mer)=Pression * e^((0.03418248*Altitude)/Temp(niveau de la mer))
+   //------------------------------------------------------------------------- 
+   aTempAtSea=(15.0+((-0.0065/2.0)*gCompute.Altitude))+273.15;
+   aTmp=(0.03418248*gCompute.Altitude)/aTempAtSea;
+   gCompute.PressureAtSea=gCompute.Pressure*powf(2.718281,aTmp); 
+   
+   
+}
+   
+   
+   
+   
+   
+   

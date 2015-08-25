@@ -1,0 +1,5 @@
+Added Component: Designator=R16(5.2x8.75)
+Added Pin To Net: NetName=NetC22_1 Pin=R16-1
+Added Pin To Net: NetName=VBAT Pin=R16-2
+Added Pin To Net: NetName=NetU9_69 Pin=U9-69
+Added Member To Class: ClassName=MesureAlimentation Member=Component R16 WSLP59313L000FEB

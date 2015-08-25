@@ -1,0 +1,754 @@
+/*
+ ------------------------------------------------------------
+ Copyright 2003-2012 Haute école ARC Ingéniérie, Switzerland. 
+ All rights reserved.
+ ------------------------------------------------------------
+ File name :	iFlextimer.c
+ Author and date :	Monnerat Serge 1 mars 2012
+
+ Description in the header (.h)
+
+ -----------------------------------------------------------------------------
+ History:
+ -----------------------------------------------------------------------------
+
+ $History: $
+
+ -----------------------------------------------------------------------------
+ */
+
+#include "iFlextimer.h"
+#include "derivative.h"
+#include "iDio.h"
+
+#define FTM0_CLK_PRESCALE 4
+#define FTM0_OVERFLOW_FREQUENCY (50)
+
+#define FTM1_CLK_PRESCALE 4
+#define FTM1_OVERFLOW_FREQUENCY (50)
+
+#define FTM2_CLK_PRESCALE 1
+#define FTM2_OVERFLOW_FREQUENCY (32768)
+
+#define PERIPHERAL_BUS_CLOCK (50000000)
+
+//Temps de latence entre le signal de chaques cannaux du récepteur de la télécommande (130us avec un échantillonage à 50MHz/4=12.5MHz --> 426 éch)
+#define LATENCYECH 426
+
+//mémorisation des mesures faites par Ftmx_CHn
+static UInt16 sMesureFtm0_CH0_0 = 0;
+static UInt16 sMesureFtm0_CH0_1_Temp = 0;
+static UInt16 sMesureFtm0_CH0_1 = 0;
+static UInt16 sMesureFtm0_CH1_0 = 0;
+static UInt16 sMesureFtm0_CH1_1_Temp = 0;
+static UInt16 sMesureFtm0_CH1_1 = 0;
+static UInt16 sMesureFtm0_CH2_0 = 0;
+static UInt16 sMesureFtm0_CH2_1_Temp = 0;
+static UInt16 sMesureFtm0_CH2_1 = 0;
+static UInt16 sMesureFtm0_CH3_0 = 0;
+static UInt16 sMesureFtm0_CH3_1_Temp = 0;
+static UInt16 sMesureFtm0_CH3_1 = 0;
+static UInt16 sMesureFtm0_CH4_0 = 0;
+static UInt16 sMesureFtm0_CH4_1 = 0;
+static UInt16 sMesureFtm0_CH5_0 = 0;
+static UInt16 sMesureFtm0_CH5_1 = 0;
+static UInt16 sMesureFtm0_CH6_0 = 0;
+static UInt16 sMesureFtm0_CH6_1 = 0;
+static UInt16 sMesureFtm0_CH7_0 = 0;
+static UInt16 sMesureFtm0_CH7_1 = 0;
+
+//------------------------------------------------------------
+// Flextimer setup
+//------------------------------------------------------------
+void iFlextimer_Config(void)
+{
+	static UInt32 aTmp = 0;
+
+	//------------------------------------------------------------
+	// FTM0
+	//------------------------------------------------------------
+	// Features Mode Selection (FTMx_MODE)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 900
+	// Disable Write Protection - enables changes to QUADEN, DECAPEN, etc.  
+	FTM0_MODE |= FTM_MODE_WPDIS_MASK;
+	//FTMEN is bit 0, need to set to zero so DECAPEN can be set to 0
+	FTM0_MODE &= (~FTM_MODE_FTMEN_MASK);
+
+	// Quadrature Decoder Control and Status (FTMx_QDCTRL)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 923
+	// Set Edge Aligned PWM
+	FTM0_QDCTRL &= ~FTM_QDCTRL_QUADEN_MASK;
+
+	// Counter (FTMx_CNT)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 892
+	// FTM Counter Value - reset counter to zero
+	FTM0_CNT = 0x0; //FTM Counter Value - reset counter to zero
+
+	// Modulo (FTMx_MOD)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 892
+	//Set the overflow rate
+	FTM0_MOD = (PERIPHERAL_BUS_CLOCK / (1 << FTM0_CLK_PRESCALE)) / FTM0_OVERFLOW_FREQUENCY;
+
+	// Counter Initial Value (FTMx_CNTIN)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 897
+	//Set the Counter Initial Value to 0
+	FTM0_CNTIN = 0;
+
+	// Channel (n) Status and Control (FTMx_CSC)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 893
+	// CHIE=0, Disable channel interrupts. Use software polling
+	// MSB/MSA/ELSB/ELSA --> Edge-aligned PWM
+	// DMA=0, Disable DMA transfers
+	//Channel 0 Input capture
+	FTM0_C0SC = 0;
+	FTM0_C0SC |= FTM_CnSC_CHIE_MASK | FTM_CnSC_ELSB_MASK | FTM_CnSC_ELSA_MASK;//Interrupt enable
+	//Channel 1 Input capture
+	FTM0_C1SC = 0;
+	FTM0_C1SC |= FTM_CnSC_CHIE_MASK | FTM_CnSC_ELSA_MASK | FTM_CnSC_ELSB_MASK;
+	//Channel 2 Input capture
+	FTM0_C2SC = 0;
+	FTM0_C2SC |= FTM_CnSC_CHIE_MASK | FTM_CnSC_ELSA_MASK | FTM_CnSC_ELSB_MASK;
+	//Channel 3 Input capture
+	FTM0_C3SC = 0;
+	FTM0_C3SC |= FTM_CnSC_CHIE_MASK | FTM_CnSC_ELSA_MASK | FTM_CnSC_ELSB_MASK;
+	//Channel 4 Output compare
+	FTM0_C4SC = 0;
+	FTM0_C4SC |= (FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK);
+	//Channel 5 Output compare
+	FTM0_C5SC = 0;
+	FTM0_C5SC |= (FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK);
+	//Channel 6 Output compare
+	FTM0_C6SC = 0;
+	FTM0_C6SC |= (FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK);
+	//Channel 7 Output compare
+	FTM0_C7SC = 0;
+	FTM0_C7SC |= (FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK);
+
+	//Config de l'interruption
+	// IRQ bit offset in the following registers
+	aTmp = 62 % 32;
+	// DUI0553A_cortex_m4_dgug.pdf page page 222 
+	// Interrupt Clear-pending Registers
+	// Clear prending interrupt
+	NVICICPR1 |= (1 << aTmp);
+	// DUI0553A_cortex_m4_dgug.pdf page page 220
+	// Interrupt Set-enable Registers
+	// Interrupt enable
+	NVICISER1 |= (1 << aTmp);
+	// DUI0553A_cortex_m4_dgug.pdf page page 223
+	// Interrupt Priority Registers
+	// Set interrupt priority
+	NVICIP62 = kFTM0_IntPriority;
+
+	// Status and Control (FTMx_SC)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 890
+	// Edit registers when no clock is fed to timer so the MOD value, gets pushed in immediately
+	FTM0_SC = 0;
+
+	// Channel (n) Value (FTMx_CV)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 896
+	// FTMx_CnV contains the captured FTM counter value, this value determines the pulse width
+	// Duty at 50%
+	FTM0_C0V = 0.5 * FTM0_MOD;
+	FTM0_C1V = 0.5 * FTM0_MOD;
+	FTM0_C2V = 0.5 * FTM0_MOD;
+	FTM0_C3V = 0.5 * FTM0_MOD;
+	FTM0_C4V = 0.5 * FTM0_MOD;
+	FTM0_C5V = 0.5 * FTM0_MOD;
+	FTM0_C6V = 0.5 * FTM0_MOD;
+	FTM0_C7V = 0.5 * FTM0_MOD;
+
+	// Status and Control (FTMx_SC)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 890
+	// CPWMS=0,Center-aligned PWM Select -> FTM counter operates in up counting mode
+	// CLKS=1, Clock Source Selection -> System clock -> 50Mhz
+	// PS:3,Prescale Factor Selection -> Divide by 8 
+	FTM0_SC |= (FTM_SC_CLKS(1) | FTM_SC_PS(FTM0_CLK_PRESCALE));
+
+	// FTM PWM Load (FTMx_PWMLOAD)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 933
+	FTM0_PWMLOAD |= FTM_PWMLOAD_LDOK_MASK;
+
+	//------------------------------------------------------------
+	// FTM1
+	//------------------------------------------------------------
+	// Features Mode Selection (FTMx_MODE)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 900
+	// Disable Write Protection - enables changes to QUADEN, DECAPEN, etc.  
+	FTM1_MODE |= FTM_MODE_WPDIS_MASK;
+	//FTMEN is bit 0, need to set to zero so DECAPEN can be set to 0
+	FTM1_MODE &= (~FTM_MODE_FTMEN_MASK);
+
+	// Quadrature Decoder Control and Status (FTMx_QDCTRL)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 923
+	// Set Edge Aligned PWM
+	FTM1_QDCTRL &= ~FTM_QDCTRL_QUADEN_MASK;
+
+	// Counter (FTMx_CNT)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 892
+	// FTM Counter Value - reset counter to zero
+	FTM1_CNT = 0x0; //FTM Counter Value - reset counter to zero
+
+	// Modulo (FTMx_MOD)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 892
+	//Set the overflow rate
+	FTM1_MOD = (PERIPHERAL_BUS_CLOCK / (1 << FTM1_CLK_PRESCALE)) / FTM1_OVERFLOW_FREQUENCY;
+
+	// Counter Initial Value (FTMx_CNTIN)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 897
+	//Set the Counter Initial Value to 0
+	FTM1_CNTIN = 0;
+
+	// Channel (n) Status and Control (FTMx_CSC)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 893
+	// CHIE=0, Disable channel interrupts. Use software polling
+	// MSB/MSA/ELSB/ELSA --> Edge-aligned PWM
+	// DMA=0, Disable DMA transfers
+	//Channel 0 Input capture
+	FTM1_C0SC = 0;
+	FTM1_C0SC |= FTM_CnSC_CHIE_MASK | FTM_CnSC_ELSB_MASK | FTM_CnSC_ELSA_MASK;//Interrupt enable
+	//Channel 1 Input capture
+	FTM1_C1SC = 0;
+	FTM1_C1SC |= FTM_CnSC_ELSB_MASK;
+
+	//Config de l'interruption
+	// IRQ bit offset in the following registers
+	aTmp = 63 % 32;
+	// DUI0553A_cortex_m4_dgug.pdf page page 222 
+	// Interrupt Clear-pending Registers
+	// Clear prending interrupt
+	NVICICPR1 |= (1 << aTmp);
+	// DUI0553A_cortex_m4_dgug.pdf page page 220
+	// Interrupt Set-enable Registers
+	// Interrupt enable
+	//NVICISER1 |= (1 << aTmp);
+	// DUI0553A_cortex_m4_dgug.pdf page page 223
+	// Interrupt Priority Registers
+	// Set interrupt priority
+	NVICIP63 = kFTM1_IntPriority;
+
+	// Status and Control (FTMx_SC)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 890
+	// Edit registers when no clock is fed to timer so the MOD value, gets pushed in immediately
+	FTM1_SC = 0;
+
+	// Channel (n) Value (FTMx_CV)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 896
+	// FTMx_CnV contains the captured FTM counter value, this value determines the pulse width
+	// Duty at 50%
+	FTM1_C0V = 0x00;
+	FTM1_C1V = 0x00;
+
+	// Status and Control (FTMx_SC)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 890
+	// CPWMS=0,Center-aligned PWM Select -> FTM counter operates in up counting mode
+	// CLKS=1, Clock Source Selection -> System clock -> 50Mhz
+	// PS:3,Prescale Factor Selection -> Divide by 8 
+	FTM1_SC |= (FTM_SC_CLKS(1) | FTM_SC_PS(FTM1_CLK_PRESCALE));
+
+	// FTM PWM Load (FTMx_PWMLOAD)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 933
+	FTM1_PWMLOAD |= FTM_PWMLOAD_LDOK_MASK;
+
+	//------------------------------------------------------------
+	// FTM2
+	//------------------------------------------------------------
+	// Features Mode Selection (FTMx_MODE)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 900
+	// Disable Write Protection - enables changes to QUADEN, DECAPEN, etc.  
+	FTM2_MODE |= FTM_MODE_WPDIS_MASK;
+	//FTMEN is bit 0, need to set to zero so DECAPEN can be set to 0
+	FTM2_MODE &= (~FTM_MODE_FTMEN_MASK);
+
+	// Quadrature Decoder Control and Status (FTMx_QDCTRL)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 923
+	// Set Edge Aligned PWM
+	FTM2_QDCTRL &= ~FTM_QDCTRL_QUADEN_MASK;
+
+	// Counter (FTMx_CNT)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 892
+	// FTM Counter Value - reset counter to zero
+	FTM2_CNT = 0x0; //FTM Counter Value - reset counter to zero
+
+	// Modulo (FTMx_MOD)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 892
+	//Set the overflow rate
+	FTM2_MOD = (PERIPHERAL_BUS_CLOCK / (1 << FTM2_CLK_PRESCALE)) / FTM2_OVERFLOW_FREQUENCY;
+
+	// Counter Initial Value (FTMx_CNTIN)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 897
+	//Set the Counter Initial Value to 0
+	FTM2_CNTIN = 0;
+
+	// Channel (n) Status and Control (FTMx_CSC)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 893
+	// CHIE=0, Disable channel interrupts. Use software polling
+	// MSB/MSA/ELSB/ELSA --> Edge-aligned PWM
+	// DMA=0, Disable DMA transfers
+	//Channel 0 Output compare
+	FTM2_C0SC = 0;
+	FTM2_C0SC |= (FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK);
+	//Channel 1 Input capture
+	FTM2_C1SC = 0;
+	FTM2_C1SC |= FTM_CnSC_ELSB_MASK;
+
+	//Config de l'interruption
+	// IRQ bit offset in the following registers
+	aTmp = 64 % 32;
+	// DUI0553A_cortex_m4_dgug.pdf page page 222 
+	// Interrupt Clear-pending Registers
+	// Clear prending interrupt
+	NVICICPR2 |= (1 << aTmp);
+	// DUI0553A_cortex_m4_dgug.pdf page page 220
+	// Interrupt Set-enable Registers
+	// Interrupt enable
+	//NVICISER2 |= (1 << aTmp);
+	// DUI0553A_cortex_m4_dgug.pdf page page 223
+	// Interrupt Priority Registers
+	// Set interrupt priority
+	NVICIP64 = kFTM2_IntPriority;
+
+	// Status and Control (FTMx_SC)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 890
+	// Edit registers when no clock is fed to timer so the MOD value, gets pushed in immediately
+	FTM2_SC = 0;
+
+	// Channel (n) Value (FTMx_CV)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 896
+	// FTMx_CnV contains the captured FTM counter value, this value determines the pulse width
+	// Duty at 50%
+	FTM2_C0V = 0.5 * FTM2_MOD;
+	FTM2_C1V = 0x00;
+
+	// Status and Control (FTMx_SC)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 890
+	// CPWMS=0,Center-aligned PWM Select -> FTM counter operates in up counting mode
+	// CLKS=1, Clock Source Selection -> System clock -> 50Mhz
+	// PS:3,Prescale Factor Selection -> Divide by 8 
+	FTM2_SC |= (FTM_SC_CLKS(1) | FTM_SC_PS(FTM2_CLK_PRESCALE));
+
+	// FTM PWM Load (FTMx_PWMLOAD)
+	// K10 Sub-Family Reference Manual, Rev. 6, Nov 2011 page 933
+	FTM2_PWMLOAD |= FTM_PWMLOAD_LDOK_MASK;
+
+}
+
+//------------------------------------------------------------
+// Open des interfaces FTM
+//------------------------------------------------------------
+void iFlextimer_Open(PwmEnum aPwm)
+{
+	switch (aPwm)
+	{
+		case kPwm0:
+		{
+			FTM0_MODE |= FTM_MODE_FTMEN_MASK;
+			break;
+		}
+		case kPwm1:
+		{
+			FTM1_MODE |= FTM_MODE_FTMEN_MASK;
+			break;
+		}
+		case kPwm2:
+		{
+			FTM2_MODE |= FTM_MODE_FTMEN_MASK;
+			break;
+		}
+	}
+}
+
+//------------------------------------------------------------
+// Close des interfaces FTM
+//------------------------------------------------------------
+void iFlextimer_Close(PwmEnum aPwm)
+{
+	switch (aPwm)
+	{
+		case kPwm0:
+		{
+			FTM0_MODE &= ~FTM_MODE_FTMEN_MASK;
+			break;
+		}
+		case kPwm1:
+		{
+			FTM1_MODE &= ~FTM_MODE_FTMEN_MASK;
+			break;
+		}
+		case kPwm2:
+		{
+			FTM2_MODE &= ~FTM_MODE_FTMEN_MASK;
+			break;
+		}
+	}
+}
+
+//------------------------------------------------------------
+// Set PWM duty
+//------------------------------------------------------------
+void iFlextimer_UpdatePWM(PwmEnum aPwm, PwmChannelEnum aChannel, float aDuty)
+{
+	UInt32 aMod;
+
+	switch (aPwm)
+	{
+		case kPwm0:
+			if (aChannel == kPwmCh0)
+			{
+				FTM0_C0V = aDuty * FTM0_MOD;
+			}
+			else if (aChannel == kPwmCh1)
+			{
+				FTM0_C1V = aDuty * FTM0_MOD;
+			}
+			else if (aChannel == kPwmCh2)
+			{
+				FTM0_C2V = aDuty * FTM0_MOD;
+			}
+			else if (aChannel == kPwmCh3)
+			{
+				FTM0_C3V = aDuty * FTM0_MOD;
+			}
+			else if (aChannel == kPwmCh4)
+			{
+				FTM0_C4V = aDuty * FTM0_MOD;
+			}
+			else if (aChannel == kPwmCh5)
+			{
+				FTM0_C5V = aDuty * FTM0_MOD;
+			}
+			else if (aChannel == kPwmCh6)
+			{
+				FTM0_C6V = aDuty * FTM0_MOD;
+			}
+			else if (aChannel == kPwmCh7)
+			{
+				FTM0_C7V = aDuty * FTM0_MOD;
+			}
+			break;
+		case kPwm1:
+			if (aChannel == kPwmCh0)
+			{
+				FTM1_C0V = FTM1_MOD * aDuty;
+			}
+			else if (aChannel == kPwmCh1)
+			{
+				FTM1_C1V = FTM1_MOD * aDuty;
+			}
+			break;
+		case kPwm2:
+			if (aChannel == kPwmCh0)
+			{
+				FTM2_C0V = FTM2_MOD * aDuty;
+			}
+			else if (aChannel == kPwmCh1)
+			{
+				FTM2_C1V = FTM2_MOD * aDuty;
+			}
+			break;
+	}
+}
+
+//------------------------------------------------------------
+// Set PWM pour les signaux de la télécommande
+//------------------------------------------------------------
+void iFlextimer_UpdateTelecommandePWM(PwmChannelEnum aChannel, UInt16 aEcart)
+{
+	if (aChannel == kPwmCh4)
+	{
+		FTM0_C4V = aEcart;
+	}
+	else if (aChannel == kPwmCh5)
+	{
+		FTM0_C5V = aEcart;
+	}
+	else if (aChannel == kPwmCh6)
+	{
+		FTM0_C6V = aEcart;
+	}
+	else if (aChannel == kPwmCh7)
+	{
+		FTM0_C7V = aEcart;
+	}
+}
+
+//------------------------------------------------------------
+// Read PWM duty
+//------------------------------------------------------------
+float iFlextimer_ReadPWM(PwmEnum aPwm, PwmChannelEnum aChannel)
+{
+	float aDuty = 0;
+
+	switch (aPwm)
+	{
+		case kPwm0:
+			if (aChannel == kPwmCh0)
+			{
+				if (sMesureFtm0_CH0_0 > sMesureFtm0_CH0_1)
+				{
+					aDuty = (float)(sMesureFtm0_CH0_0 - sMesureFtm0_CH0_1) / FTM0_MOD;
+				}
+				else if (sMesureFtm0_CH0_1 > sMesureFtm0_CH0_0)
+				{
+					aDuty = (float)((FTM0_MOD - sMesureFtm0_CH0_1) + sMesureFtm0_CH0_0) / FTM0_MOD;
+				}
+			}
+			else if (aChannel == kPwmCh1)
+			{
+				if (sMesureFtm0_CH1_0 > sMesureFtm0_CH1_1)
+				{
+					aDuty = (float)(sMesureFtm0_CH1_0 - sMesureFtm0_CH1_1) / FTM0_MOD;
+				}
+				else if (sMesureFtm0_CH1_1 > sMesureFtm0_CH1_0)
+				{
+					aDuty = (float)((FTM0_MOD - sMesureFtm0_CH1_1) + sMesureFtm0_CH1_0) / FTM0_MOD;
+				}
+			}
+			else if (aChannel == kPwmCh2)
+			{
+				if (sMesureFtm0_CH2_0 > sMesureFtm0_CH2_1)
+				{
+					aDuty = (float)(sMesureFtm0_CH2_0 - sMesureFtm0_CH2_1) / FTM0_MOD;
+				}
+				else if (sMesureFtm0_CH2_1 > sMesureFtm0_CH2_0)
+				{
+					aDuty = (float)((FTM0_MOD - sMesureFtm0_CH2_1) + sMesureFtm0_CH2_0) / FTM0_MOD;
+				}
+			}
+			else if (aChannel == kPwmCh3)
+			{
+				if (sMesureFtm0_CH3_0 > sMesureFtm0_CH3_1)
+				{
+					aDuty = (float)(sMesureFtm0_CH3_0 - sMesureFtm0_CH3_1) / FTM0_MOD;
+				}
+				else if (sMesureFtm0_CH3_1 > sMesureFtm0_CH3_0)
+				{
+					aDuty = (float)((FTM0_MOD - sMesureFtm0_CH3_1) + sMesureFtm0_CH3_0) / FTM0_MOD;
+				}
+			}
+			else if (aChannel == kPwmCh4)
+			{
+				//aDuty=(float)sMesureFtm0_CH4/FTM0_MOD;
+			}
+			else if (aChannel == kPwmCh5)
+			{
+				//aDuty=(float)sMesureFtm0_CH5/FTM0_MOD;
+			}
+			else if (aChannel == kPwmCh6)
+			{
+				//aDuty=(float)sMesureFtm0_CH6/FTM0_MOD;
+			}
+			else if (aChannel == kPwmCh7)
+			{
+				//aDuty=(float)sMesureFtm0_CH7/FTM0_MOD;
+			}
+			break;
+		case kPwm1:
+			if (aChannel == kPwmCh0)
+			{
+				//aDuty=(float)sMesureFtm1_CH0/FTM1_MOD;
+			}
+			else if (aChannel == kPwmCh1)
+			{
+				//aDuty=(float)sMesureFtm1_CH1/FTM1_MOD;
+			}
+			break;
+		case kPwm2:
+			if (aChannel == kPwmCh0)
+			{
+				//aDuty=(float)sMesureFtm2_CH0/FTM2_MOD;
+			}
+			else if (aChannel == kPwmCh1)
+			{
+				//aDuty=(float)sMesureFtm2_CH1/FTM2_MOD;
+			}
+			break;
+	}
+
+	return aDuty;
+}
+
+//------------------------------------------------------------
+// Read PWM pour les signaux de la télécommande
+//------------------------------------------------------------
+UInt16 iFlextimer_ReadTelecommandePWM(PwmChannelEnum aChannel)
+{
+	UInt16 aValTmp0 = 0;
+	UInt16 aValTmp1 = 0;
+	UInt16 aEcart = 0;
+
+	if (aChannel == kPwmCh0)
+	{
+		if (sMesureFtm0_CH0_0 > sMesureFtm0_CH0_1)
+		{
+			aEcart = (sMesureFtm0_CH0_0 - sMesureFtm0_CH0_1);
+		}
+		else if (sMesureFtm0_CH0_1 > sMesureFtm0_CH0_0)
+		{
+			aEcart = ((FTM0_MOD - sMesureFtm0_CH0_1) + sMesureFtm0_CH0_0);
+		}
+	}
+	else if (aChannel == kPwmCh1)
+	{
+		if (sMesureFtm0_CH1_0 > sMesureFtm0_CH1_1)
+		{
+			aEcart = (sMesureFtm0_CH1_0 - sMesureFtm0_CH1_1);
+		}
+		else if (sMesureFtm0_CH1_1 > sMesureFtm0_CH1_0)
+		{
+			aEcart = ((FTM0_MOD - sMesureFtm0_CH1_1) + sMesureFtm0_CH1_0);
+		}
+	}
+	else if (aChannel == kPwmCh2)
+	{
+		if (sMesureFtm0_CH2_0 > sMesureFtm0_CH2_1)
+		{
+			aEcart = (sMesureFtm0_CH2_0 - sMesureFtm0_CH2_1);
+		}
+		else if (sMesureFtm0_CH2_1 > sMesureFtm0_CH2_0)
+		{
+			aEcart = ((FTM0_MOD - sMesureFtm0_CH2_1) + sMesureFtm0_CH2_0);
+		}
+	}
+	else if (aChannel == kPwmCh3)
+	{
+		if (sMesureFtm0_CH3_0 > sMesureFtm0_CH3_1)
+		{
+			aEcart = (sMesureFtm0_CH3_0 - sMesureFtm0_CH3_1);
+		}
+		else if (sMesureFtm0_CH3_1 > sMesureFtm0_CH3_0)
+		{
+			aEcart = ((FTM0_MOD - sMesureFtm0_CH3_1) + sMesureFtm0_CH3_0);
+		}
+	}
+
+	return aEcart;
+}
+
+//Interrupt routine FTM0
+void iFlextimer_INTFTM0(void)
+{
+	static UInt8 aTmp = 0;
+	/*
+	 //Clear the FTM0_Status CH0 flag
+	 aTmp=FTM0_STATUS;
+	 FTM0_STATUS=0x00;
+	 */
+	
+	iPit_
+
+	if (1 == (FTM0_C0SC >> FTM_CnSC_CHF_SHIFT) & 0x01)
+	{
+		//Clear the FTM0_C0SC flag
+		aTmp = FTM0_C0SC;
+		FTM0_C0SC &= ~FTM_CnSC_CHF_MASK;
+
+		//test de l'état de la pin
+		if (1 == iDio_GetPort(kPortC, kMaskIo1)) // Fin de l'impulsion
+		{
+			sMesureFtm0_CH0_1 = sMesureFtm0_CH0_1_Temp;
+			sMesureFtm0_CH0_0 = FTM0_C0V;
+		}
+		else // Début de l'impulsion
+		{
+			sMesureFtm0_CH0_1_Temp = FTM0_C0V;
+		}
+	}
+	else if (1 == (FTM0_C1SC >> FTM_CnSC_CHF_SHIFT) & 0x01)
+	{
+		//Clear the FTM0_C1SC flag
+		aTmp = FTM0_C1SC;
+		FTM0_C1SC &= ~FTM_CnSC_CHF_MASK;
+
+		//test de l'état de la pin
+		if (1 == iDio_GetPort(kPortC, kMaskIo2)) // Fin de l'impulsion
+		{
+			sMesureFtm0_CH1_1 = sMesureFtm0_CH1_1_Temp;
+			sMesureFtm0_CH1_0 = FTM0_C1V;
+		}
+		else // Début de l'impulsion
+		{
+			sMesureFtm0_CH1_1_Temp = FTM0_C1V;
+		}
+	}
+	else if (1 == (FTM0_C2SC >> FTM_CnSC_CHF_SHIFT) & 0x01)
+	{
+		//Clear the FTM0_C2SC flag
+		aTmp = FTM0_C2SC;
+		FTM0_C2SC &= ~FTM_CnSC_CHF_MASK;
+
+		//test de l'état de la pin
+		if (1 == iDio_GetPort(kPortC, kMaskIo3)) // Fin de l'impulsion
+		{
+			sMesureFtm0_CH2_1 = sMesureFtm0_CH2_1_Temp;
+			sMesureFtm0_CH2_0 = FTM0_C2V;
+		}
+		else // Début de l'impulsion
+		{
+			sMesureFtm0_CH2_1_Temp = FTM0_C2V;
+		}
+	}
+	else if ((1 == FTM0_C3SC >> FTM_CnSC_CHF_SHIFT) & 0x01)
+	{
+		//Clear the FTM0_C3SC flag
+		aTmp = FTM0_C3SC;
+		FTM0_C3SC &= ~FTM_CnSC_CHF_MASK;
+
+		//test de l'état de la pin
+		if (1 == iDio_GetPort(kPortC, kMaskIo4)) // Fin de l'impulsion
+		{
+			sMesureFtm0_CH3_1 = sMesureFtm0_CH3_1_Temp;
+			sMesureFtm0_CH3_0 = FTM0_C3V;
+		}
+		else // Début de l'impulsion
+		{
+			sMesureFtm0_CH3_1_Temp = FTM0_C3V;
+		}
+	}
+}
+
+//Interrupt routine FTM1
+void iFlextimer_INTFTM1(void)
+{
+	static UInt8 aTmp = 0;
+
+	//Clear the FTM1_Status CH1 flag
+	aTmp = FTM1_STATUS;
+	FTM1_STATUS = 0x00;
+	//Clear the FTM1_C1SC
+	aTmp = FTM1_C1SC;
+	FTM1_C1SC &= ~FTM_CnSC_CHF_MASK;
+
+	/*	sMesureFtm1_CH0=FTM0_C0V;
+	 sMesureFtm1_CH1=FTM0_C1V;
+	 
+	 //Test de l'état de la pin FTM1_CH1
+	 if(1==iDio_GetPort(kPortA,kMaskIo9))
+	 {
+	 FTM1_CNT=0x00;
+	 }
+	 */
+}
+
+//Interrupt routine FTM2
+void iFlextimer_INTFTM2(void)
+{
+	static UInt8 aTmp = 0;
+
+	//Clear the FTM2_Status CH2 flag
+	aTmp = FTM2_STATUS;
+	FTM2_STATUS = 0x00;
+	//Clear the FTM2_C1SC
+	aTmp = FTM2_C1SC;
+	FTM2_C1SC &= ~FTM_CnSC_CHF_MASK;
+
+	/*	sMesureFtm2_CH0=FTM0_C0V;
+	 sMesureFtm2_CH1=FTM0_C1V;
+	 
+	 //Test de l'état de la pin FTM1_CH1
+	 if(1==iDio_GetPort(kPortA,kMaskIo9))
+	 {
+	 FTM2_CNT=0x00;
+	 }
+	 */
+}

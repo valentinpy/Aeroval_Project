@@ -1,0 +1,88 @@
+Added Component: Designator=CON1(J208)
+Added Component: Designator=CON2(j206)
+Added Component: Designator=CON3(J208)
+Added Component: Designator=D1(0805_Led)
+Added Component: Designator=D2(0805_Led)
+Added Component: Designator=IC1(Footprint_EM7180)
+Added Component: Designator=IC2(BT HC-05)
+Added Component: Designator=J1(J201)
+Added Component: Designator=R1(080501)
+Added Component: Designator=R2(080501)
+Added Component: Designator=R3(080501)
+Added Component: Designator=R4(080501)
+Added Component: Designator=R5(080501)
+Added Component: Designator=R6(080501)
+Added Component: Designator=R7(080501)
+Added Component: Designator=SW1(BoutonPoussoir)
+Added Component: Designator=SW2(BoutonPoussoir)
+Added Component: Designator=SW3(BoutonPoussoir)
+Added Pin To Net: NetName=3.3V Pin=CON3-10
+Added Pin To Net: NetName=3.3V Pin=CON3-12
+Added Pin To Net: NetName=3.3V Pin=IC2-12
+Added Pin To Net: NetName=3.3V Pin=R1-1
+Added Pin To Net: NetName=3.3V Pin=R2-1
+Added Pin To Net: NetName=3.3V Pin=SW1-2
+Added Pin To Net: NetName=3.3V Pin=SW1-2
+Added Pin To Net: NetName=3.3V Pin=SW2-2
+Added Pin To Net: NetName=3.3V Pin=SW2-2
+Added Pin To Net: NetName=3.3V Pin=SW3-2
+Added Pin To Net: NetName=3.3V Pin=SW3-2
+Added Net: Name=3.3V
+Added Pin To Net: NetName=GND Pin=CON3-14
+Added Pin To Net: NetName=GND Pin=CON3-15
+Added Pin To Net: NetName=GND Pin=IC2-13
+Added Pin To Net: NetName=GND Pin=IC2-21
+Added Pin To Net: NetName=GND Pin=IC2-22
+Added Pin To Net: NetName=GND Pin=J1-2
+Added Pin To Net: NetName=GND Pin=R3-2
+Added Pin To Net: NetName=GND Pin=R4-2
+Added Pin To Net: NetName=GND Pin=R5-2
+Added Pin To Net: NetName=GND Pin=R6-2
+Added Pin To Net: NetName=GND Pin=R7-2
+Added Net: Name=GND
+Added Pin To Net: NetName=I2C0_SCL Pin=CON1-7
+Added Pin To Net: NetName=I2C0_SCL Pin=R2-2
+Added Net: Name=I2C0_SCL
+Added Pin To Net: NetName=I2C0_SDA Pin=CON1-8
+Added Pin To Net: NetName=I2C0_SDA Pin=R1-2
+Added Net: Name=I2C0_SDA
+Added Pin To Net: NetName=INT_EM7180SFP Pin=CON1-1
+Added Net: Name=INT_EM7180SFP
+Added Pin To Net: NetName=NetD1_1 Pin=D1-1
+Added Pin To Net: NetName=NetD1_1 Pin=IC2-32
+Added Net: Name=NetD1_1
+Added Pin To Net: NetName=NetD1_2 Pin=D1-2
+Added Pin To Net: NetName=NetD1_2 Pin=R5-1
+Added Net: Name=NetD1_2
+Added Pin To Net: NetName=NetD2_1 Pin=D2-1
+Added Pin To Net: NetName=NetD2_1 Pin=IC2-31
+Added Net: Name=NetD2_1
+Added Pin To Net: NetName=NetD2_2 Pin=D2-2
+Added Pin To Net: NetName=NetD2_2 Pin=R7-1
+Added Net: Name=NetD2_2
+Added Pin To Net: NetName=NetIC2_34 Pin=IC2-34
+Added Pin To Net: NetName=NetIC2_34 Pin=R4-1
+Added Pin To Net: NetName=NetIC2_34 Pin=SW3-1
+Added Pin To Net: NetName=NetIC2_34 Pin=SW3-1
+Added Net: Name=NetIC2_34
+Added Pin To Net: NetName=RXUC_TXCAP Pin=CON2-5
+Added Pin To Net: NetName=RXUC_TXCAP Pin=IC2-1
+Added Net: Name=RXUC_TXCAP
+Added Pin To Net: NetName=SW1 Pin=CON1-2
+Added Pin To Net: NetName=SW1 Pin=R3-1
+Added Pin To Net: NetName=SW1 Pin=SW1-1
+Added Pin To Net: NetName=SW1 Pin=SW1-1
+Added Net: Name=SW1
+Added Pin To Net: NetName=SW2 Pin=CON1-3
+Added Pin To Net: NetName=SW2 Pin=R6-1
+Added Pin To Net: NetName=SW2 Pin=SW2-1
+Added Pin To Net: NetName=SW2 Pin=SW2-1
+Added Net: Name=SW2
+Added Pin To Net: NetName=TXUC_RXCAP Pin=CON2-6
+Added Pin To Net: NetName=TXUC_RXCAP Pin=IC2-2
+Added Net: Name=TXUC_RXCAP
+Added Pin To Net: NetName=VIN_5-9V Pin=CON3-16
+Added Pin To Net: NetName=VIN_5-9V Pin=J1-1
+Added Net: Name=VIN_5-9V
+Added Class: Name=PcbBox_Demonstateur
+Added Room: Name=PcbBox_Demonstateur

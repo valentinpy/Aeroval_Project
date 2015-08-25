@@ -1,0 +1,10 @@
+\select@language {francais}
+\select@language {french}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Nom du chaptitre}{2}{chapter.2}
+\contentsline {section}{\numberline {2.1}Nom de la section}{2}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Titre sous section}{2}{subsection.2.1.1}
+\contentsline {chapter}{\numberline {3}Nom du chaptitre}{4}{chapter.3}
+\contentsline {section}{\numberline {3.1}Nom de la section}{4}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Titre sous section}{4}{subsection.3.1.1}
+\contentsline {chapter}{\numberline {4}Conclusion}{6}{chapter.4}

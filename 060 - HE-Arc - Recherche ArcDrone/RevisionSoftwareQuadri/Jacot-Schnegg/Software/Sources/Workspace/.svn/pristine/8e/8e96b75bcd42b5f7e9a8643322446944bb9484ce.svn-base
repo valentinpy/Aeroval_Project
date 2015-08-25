@@ -1,0 +1,260 @@
+/*
+ * mCapteurAccelMagn.c
+ *
+ *  Created on: 6 juil. 2012
+ *      Author: favrebm1
+ */
+
+#include "mCapteurAccelMagn.h"
+#include "iI2C.h"
+#include "iDio.h"
+
+#define ADDRACCEL 0x19
+#define ADDRMAGN 0x1E
+
+//------------------------------------------------------------
+// Ecriture d'un registre de l'accéléromètre/Magnétomètre
+//------------------------------------------------------------
+bool mCapteurAccelMagn_WriteByte(UInt8 aAddrModule, UInt8 aAddrReg, UInt8 aData);
+
+//------------------------------------------------------------
+// Lecture d'un registre de l'accéléromètre/Magnétomètre
+//------------------------------------------------------------
+UInt8 mCapteurAccelMagn_ReadByte(UInt8 aAddrModule, UInt8 aAddrReg);
+
+
+
+//------------------------------------------------------------
+// Setup
+//------------------------------------------------------------
+void mCapteurAccelMagn_Setup(void)
+{
+	//Set des I/O
+	iDio_SetPortDirection(kPortB,kMaskIo0,kIoOutput);
+	iDio_SetPortDirection(kPortB,kMaskIo1,kIoOutput);
+	
+	//Configuration accelerometre
+	//Data rate selection: 25 Hz
+	// Power mode: normal mode
+	// Enable axes: X enable, Y enable, Z enable
+	mCapteurAccelMagn_WriteByte(ADDRACCEL,0x20,0x37);
+	// Full-scale selection: +- 2G
+	mCapteurAccelMagn_WriteByte(ADDRACCEL,0x23,0x00);
+	
+	
+	//Configuration Magnétomètre
+	//Data output rate magnétomètre: 30 Hz
+	mCapteurAccelMagn_WriteByte(ADDRMAGN,0x00,0x00);
+	//Set acquisition mode: Continous mode
+	mCapteurAccelMagn_WriteByte(ADDRMAGN,0x02,0x00);
+	//Set gain: 230 (205), +-8.1 Gauss
+	mCapteurAccelMagn_WriteByte(ADDRMAGN,0x01,0xE0);
+	
+	
+}
+
+//------------------------------------------------------------
+// Open
+//------------------------------------------------------------
+void mCapteurAccelMagn_Open(void)
+{
+
+}
+
+//------------------------------------------------------------
+// Close
+//------------------------------------------------------------
+void mCapteurAccelMagn_Close(void)
+{
+
+}
+
+//------------------------------------------------------------
+// Ecriture d'un registre de l'accéléromètre
+//------------------------------------------------------------
+bool mCapteurAccelMagn_WriteByte(UInt8 aAddrModule, UInt8 aAddrReg, UInt8 aData)
+{
+		UInt32 aTmp=0;	
+		while(iI2C_ReadStatus(kI2C0,kBUSY)==true);
+		iI2C_TransmiteModeSelect(kI2C0,kTxMode);
+		iI2C_GenerateStart(kI2C0);
+		iI2C_SendData(kI2C0, aAddrModule,kWrite);
+		i2c_Wait(kI2C0);
+		if(iI2C_ReadStatus(kI2C0,RxAK)==true)
+			{
+				return false;
+			}
+		iI2C_SendData(kI2C0,aAddrReg,kNoRW);
+		i2c_Wait(kI2C0);
+		if(iI2C_ReadStatus(kI2C0,RxAK)==true)
+			{
+				return false;
+			}
+		iI2C_SendData(kI2C0, aData,kRead);
+		i2c_Wait(kI2C0);
+		if(iI2C_ReadStatus(kI2C0,RxAK)==true)
+			{
+				return false;
+			}
+		iI2C_GenerateStop(kI2C0);
+		return true;
+		
+		//for(aTmp=0;aTmp<100;aTmp++);
+		
+}
+
+//------------------------------------------------------------
+// Lecture d'un registre de l'accéléromètre
+//------------------------------------------------------------
+UInt8 mCapteurAccelMagn_ReadByte(UInt8 aAddrModule, UInt8 aAddrReg)
+{
+		UInt8 aRetVal=0;	
+		UInt32 aTmp=0;
+		UInt8 i=0;
+	
+		
+		// wait bus libre
+		while(iI2C_ReadStatus(kI2C0,kBUSY)==true);
+		//while((I2C0_S & I2C_S_BUSY_MASK)!=0);
+	
+		iI2C_TransmiteModeSelect(kI2C0,kTxMode);
+		iI2C_GenerateStart(kI2C0);
+		iI2C_SendData(kI2C0, aAddrModule,kWrite);
+		i2c_Wait(kI2C0);
+		// test ack
+		iI2C_SendData(kI2C0,aAddrReg,kNoRW);
+		i2c_Wait(kI2C0);
+		// test ack
+		iI2C_GenerateRepeatedStart(kI2C0);
+		iI2C_SendData(kI2C0, aAddrModule,kRead);
+		i2c_Wait(kI2C0);
+		// test ack
+		iI2C_TransmiteModeSelect(kI2C0,kRxMode);
+		I2C0_C1 |= I2C_C1_TXAK_MASK; //TODO Appeler DisableAckAuto
+		
+				
+		aRetVal=iI2C_ReadData(kI2C0);
+		i2c_Wait(kI2C0);
+		iI2C_GenerateStop(kI2C0); // ou on se met en TX
+		aRetVal=iI2C_ReadData(kI2C0);
+		
+		//for(i=0;i<100;i++);
+
+		return aRetVal;
+}
+
+bool mCapteurAccelMagn_ReadAllAxe(AccelMagnAddrEnum aAddrModule,UInt8 aAddrReg,UInt8 *tabReturn) //TODO non fonctionnel
+{
+	UInt8 i=0;
+	UInt8 aTemp;
+	// wait bus libre
+	while(iI2C_ReadStatus(kI2C0,kBUSY)==true);
+	iI2C_TransmiteModeSelect(kI2C0,kTxMode);
+	iI2C_GenerateStart(kI2C0);
+	iI2C_SendData(kI2C0, aAddrModule,kWrite);
+	i2c_Wait(kI2C0);
+	if(iI2C_ReadStatus(kI2C0,RxAK)==true)
+		{
+			return false;
+		}
+	iI2C_SendData(kI2C0,aAddrReg,kNoRW);
+	i2c_Wait(kI2C0);
+	if(iI2C_ReadStatus(kI2C0,RxAK)==true)
+		{
+			return false;
+		}
+	iI2C_GenerateRepeatedStart(kI2C0);
+	iI2C_SendData(kI2C0, aAddrModule,kRead);
+	i2c_Wait(kI2C0);
+	if(iI2C_ReadStatus(kI2C0,RxAK)==true)
+		{
+			return false;
+		}
+	iI2C_TransmiteModeSelect(kI2C0,kRxMode);
+	iI2C_EnableTxAck();
+	for(i=0;i<5;i++)
+		{
+			tabReturn[i]=iI2C_ReadData(kI2C0);
+		}
+	iI2C_DisableTxAck();
+	tabReturn[i]=iI2C_ReadData(kI2C0);
+	
+	i2c_Wait(kI2C0);
+	iI2C_GenerateStop(kI2C0); // ou on se met en TX
+	iI2C_ReadData(kI2C0);
+	
+	if(aAddrModule==kAccelAddr)
+	{
+		for(i=0;i<6;i+=2)
+		{
+			aTemp=tabReturn[i];
+			tabReturn[i]=tabReturn[i+1];
+			tabReturn[i+1]=aTemp;
+		}
+	}
+
+}
+
+
+//------------------------------------------------------------
+// Lecture d'une valeur d'accélération
+// AccelAxeEnum aAxe: nom de l'axe à lire
+//------------------------------------------------------------
+UInt16 mCapteurAccelMagn_ReadAccelAxe(AccelAxeEnum aAxe)
+{
+	UInt16 aRetVar=0;
+		
+	//Lecture du byte de poid fort
+	aRetVar=mCapteurAccelMagn_ReadByte(ADDRACCEL,aAxe);
+	//Décalage de la variable
+	aRetVar<<=8;
+	//Lecture du byte de poid faible
+	aRetVar|=mCapteurAccelMagn_ReadByte(ADDRACCEL,(aAxe-1));
+	
+	return aRetVar;
+}
+
+//------------------------------------------------------------
+// Lecture d'une valeur du magnétomètre
+// MagnAxeEnum aAxe: nom de l'axe à lire
+//------------------------------------------------------------
+UInt16 mCapteurAccelMagn_ReadMagnAxe(MagnAxeEnum aAxe)
+{
+	UInt16 aRetVar=0;
+	
+	while(!(mCapteurAccelMagn_ReadByte(ADDRMAGN, 0x09) & 0x01))
+	{
+		asm(nop);
+	}
+	
+	//Lecture du byte de poid fort
+	aRetVar=mCapteurAccelMagn_ReadByte(ADDRMAGN,aAxe);
+	//Décalage de la variable
+	aRetVar<<=8;
+	//Lecture du byte de poid faible
+	aRetVar|=mCapteurAccelMagn_ReadByte(ADDRMAGN,(aAxe+1));
+	
+	return aRetVar;
+}
+
+bool mCapteurAccelMagn_ReadAllMagnAxe(UInt16 *tabReturn)
+{
+		UInt8 tempTab[6];
+		UInt16 aTemp;
+		
+		mCapteurAccelMagn_ReadAllAxe(ADDRMAGN,kMagnAxe_X,tempTab);
+		aTemp=((UInt16)tempTab[0])<<8;
+		tabReturn[0] = aTemp + tempTab[1];
+		
+		aTemp=((UInt16)tempTab[2])<<8;
+		tabReturn[1] = aTemp + tempTab[3];
+		
+		aTemp=((UInt16)tempTab[4])<<8;
+		tabReturn[3] = aTemp + tempTab[5];
+		                            
+}
+
+
+
+
+

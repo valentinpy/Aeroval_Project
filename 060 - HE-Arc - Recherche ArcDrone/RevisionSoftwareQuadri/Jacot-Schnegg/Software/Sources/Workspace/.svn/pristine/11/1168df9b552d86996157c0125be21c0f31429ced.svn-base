@@ -1,0 +1,76 @@
+/*
+ * mRegulation.c
+ *
+ *  Created on: 7 janv. 2013
+ *      Author: alexandr.schnegg
+ */
+
+#include "mRegulation.h"
+#include "MK10DZ10.h"
+#include "mPwm.h"
+#include "stringConvert.h"
+#include "mRfInterface.h"
+#include "generateTrame.h"
+
+#define kGAINPXZ 0.35f
+#define kGAINPYZ 0.35f
+#define kGAINIXZ 0.0f
+#define kGAINIYZ 0.0f
+#define kOFFSETMOTEUR 0.70f
+#define kDELTAMOTEUR 0.25f
+#define kANGLEMAX 45.0f
+
+float mRegulation_getError(float aConsigne, float aMesure)
+{
+	return aConsigne - aMesure;
+}
+
+float mRegulation_regulateP(float aErreur, float aGainP)
+{
+	return aErreur * aGainP / kANGLEMAX;
+}
+
+/**
+ * aGainP entre 0 et 1
+ */
+float mRegulation_regulate(float aErreur, float aGainP, float aGainI)
+{
+	return kDELTAMOTEUR * (mRegulation_regulateP(aErreur, aGainP) + mmRegulation_regulateI(aErreur) * aGainI);
+}
+
+float mmRegulation_regulateI(float aErreur)
+{
+	static float sSum = 0;
+
+	if (sSum <= kANGLEMAX && sSum >= -kANGLEMAX)
+	{
+		sSum += aErreur;
+	}
+	return sSum / kANGLEMAX;
+}
+
+void mRegulation_execute(float aConsigneXZ, float aConsigneYZ, float aMesureXZ, float aMesureYZ)
+{
+	float aErreurXZ;
+	float aErreurYZ;
+	uint16_t aCmd;
+	float aTemp;
+	UInt8 aVarData[kNbCapteursMax][kNbDigitsMax];
+	UInt8 aVarTrame[kMaxTrameLength];
+	aErreurXZ = mRegulation_getError(aConsigneXZ, aMesureXZ);
+	aErreurYZ = mRegulation_getError(aConsigneYZ, aMesureYZ);
+
+	aTemp = mRegulation_regulate(aErreurXZ, kGAINPXZ, kGAINIXZ);
+	aCmd = mPwm_convertPercentToCmd(kOFFSETMOTEUR + aTemp);
+	mPwm_WriteVitesseMoteur(kPwmCh4, aCmd);
+	mPwm_WriteVitesseMoteur(kPwmCh5, mPwm_convertPercentToCmd(kOFFSETMOTEUR - mRegulation_regulate(aErreurYZ, kGAINPYZ, kGAINIYZ)));
+	mPwm_WriteVitesseMoteur(kPwmCh6, mPwm_convertPercentToCmd(kOFFSETMOTEUR - aTemp));
+	mPwm_WriteVitesseMoteur(kPwmCh7, mPwm_convertPercentToCmd(kOFFSETMOTEUR + mRegulation_regulate(aErreurYZ, kGAINPYZ, kGAINIYZ)));
+
+	stringConvert_FloatToChar(mPwm_convertCmdToPercent(aCmd), aVarData[0]);//TODO test
+	stringConvert_FloatToChar(mPwm_convertCmdToPercent(mPwm_convertPercentToCmd( kOFFSETMOTEUR - mRegulation_regulate(aErreurYZ, kGAINPYZ, kGAINIYZ))), aVarData[1]);
+	stringConvert_FloatToChar(mPwm_convertCmdToPercent(mPwm_convertPercentToCmd(kOFFSETMOTEUR - aTemp)), aVarData[2]);
+	stringConvert_FloatToChar(mPwm_convertCmdToPercent(mPwm_convertPercentToCmd( kOFFSETMOTEUR + mRegulation_regulate(aErreurYZ, kGAINPYZ, kGAINIYZ))), aVarData[3]);
+	generateTrame(kDestDutyCyclePwm, kFloat, aVarData, aVarTrame, 4);
+	mRfInterface_SendString(aVarTrame);
+}

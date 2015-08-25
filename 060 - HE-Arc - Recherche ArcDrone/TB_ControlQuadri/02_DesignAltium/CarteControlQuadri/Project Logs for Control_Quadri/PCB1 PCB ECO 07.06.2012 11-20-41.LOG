@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=GND Pin=J1-2
+Removed Pin From Net: NetName=GND Pin=J1-2
+Removed Pin From Net: NetName=GND Pin=J1-2
+Removed Pin From Net: NetName=GND Pin=J1-2
+Change Component DesignItemId : Designator=J1 Old DesignItemId=CON2 New DesignItemId=CON4
+Change Component Comment : Designator=J1 Old Comment=CON2 New Comment=CON4
+Change Component Description : Designator=J1 Old Description=Con2 New Description=
+Added Pin To Net: NetName=NetC22_1 Pin=J1-2
+Added Pin To Net: NetName=NetC22_1 Pin=J1-2
+Added Pin To Net: NetName=NetC22_1 Pin=J1-2
+Added Pin To Net: NetName=NetC22_1 Pin=J1-2
+Added Pin To Net: NetName=NetR29_1 Pin=U9-69

@@ -1,0 +1,16 @@
+Removed Pin From Net: NetName=NetU9_66 Pin=U9-92
+Removed Pin From Net: NetName=NetU9_66 Pin=X6-5
+Change Component Footprint: Designator=C6 Old Footprint=080501 New Footprint=120601
+Added Component: Designator=C7(060301)
+Added Component: Designator=C12(060301)
+Added Pin To Net: NetName=3.3V Pin=C7-1
+Added Pin To Net: NetName=GND Pin=C7-2
+Added Pin To Net: NetName=3.3V Pin=C12-1
+Added Pin To Net: NetName=GND Pin=C12-2
+Added Pin To Net: NetName=NetU9_69 Pin=U9-69
+Added Pin To Net: NetName=NetU9_92 Pin=U9-92
+Added Pin To Net: NetName=NetU9_92 Pin=X6-5
+Added Net: Name=NetU9_92
+Added Member To Class: ClassName=Capteurs Member=Component C7 GRM188R71E104KA01D
+Added Member To Class: ClassName=Capteurs Member=Component C12 GRM188R71E104KA01D
+Added Member To Class: ClassName=ControlCommande&Motors Member=Component U6 MIC4468ZWM

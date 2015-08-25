@@ -1,0 +1,243 @@
+#include "mCapteurGyro.h"
+#include "iI2C.h"
+#include "iDio.h"
+
+#define ADDRGYRO 0x69
+
+//------------------------------------------------------------
+// Ecriture d'un registre du gyroscope
+//------------------------------------------------------------
+bool mCapteurGyro_WriteByte(UInt8 aAddrReg, UInt8 aData);
+
+//------------------------------------------------------------
+// Lecture d'un registre du gyroscope
+//------------------------------------------------------------
+UInt8 mCapteurGyro_ReadByte(UInt8 aAddrReg);
+
+//------------------------------------------------------------
+// Lecture de n registres du gyroscope
+//------------------------------------------------------------
+bool mCapteurGyro_ReadAllAxes(UInt8 aAddrReg, UInt8 n, UInt8 *tabReturn);
+
+//------------------------------------------------------------
+// Setup
+//------------------------------------------------------------
+void mCapteurGyro_Setup(void)
+{
+	//Set des I/O
+	iDio_SetPortDirection(kPortC, kMaskIo10, kIoOutput);
+	iDio_SetPortDirection(kPortC, kMaskIo11, kIoOutput);
+
+	//Configuration Gyroscope
+	// Axe X, Y and Z enable
+	// Power-down mode: normal mode enable
+	// ODR: 100Hz
+	// Band with: 12.5 
+	mCapteurGyro_WriteByte(0x20, 0x0F);
+}
+
+//------------------------------------------------------------
+// Open
+//------------------------------------------------------------
+void mCapteurGyro_Open(void)
+{
+
+}
+
+//------------------------------------------------------------
+// Close
+//------------------------------------------------------------
+void mCapteurGyro_Close(void)
+{
+
+}
+
+//------------------------------------------------------------
+// Ecriture d'un registre du gyroscope
+//------------------------------------------------------------
+bool mCapteurGyro_WriteByte(UInt8 aAddrReg, UInt8 aData)
+{
+	while (iI2C_ReadStatus(kI2C1, kBUSY) == true)
+		;
+
+	iI2C_TransmiteModeSelect(kI2C1, kTxMode);
+
+	iI2C_GenerateStart(kI2C1);
+
+	iI2C_SendData(kI2C1, ADDRGYRO, kWrite);
+	i2c_Wait(kI2C1);
+	if (iI2C_ReadStatus(kI2C1, RxAK) == true)
+	{
+		return false;
+	}
+
+	iI2C_SendData(kI2C1, aAddrReg, kNoRW);
+	i2c_Wait(kI2C1);
+	if (iI2C_ReadStatus(kI2C1, RxAK) == true)
+	{
+		return false;
+	}
+
+	iI2C_SendData(kI2C1, aData, kNoRW);
+	i2c_Wait(kI2C1);
+	if (iI2C_ReadStatus(kI2C1, RxAK) == true)
+	{
+		return false;
+	}
+
+	iI2C_GenerateStop(kI2C1);
+
+	return true;
+}
+
+//------------------------------------------------------------
+// Lecture d'un registre du gyroscope
+//------------------------------------------------------------
+UInt8 mCapteurGyro_ReadByte(UInt8 aAddrReg)
+{
+	UInt8 aRetVal = 0;
+
+	while (iI2C_ReadStatus(kI2C1, kBUSY) == true)
+		;
+
+	iI2C_TransmiteModeSelect(kI2C1, kTxMode);
+
+	iI2C_GenerateStart(kI2C1);
+
+	iI2C_SendData(kI2C1, ADDRGYRO, kWrite);
+	i2c_Wait(kI2C1);
+	if (iI2C_ReadStatus(kI2C1, RxAK) == true)
+	{
+		return 0;
+	}
+
+	iI2C_SendData(kI2C1, aAddrReg, kNoRW);
+	i2c_Wait(kI2C1);
+	if (iI2C_ReadStatus(kI2C1, RxAK) == true)
+	{
+		return 0;
+	}
+
+	iI2C_GenerateRepeatedStart(kI2C1);
+
+	iI2C_SendData(kI2C1, ADDRGYRO, kRead);
+	i2c_Wait(kI2C1);
+	if (iI2C_ReadStatus(kI2C1, RxAK) == true)
+	{
+		return 0;
+	}
+
+	iI2C_TransmiteModeSelect(kI2C1, kRxMode);
+
+	iI2C_DisableTxAck();
+
+	iI2C_ReadData(kI2C1);
+	i2c_Wait(kI2C1);
+
+	iI2C_GenerateStop(kI2C1);
+
+	return iI2C_ReadData(kI2C1);
+}
+
+//------------------------------------------------------------
+// Lecture de n registres du gyroscope
+//------------------------------------------------------------
+bool mCapteurGyro_ReadAllAxes(UInt8 aAddrReg, UInt8 n, UInt8 *tabReturn)
+{
+	UInt8 i = 0;
+
+	// Attente que le bus soit libre
+	while (iI2C_ReadStatus(kI2C1, kBUSY) == true)
+		;
+
+	// Mode envoi
+	iI2C_TransmiteModeSelect(kI2C1, kTxMode);
+
+	// Génération du start
+	iI2C_GenerateStart(kI2C1);
+
+	// Envoi de l'adresse du module (écriture)
+	iI2C_SendData(kI2C1, ADDRGYRO, kWrite);
+	i2c_Wait(kI2C1);
+	if (iI2C_ReadStatus(kI2C1, RxAK) == true) // Test ACK
+	{
+		return false;
+	}
+
+	// Envoi de l'adresse du registre
+	iI2C_SendData(kI2C1, 0x80 + aAddrReg, kNoRW); // MSB à 1 pour activer l'auto-incrément de l'adresse
+	i2c_Wait(kI2C1);
+	if (iI2C_ReadStatus(kI2C1, RxAK) == true)
+	{
+		return false;
+	}
+
+	// Génération du repeated start
+	iI2C_GenerateRepeatedStart(kI2C1);
+
+	// Envoi de l'adresse du module (lecture)
+	iI2C_SendData(kI2C1, ADDRGYRO, kRead);
+	i2c_Wait(kI2C1);
+	if (iI2C_ReadStatus(kI2C1, RxAK) == true)
+	{
+		return false;
+	}
+
+	// Mode réception
+	iI2C_TransmiteModeSelect(kI2C1, kRxMode);
+
+	// ACK automatique activé
+	iI2C_EnableTxAck();
+
+	// Lecture des n-1 premiers registres + ACK
+	iI2C_ReadData(kI2C1); // Génération du signal d'horloge pour pouvoir ensuite lire le 1er octet
+	i2c_Wait(kI2C1);
+	for (i = 0; i < n - 1; i++)
+	{
+		tabReturn[i] = iI2C_ReadData(kI2C1);
+		i2c_Wait(kI2C1);
+	}
+
+	// ACK automatique désactivé
+	iI2C_DisableTxAck();
+
+	// Lecture du dernier registre + NACK
+	tabReturn[i] = iI2C_ReadData(kI2C1);
+	i2c_Wait(kI2C1);
+
+	// Génération du stop
+	iI2C_GenerateStop(kI2C1);
+
+	// Génération du signal d'horloge pour bien arrêter le bus
+	iI2C_ReadData(kI2C1);
+
+	return true;
+}
+
+//------------------------------------------------------------
+// Lecture de tous les axes du gyroscope
+//------------------------------------------------------------
+bool mCapteurGyro_ReadAllGyroAxes(UInt16 *tabReturn)
+{
+	UInt8 tempTab[6];
+	bool result;
+
+	if (mCapteurGyro_ReadByte(0x27) & 0x08) // Test si ZYXDA = 1
+	{
+		result = mCapteurGyro_ReadAllAxes(GyroAxe_X, 6, tempTab); // GyroAxe_X = 1er des 6 registres !
+
+		if (result)
+		{
+			tabReturn[0] = (((UInt16)tempTab[1]) << 8) + ((UInt16)tempTab[0]);
+			tabReturn[1] = (((UInt16)tempTab[3]) << 8) + ((UInt16)tempTab[2]);
+			tabReturn[2] = (((UInt16)tempTab[5]) << 8) + ((UInt16)tempTab[4]);
+		}
+
+		return result;
+	}
+	else
+	{
+		return false;
+	}
+}
+

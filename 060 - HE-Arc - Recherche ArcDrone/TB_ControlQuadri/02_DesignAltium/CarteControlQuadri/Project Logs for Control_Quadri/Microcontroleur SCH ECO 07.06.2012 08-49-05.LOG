@@ -1,0 +1,39 @@
+Change Component Parameter Comment in R22 Old= New=ERJ-6GEYJ103V
+Change Value of Parameter Supplier Part Number 1 in Part R22 Old=RMCF0805JT820RDKR-ND New=P10KADKR-ND
+Change Value of Parameter EtatCommande in Part BT1 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C24 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C25 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C26 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C27 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C28 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C29 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C30 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C31 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C32 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C33 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C34 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C35 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C36 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C37 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part D1 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part G1 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part G2 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part L2 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part L3 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part LED2 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part LED3 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part LED4 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part LED5 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part LED6 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part LED7 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part LED8 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part R29 Old=DNP New=EtatCommande
+Added Parameter EtatCommande=Interne to Part R20
+Added Parameter EtatCommande=Interne to Part R21
+Added Parameter EtatCommande=Interne to Part R22
+Added Parameter EtatCommande=Interne to Part R23
+Added Parameter EtatCommande=Interne to Part R24
+Added Parameter EtatCommande=Interne to Part R25
+Added Parameter EtatCommande=Interne to Part R26
+Added Parameter EtatCommande=Interne to Part R27
+Added Parameter EtatCommande=Interne to Part R28

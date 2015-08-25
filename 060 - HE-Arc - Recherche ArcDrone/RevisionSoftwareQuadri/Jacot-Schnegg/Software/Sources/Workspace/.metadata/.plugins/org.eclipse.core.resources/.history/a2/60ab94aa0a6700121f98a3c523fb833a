@@ -1,0 +1,72 @@
+/*
+------------------------------------------------------------
+Copyright 2003-2013 Haute Ecole ARC Ingénierie,
+Switzerland. All rights reserved
+------------------------------------------------------------
+Nom du fichier : 	mOrientationProcessing.h
+Auteurs:			Alexandre Schnegg
+					Guillaume Jacot
+Date:				23.01.13
+But :	Convertir les données brutes des capteurs pour en 
+		faire des valeurs utilisable pour la régulation
+------------------------------------------------------------
+*/
+
+#ifndef MORIENTATIONPROCESSING_H_
+#define MORIENTATIONPROCESSING_H_
+
+#define kNbCapteurs	3
+#define kAccOffset 0
+#define kAccScale (float)16384
+#define kGyroScale (float)131.072
+#define kGyroOffsetX (Int16)2650
+#define kGyroOffsetY (Int16)62930
+#define kGyroOffsetZ (Int16)2750
+#define kTau 0.35f				//Note: Tau=a*dt/(1-a)
+#define kDt	kTau*kB/kA				
+#define kA 0.98					//Pondération passe haut (gyroscope)
+#define kB (float)(1-kA)		//Pondération passe bas (accel)
+
+typedef enum
+{
+	kFirstOrder, kSecondOrder,
+} filterOrderEnum;
+
+/**
+ * Configuration de mOrientationProcessing
+ */
+void mOrientationProcessing_setup(void);
+
+/**
+ * Calcul les valeurs des capteurs en fonction des données brute (accélération en g et vitesse angulaire en rad/s
+ * aRacc=Racc={Rx,Ry,Rz}
+ */
+void mOrientationProcessing_computeSensor(UInt16 *aAccelTabIn, UInt16 *aGyroTabIn, float *aRacc, float *aGyroTab);
+
+/**
+ * Convertis le vecteur d'accélération en angles dans le référentiel du gyroscope
+ * aA={Axz,Axy,Ayz}
+ */
+void mOrientationProcessing_convertToGyroSystem(float *aRacc, float *aA);
+
+/**
+ * Filtre complémentaire du premier ordre
+ */
+void mOrientationProcessing_FilterFirstOrder(float *aAngle, float *aAngleRate, float *aResult);
+
+/**
+ * Filtre complémentaire du second ordre
+ */
+void mOrientationProcessing_FilterSecondOrder(float *aAngle, float *aAngleRate, float *aResult);
+
+/**
+ * Convertis les angles en radians en degrés
+ */
+double mOrientationProcessing_RadToDeg(float aRad);
+
+/**
+ * Open de mOrientationProcessing
+ */
+void mOrientationProcessing_open(void);
+
+#endif /* MORIENTATIONPROCESSING_H_ */

@@ -1,0 +1,5 @@
+résistance quartz: e méga ohm
+
+alimentation: pont résistif
+
+Mise en forme signaux télécommande: pont diviseur de tension optionnel... (si tension plus haute que 3.3V)

@@ -1,0 +1,14 @@
+Mon Nov 05 08:57:45 CET 2012
+ERROR org.eclipse.rse.core  unexpected exception
+java.io.FileNotFoundException: D:\Documents\HES\3eme\Projet\Workspace\.metadata\.plugins\org.eclipse.rse.core\profiles\PRF.ne-ein-schnega1_28414\node.properties (Accès refusé)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at org.eclipse.rse.internal.persistence.PFFileSystemLocation.setContents(PFFileSystemLocation.java:104)
+	at org.eclipse.rse.internal.persistence.PropertyFileProvider.writeProperties(PropertyFileProvider.java:521)
+	at org.eclipse.rse.internal.persistence.PropertyFileProvider.saveNode(PropertyFileProvider.java:339)
+	at org.eclipse.rse.internal.persistence.PropertyFileProvider.save(PropertyFileProvider.java:304)
+	at org.eclipse.rse.internal.persistence.PropertyFileProvider.saveRSEDOM(PropertyFileProvider.java:126)
+	at org.eclipse.rse.internal.persistence.PFFileSystemJob.run(PFFileSystemJob.java:66)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+--------------------------------------------

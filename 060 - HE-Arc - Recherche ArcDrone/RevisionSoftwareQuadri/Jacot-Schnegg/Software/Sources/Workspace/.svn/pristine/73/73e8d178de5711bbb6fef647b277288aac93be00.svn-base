@@ -1,0 +1,149 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+-include ../../makefile.local
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS_QUOTED += \
+"../Sources/Interface/I2C.c" \
+"../Sources/Interface/iAd.c" \
+"../Sources/Interface/iCpu.c" \
+"../Sources/Interface/iDio.c" \
+"../Sources/Interface/iFlextimer.c" \
+"../Sources/Interface/iPit.c" \
+"../Sources/Interface/iSpi.c" \
+"../Sources/Interface/iUart.c" \
+
+C_SRCS += \
+../Sources/Interface/I2C.c \
+../Sources/Interface/iAd.c \
+../Sources/Interface/iCpu.c \
+../Sources/Interface/iDio.c \
+../Sources/Interface/iFlextimer.c \
+../Sources/Interface/iPit.c \
+../Sources/Interface/iSpi.c \
+../Sources/Interface/iUart.c \
+
+OBJS += \
+./Sources/Interface/I2C.obj \
+./Sources/Interface/iAd.obj \
+./Sources/Interface/iCpu.obj \
+./Sources/Interface/iDio.obj \
+./Sources/Interface/iFlextimer.obj \
+./Sources/Interface/iPit.obj \
+./Sources/Interface/iSpi.obj \
+./Sources/Interface/iUart.obj \
+
+OBJS_QUOTED += \
+"./Sources/Interface/I2C.obj" \
+"./Sources/Interface/iAd.obj" \
+"./Sources/Interface/iCpu.obj" \
+"./Sources/Interface/iDio.obj" \
+"./Sources/Interface/iFlextimer.obj" \
+"./Sources/Interface/iPit.obj" \
+"./Sources/Interface/iSpi.obj" \
+"./Sources/Interface/iUart.obj" \
+
+C_DEPS += \
+./Sources/Interface/I2C.d \
+./Sources/Interface/iAd.d \
+./Sources/Interface/iCpu.d \
+./Sources/Interface/iDio.d \
+./Sources/Interface/iFlextimer.d \
+./Sources/Interface/iPit.d \
+./Sources/Interface/iSpi.d \
+./Sources/Interface/iUart.d \
+
+C_DEPS_QUOTED += \
+"./Sources/Interface/I2C.d" \
+"./Sources/Interface/iAd.d" \
+"./Sources/Interface/iCpu.d" \
+"./Sources/Interface/iDio.d" \
+"./Sources/Interface/iFlextimer.d" \
+"./Sources/Interface/iPit.d" \
+"./Sources/Interface/iSpi.d" \
+"./Sources/Interface/iUart.d" \
+
+OBJS_OS_FORMAT += \
+./Sources/Interface/I2C.obj \
+./Sources/Interface/iAd.obj \
+./Sources/Interface/iCpu.obj \
+./Sources/Interface/iDio.obj \
+./Sources/Interface/iFlextimer.obj \
+./Sources/Interface/iPit.obj \
+./Sources/Interface/iSpi.obj \
+./Sources/Interface/iUart.obj \
+
+
+# Each subdirectory must supply rules for building sources it contributes
+Sources/Interface/I2C.obj: ../Sources/Interface/I2C.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #9 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Interface/I2C.args" -o "Sources/Interface/I2C.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Interface/%.d: ../Sources/Interface/%.c
+	@echo 'Regenerating dependency file: $@'
+	
+	@echo ' '
+
+Sources/Interface/iAd.obj: ../Sources/Interface/iAd.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #10 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Interface/iAd.args" -o "Sources/Interface/iAd.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Interface/iCpu.obj: ../Sources/Interface/iCpu.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #11 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Interface/iCpu.args" -o "Sources/Interface/iCpu.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Interface/iDio.obj: ../Sources/Interface/iDio.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #12 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Interface/iDio.args" -o "Sources/Interface/iDio.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Interface/iFlextimer.obj: ../Sources/Interface/iFlextimer.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #13 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Interface/iFlextimer.args" -o "Sources/Interface/iFlextimer.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Interface/iPit.obj: ../Sources/Interface/iPit.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #14 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Interface/iPit.args" -o "Sources/Interface/iPit.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Interface/iSpi.obj: ../Sources/Interface/iSpi.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #15 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Interface/iSpi.args" -o "Sources/Interface/iSpi.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Interface/iUart.obj: ../Sources/Interface/iUart.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #16 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Interface/iUart.args" -o "Sources/Interface/iUart.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+

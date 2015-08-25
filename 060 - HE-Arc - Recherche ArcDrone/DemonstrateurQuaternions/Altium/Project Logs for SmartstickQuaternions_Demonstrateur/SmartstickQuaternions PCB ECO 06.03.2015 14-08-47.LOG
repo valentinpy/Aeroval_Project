@@ -1,0 +1,17 @@
+Added Component: Designator=C1(080503)
+Added Component: Designator=C2(080503)
+Added Component: Designator=C3(080503)
+Added Component: Designator=C4(080503)
+Added Pin To Net: NetName=3.3V Pin=C1-1
+Added Pin To Net: NetName=GND Pin=C1-2
+Added Pin To Net: NetName=3.3V Pin=C2-1
+Added Pin To Net: NetName=GND Pin=C2-2
+Added Pin To Net: NetName=3.3V Pin=C3-1
+Added Pin To Net: NetName=GND Pin=C3-2
+Added Pin To Net: NetName=3.3V Pin=C4-1
+Added Pin To Net: NetName=GND Pin=C4-2
+Added Member To Class: ClassName=PcbBox_Demonstateur Member=Component C1 1uF
+Added Member To Class: ClassName=PcbBox_Demonstateur Member=Component C2 100nF
+Added Member To Class: ClassName=PcbBox_Demonstateur Member=Component C3 1uF
+Added Member To Class: ClassName=PcbBox_Demonstateur Member=Component C4 100nF
+Added Room: Name=PcbBox_Demonstateur

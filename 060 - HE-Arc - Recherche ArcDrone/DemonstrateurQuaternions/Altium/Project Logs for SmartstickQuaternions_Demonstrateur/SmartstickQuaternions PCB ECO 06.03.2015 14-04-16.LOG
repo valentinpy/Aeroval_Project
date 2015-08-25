@@ -1,0 +1,9 @@
+Added Component: Designator=IC1(Footprint_EM7180)
+Added Pin To Net: NetName=3.3V Pin=IC1-1
+Added Pin To Net: NetName=I2C0_SDA Pin=IC1-2
+Added Pin To Net: NetName=I2C0_SCL Pin=IC1-3
+Added Pin To Net: NetName=INT_EM7180SFP Pin=IC1-4
+Added Pin To Net: NetName=GND Pin=IC1-5
+Added Pin To Net: NetName=GND Pin=IC1-6
+Added Member To Class: ClassName=PcbBox_Demonstateur Member=Component IC1 EM7180SFP
+Added Room: Name=PcbBox_Demonstateur

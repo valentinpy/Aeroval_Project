@@ -1,0 +1,4 @@
+Change Component Parameter Comment in C9 Old= New=GRM188R71E104KA01D
+Change Component Parameter Footprint in C9 Old=120601 New=060301
+Change Value of Parameter Supplier Part Number 1 in Part C9 Old=399-1171-1-ND New=490-1524-1-ND
+Added Parameter EtatCommande=Interne to Part C9

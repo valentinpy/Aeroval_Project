@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench progressCount="30" version="2.0">
+<workbenchAdvisor/>
+<window height="816" maximized="true" width="1051" x="25" y="25">
+<fastViewData fastViewLocation="1024"/>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout locked="0">
+<coolItem id="group.file" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="153" y="22"/>
+<coolItem id="additions" itemType="typeGroupMarker"/>
+<coolItem id="com.freescale.analysis.analysisResultsActionSet" itemType="typeToolBarContribution" x="38" y="22"/>
+<coolItem id="com.freescale.targettaskframework.actionSetTTF" itemType="typeToolBarContribution" x="152" y="22"/>
+<coolItem id="com.freescale.targettaskframework.toolbar1" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.cdt.ui.CElementCreationActionSet" itemType="typeToolBarContribution" x="129" y="22"/>
+<coolItem id="org.eclipse.cdt.ui.buildConfigActionSet" itemType="typeToolBarContribution" x="89" y="22"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="129" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="76" y="22"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="84" y="22"/>
+<coolItem id="group.nav" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
+<coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.cdt.ui.editor.CEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="group.help" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+</coolbarLayout>
+<page aggregateWorkingSetId="Aggregate for window 1351533145045" focus="true" label="Workspace - C/C++">
+<editors>
+<editorArea activeWorkbook="DefaultEditorWorkbook">
+<info part="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+</presentation>
+</folder>
+</info>
+</editorArea>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" partName="main.c" path="D:/Documents/HES/3eme/Projet/Workspace/SoftQuadriCoptere/Sources/main.c" title="main.c" tooltip="SoftQuadriCoptere/Sources/main.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/SoftQuadriCoptere/Sources/main.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="510" selectionTopPixel="2297"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="mDelay.c" partName="mDelay.c" path="D:/Documents/HES/3eme/Projet/Workspace/SoftQuadriCoptere/Sources/Modules/mDelay.c" title="mDelay.c" tooltip="SoftQuadriCoptere/Sources/Modules/mDelay.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/SoftQuadriCoptere/Sources/Modules/mDelay.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="608" selectionTopPixel="102"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="mCapteurPression.c" partName="mCapteurPression.c" path="D:/Documents/HES/3eme/Projet/Workspace/SoftQuadriCoptere/Sources/Modules/mCapteurPression.c" title="mCapteurPression.c" tooltip="SoftQuadriCoptere/Sources/Modules/mCapteurPression.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/SoftQuadriCoptere/Sources/Modules/mCapteurPression.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="generateTrame.c" partName="generateTrame.c" path="D:/Documents/HES/3eme/Projet/Workspace/SoftQuadriCoptere/Sources/Utils/generateTrame.c" title="generateTrame.c" tooltip="SoftQuadriCoptere/Sources/Utils/generateTrame.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/SoftQuadriCoptere/Sources/Utils/generateTrame.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="544" selectionTopPixel="0"/>
+</editor>
+</editors>
+<views>
+<view id="org.eclipse.ui.views.PropertySheet" partName="Properties"/>
+<view id="org.eclipse.cdt.make.ui.views.MakeView" partName="Make Target"/>
+<view id="org.eclipse.rse.ui.view.systemView" partName="Remote Systems"/>
+<view id="org.eclipse.cdt.ui.callHierarchy" partName="Call Hierarchy">
+<viewState showFilesInLabels="false" variableFilter="false"/>
+</view>
+<view id="org.eclipse.ui.views.ProblemView" partName="Problems">
+<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" detailsPane="false" detailsPaneDivider="750,250" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<columnWidths org.eclipse.ui.ide.locationField="64" org.eclipse.ui.ide.markerType="94" org.eclipse.ui.ide.pathField="124" org.eclipse.ui.ide.resourceField="94" org.eclipse.ui.ide.severityAndDescriptionField="1116"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
+</viewState>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
+<view id="com.freescale.core.ide.projectsview.ProjectsView" partName="CodeWarrior Projects">
+<viewState horizontalPosition="0" verticalPosition="0">
+<expanded>
+<element path="SoftQuadriCoptere  :  MK10DN512Z_INTERNAL_RAM"/>
+<element path="SoftQuadriCoptere  :  MK10DN512Z_INTERNAL_RAM--restore_state_delimiter--Sources"/>
+<element path="SoftQuadriCoptere  :  MK10DN512Z_INTERNAL_RAM--restore_state_delimiter--Sources--restore_state_delimiter--Modules"/>
+<element path="SoftQuadriCoptere  :  MK10DN512Z_INTERNAL_RAM--restore_state_delimiter--Sources--restore_state_delimiter--Utils"/>
+</expanded>
+<customFilters userDefinedPatternsEnabled="false">
+<xmlDefinedFilters>
+<child filterId="org.eclipse.cdt.internal.ui.CView.SharedFilter" isEnabled="false"/>
+<child filterId="org.eclipse.cdt.internal.ui.CView.NonCProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.cdt.ui.CView_patternFilterId_ReferencedRSESystems.xml" isEnabled="true"/>
+<child filterId="org.eclipse.cdt.internal.ui.CView.NonCElementFilter" isEnabled="false"/>
+<child filterId="org.eclipse.cdt.ui.CView_patternFilterId_.*" isEnabled="true"/>
+<child filterId="org.eclipse.cdt.internal.ui.CView.ArchiveFilter" isEnabled="false"/>
+<child filterId="org.eclipse.cdt.ui.CView_patternFilterId_.external_binary" isEnabled="true"/>
+<child filterId="org.eclipse.cdt.internal.ui.CView.ExecutableFilter" isEnabled="false"/>
+<child filterId="org.eclipse.cdt.ui.CView_patternFilterId_rseHostSettingsCache.xml" isEnabled="true"/>
+<child filterId="org.eclipse.cdt.internal.ui.CView.ClosedProjectFilter" isEnabled="false"/>
+<child filterId="org.eclipse.cdt.ui.CView_patternFilterId_.cwGeneratedFileSetLog" isEnabled="true"/>
+<child filterId="org.eclipse.cdt.internal.ui.CView.ObjectFilter" isEnabled="false"/>
+<child filterId="org.eclipse.cdt.ui.CView_patternFilterId_RemoteSystemsTempFiles" isEnabled="true"/>
+<child filterId="org.eclipse.cdt.ui.CView_patternFilterId_RemoteSystemsConnections" isEnabled="true"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
+</view>
+<view id="org.eclipse.ui.views.TaskList" partName="Tasks">
+<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.completionField" categoryGroup="none" markerContentGenerator="org.eclipse.ui.ide.tasksGenerator" partName="Tasks">
+<columnWidths org.eclipse.ui.ide.completionField="40" org.eclipse.ui.ide.descriptionField="304" org.eclipse.ui.ide.locationField="64" org.eclipse.ui.ide.markerType="94" org.eclipse.ui.ide.pathField="124" org.eclipse.ui.ide.priorityField="20" org.eclipse.ui.ide.resourceField="94"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.completionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.priorityField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.descriptionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
+</viewState>
+</view>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
+<viewState/>
+</view>
+</views>
+<perspectives activePart="org.eclipse.cdt.ui.editor.CEditor" activePerspective="org.eclipse.cdt.ui.CPerspective">
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.cdt.internal.ui.CPerspectiveFactory" id="org.eclipse.cdt.ui.CPerspective" label="C/C++"/>
+<alwaysOnActionSet id="com.freescale.cdt.debug.cw.core.ui.ResetAction"/>
+<alwaysOnActionSet id="com.freescale.cdt.debug.cw.core.ui.actions.multicore"/>
+<alwaysOnActionSet id="com.freescale.core.ide.license.manageLicenseActionSet"/>
+<alwaysOnActionSet id="com.freescale.core.ide.openInExplorer.actionSet"/>
+<alwaysOnActionSet id="com.freescale.core.ide.openPath.actionSet"/>
+<alwaysOnActionSet id="com.freescale.sa.ui.arm.actionSet.tracecontrol"/>
+<alwaysOnActionSet id="com.freescale.analysis.analysisResultsActionSet"/>
+<alwaysOnActionSet id="com.pemicro.menu.MenuActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.rse.core.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.eclipse.cdt.ui.SearchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.cdt.ui.CElementCreationActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="com.freescale.flashprogrammer.actionSetFP"/>
+<alwaysOnActionSet id="com.freescale.hardwarediagnostic.actionSetHD"/>
+<alwaysOnActionSet id="com.freescale.importexportmemory.actionSetIEM"/>
+<alwaysOnActionSet id="com.freescale.importexportregisters.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.cdt.make.ui.makeTargetActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.cdt.ui.buildConfigActionSet"/>
+<alwaysOnActionSet id="org.eclipse.cdt.ui.NavigationActionSet"/>
+<alwaysOnActionSet id="org.eclipse.cdt.ui.OpenActionSet"/>
+<alwaysOnActionSet id="org.eclipse.cdt.ui.CodingActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.presentation"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.search.ui.views.SearchView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="com.freescale.core.ide.projectsview.ProjectsView"/>
+<show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
+<show_view_action id="org.eclipse.ui.views.PropertySheet"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.rse.ui.view.systemView"/>
+<show_view_action id="com.freescale.sa.ui.FlatDataView"/>
+<show_view_action id="org.eclipse.cdt.make.ui.views.MakeView"/>
+<show_view_action id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<show_view_action id="org.eclipse.cdt.ui.includeBrowser"/>
+<new_wizard_action id="org.eclipse.cdt.ui.wizards.NewMakeFromExisting"/>
+<new_wizard_action id="org.eclipse.cdt.ui.wizards.NewSourceFolderCreationWizard"/>
+<new_wizard_action id="org.eclipse.cdt.ui.wizards.NewFolderCreationWizard"/>
+<new_wizard_action id="org.eclipse.cdt.ui.wizards.NewSourceFileCreationWizard"/>
+<new_wizard_action id="org.eclipse.cdt.ui.wizards.NewHeaderFileCreationWizard"/>
+<new_wizard_action id="org.eclipse.cdt.ui.wizards.NewFileCreationWizard"/>
+<new_wizard_action id="org.eclipse.cdt.ui.wizards.NewClassCreationWizard"/>
+<new_wizard_action id="com.freescale.core.ide.resources.wizards.new.group"/>
+<perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
+<perspective_action id="org.eclipse.team.ui.TeamSynchronizingPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="com.freescale.core.ide.projectsview.ProjectsView"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.ui.views.TaskList"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.ui.views.PropertySheet"/>
+<view id="org.eclipse.rse.ui.view.systemView"/>
+<view id="org.eclipse.cdt.ui.callHierarchy"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<view id="org.eclipse.cdt.make.ui.views.MakeView"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="topLeft">
+<folder activePageID="com.freescale.core.ide.projectsview.ProjectsView" appearance="2" expanded="2">
+<page content="com.freescale.core.ide.projectsview.ProjectsView" label="CodeWarrior Projects"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="com.processorexpert.ui.projectpanel.views.PEProject" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@103f4aa" ratio="0.7497566" ratioLeft="770" ratioRight="257" relationship="2" relative="topLeft">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info part="com.processorexpert.ui.inspector.views.InspectorView" ratio="0.19800943" ratioLeft="378" ratioRight="1531" relationship="2" relative="topLeft"/>
+<info folder="true" part="bottom" ratio="0.7496403" ratioLeft="521" ratioRight="174" relationship="4" relative="com.processorexpert.ui.inspector.views.InspectorView">
+<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.eclipse.ui.views.PropertySheet" label="Properties"/>
+<page content="org.eclipse.rse.ui.view.systemView" label="Remote Systems"/>
+<page content="org.eclipse.cdt.ui.callHierarchy" label="Call Hierarchy"/>
+<page content="com.freescale.debuggershell.views.DebuggerShell" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="topRight" ratio="0.74967575" ratioLeft="578" ratioRight="193" relationship="2" relative="com.processorexpert.ui.inspector.views.InspectorView">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<page content="org.eclipse.cdt.make.ui.views.MakeView" label="Make Target"/>
+<page content="com.processorexpert.ui.targetcpu.views.TargetCpuView" label="LabelNotFound"/>
+<page content="com.processorexpert.ui.memorymap.views.MemoryMapView" label="LabelNotFound"/>
+<page content="com.processorexpert.ui.inspector.views.InspectorView:*" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.59884834" ratioLeft="312" ratioRight="209" relationship="4" relative="com.processorexpert.ui.inspector.views.InspectorView"/>
+<info part="com.processorexpert.ui.deviceinit.views.RegistryInit" ratio="0.59861594" ratioLeft="346" ratioRight="232" relationship="2" relative="com.processorexpert.ui.inspector.views.InspectorView"/>
+<info part="com.processorexpert.ui.selector.views.BeanSelectorView" ratio="0.49928057" ratioLeft="347" ratioRight="348" relationship="4" relative="topLeft"/>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<workingSets/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mCapteurPression.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/main.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/stringConvert.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/generateTrame.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mCapteurPression.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mLeds.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/generateTrame.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/main.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/stringConvert.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/generateTrame.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mCapteurPression.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mLeds.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/generateTrame.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/main.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/stringConvert.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/generateTrame.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mCapteurPression.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mLeds.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mCapteurPression.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/main.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/stringConvert.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/generateTrame.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mCapteurPression.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/generateTrame.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/main.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mDelay.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mCapteurPression.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Utils/generateTrame.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/main.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mDelay.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/SoftQuadriCoptere/Sources/Modules/mCapteurPression.c"/>
+</editors>
+<item historyLabel="mCapteurPression.c" index="0">
+<position info="not_deleted" x="2065" y="0"/>
+</item>
+<item historyLabel="main.c" index="1">
+<position info="not_deleted" x="914" y="0"/>
+</item>
+<item historyLabel="mCapteurPression.h" index="4">
+<position info="not_deleted" x="1203" y="0"/>
+</item>
+<item historyLabel="generateTrame.h" index="3">
+<position info="not_deleted" x="492" y="7"/>
+</item>
+<item historyLabel="stringConvert.c" index="2">
+<position info="not_deleted" x="966" y="0"/>
+</item>
+<item historyLabel="generateTrame.h" index="3">
+<position info="not_deleted" x="492" y="7"/>
+</item>
+<item historyLabel="stringConvert.c" index="2">
+<position info="not_deleted" x="966" y="0"/>
+</item>
+<item historyLabel="mCapteurPression.c" index="0">
+<position info="not_deleted" x="2065" y="0"/>
+</item>
+<item historyLabel="mLeds.c" index="5">
+<position info="not_deleted" x="993" y="0"/>
+</item>
+<item historyLabel="generateTrame.c" index="6">
+<position info="not_deleted" x="267" y="0"/>
+</item>
+<item historyLabel="main.c" index="7">
+<position info="not_deleted" x="914" y="0"/>
+</item>
+<item historyLabel="stringConvert.c" index="8">
+<position info="not_deleted" x="966" y="0"/>
+</item>
+<item historyLabel="generateTrame.h" index="9">
+<position info="not_deleted" x="492" y="7"/>
+</item>
+<item historyLabel="mCapteurPression.h" index="10">
+<position info="not_deleted" x="1203" y="0"/>
+</item>
+<item historyLabel="mCapteurPression.c" index="0">
+<position info="not_deleted" x="2267" y="0"/>
+</item>
+<item historyLabel="mCapteurPression.c" index="0">
+<position info="not_deleted" x="1797" y="1"/>
+</item>
+<item historyLabel="mCapteurPression.c" index="0">
+<position info="not_deleted" x="1937" y="0"/>
+</item>
+<item historyLabel="mCapteurPression.c" index="0">
+<position info="not_deleted" x="1797" y="1"/>
+</item>
+<item historyLabel="mCapteurPression.h" index="10">
+<position info="not_deleted" x="2" y="0"/>
+</item>
+<item historyLabel="mCapteurPression.c" index="0">
+<position info="not_deleted" x="1797" y="1"/>
+</item>
+<item historyLabel="mCapteurPression.c" index="0">
+<position info="not_deleted" x="1761" y="28"/>
+</item>
+<item historyLabel="mLeds.c" index="11">
+<position info="not_deleted" x="993" y="0"/>
+</item>
+<item historyLabel="generateTrame.c" index="12">
+<position info="not_deleted" x="267" y="0"/>
+</item>
+<item historyLabel="main.c" index="13">
+<position info="not_deleted" x="914" y="0"/>
+</item>
+<item historyLabel="stringConvert.c" index="14">
+<position info="not_deleted" x="966" y="0"/>
+</item>
+<item historyLabel="generateTrame.h" index="15">
+<position info="not_deleted" x="492" y="7"/>
+</item>
+<item historyLabel="mCapteurPression.h" index="16">
+<position info="not_deleted" x="2" y="0"/>
+</item>
+<item historyLabel="generateTrame.c" index="12">
+<position info="not_deleted" x="267" y="0"/>
+</item>
+<item historyLabel="mLeds.c" index="17">
+<position info="not_deleted" x="993" y="0"/>
+</item>
+<item historyLabel="mCapteurPression.c" index="18">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="main.c" index="19">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="stringConvert.c" index="20">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="generateTrame.h" index="21">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="mCapteurPression.h" index="22">
+<position info="not_deleted" x="2" y="0"/>
+</item>
+<item historyLabel="generateTrame.c" index="12">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="mCapteurPression.c" index="18">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="main.c" index="19">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="stringConvert.c" index="20">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="generateTrame.h" index="21">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="generateTrame.c" index="23"/>
+<item historyLabel="main.c" index="24">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="mDelay.c" index="25">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="main.c" index="24">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="mDelay.c" index="25">
+<position info="not_deleted" x="608" y="0"/>
+</item>
+<item historyLabel="main.c" index="24">
+<position info="not_deleted" x="510" y="0"/>
+</item>
+<item historyLabel="mCapteurPression.c" index="26">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="generateTrame.c" index="27">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="main.c" index="28">
+<position info="not_deleted" x="510" y="0"/>
+</item>
+<item historyLabel="mDelay.c" index="29">
+<position info="not_deleted" x="608" y="0"/>
+</item>
+<item active="true" historyLabel="mCapteurPression.c" index="30">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+</navigationHistory>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+<trimLayout>
+<trimArea IMemento.internal.id="128">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
+</trimArea>
+<trimArea IMemento.internal.id="1024">
+<trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
+<trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+</trimArea>
+</trimLayout>
+</window>
+<mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="generateTrame.c" tooltip="SoftQuadriCoptere/Sources/Utils/generateTrame.c">
+<persistable path="/SoftQuadriCoptere/Sources/Utils/generateTrame.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="mCapteurPression.c" tooltip="SoftQuadriCoptere/Sources/Modules/mCapteurPression.c">
+<persistable path="/SoftQuadriCoptere/Sources/Modules/mCapteurPression.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="mDelay.c" tooltip="SoftQuadriCoptere/Sources/Modules/mDelay.c">
+<persistable path="/SoftQuadriCoptere/Sources/Modules/mDelay.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" tooltip="SoftQuadriCoptere/Sources/main.c">
+<persistable path="/SoftQuadriCoptere/Sources/main.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="mCapteurPression.h" tooltip="SoftQuadriCoptere/Sources/Modules/mCapteurPression.h">
+<persistable path="/SoftQuadriCoptere/Sources/Modules/mCapteurPression.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="generateTrame.h" tooltip="SoftQuadriCoptere/Sources/Utils/generateTrame.h">
+<persistable path="/SoftQuadriCoptere/Sources/Utils/generateTrame.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stringConvert.c" tooltip="SoftQuadriCoptere/Sources/Utils/stringConvert.c">
+<persistable path="/SoftQuadriCoptere/Sources/Utils/stringConvert.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="mCapteurAccelMagn.c" tooltip="SoftQuadriCoptere/Sources/Modules/mCapteurAccelMagn.c">
+<persistable path="/SoftQuadriCoptere/Sources/Modules/mCapteurAccelMagn.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="iCpu.c" tooltip="SoftQuadriCoptere/Sources/Interface/iCpu.c">
+<persistable path="/SoftQuadriCoptere/Sources/Interface/iCpu.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="mCapteurAccelMagn.h" tooltip="SoftQuadriCoptere/Sources/Modules/mCapteurAccelMagn.h">
+<persistable path="/SoftQuadriCoptere/Sources/Modules/mCapteurAccelMagn.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="iPit.c" tooltip="SoftQuadriCoptere/Sources/Interface/iPit.c">
+<persistable path="/SoftQuadriCoptere/Sources/Interface/iPit.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="mLeds.c" tooltip="SoftQuadriCoptere/Sources/Modules/mLeds.c">
+<persistable path="/SoftQuadriCoptere/Sources/Modules/mLeds.c"/>
+</file>
+</mruList>
+</workbench>

@@ -1,0 +1,327 @@
+/*
+ * main implementation: use this 'C' sample to create your own application
+ *
+ */
+
+
+
+#include <stdio.h>
+
+#include "derivative.h" /* include peripheral declarations */
+#include "mCpu.h"		/* PLL and crossbar configuration */
+#include "mPwm.h"		/* FTMx configuration */
+#include "mLeds.h"		/* Configuration Port leds */
+#include "mRfInterface.h"
+#include "stringConvert.h"
+#include "iDio.h"
+#include "mCapteurAccelMagn.h"
+#include "mCapteurGyro.h"
+#include "iSpi.h"
+#include "mCapteurPression.h"
+#include "iAd.h"
+#include "mMesureAlimentation.h"
+#include "generateTrame.h"
+
+
+#define ADDRGYRO 0x69
+
+
+bool lock = false;	
+
+void main(void)
+{
+	UInt16 tabReturn[3];
+	
+	float aVarTestFloat=0;
+	float aVarTestFloat1=0;
+	bool aVarTestBool=false;
+	UInt8 aVarTestInt=0;
+	UInt16 aVarTestUInt16=0;
+	UInt8 aVarData[4][8];
+	UInt8 aVarTrame[4*9+5];
+	UInt8 aArray[12];
+	float aValSent=34.5;
+	
+	
+	
+	UInt32 i,j, aVarTestUInt32;
+	
+	UInt8 calibW1Addr1=0x1d;
+	UInt8 calibW1Addr2=0x50;
+	
+	//setup interfaces	//TODO
+	//-------------------------------------------------------------------------------
+	iCpu_SysInit();
+	iI2C_Setup();
+	iUart_Config();
+	iSpi_Setup();
+	iPit_Config(kPit0,2);
+	iPit_StartPit(kPit0);
+	iAd_Config();
+	iAd_Cal(kAdc0);
+	
+	//Open interfaces	//TODO
+	//-------------------------------------------------------------------------------
+	iI2C_Open();
+	iUart_Open();
+	iSpi_Open();
+	
+	//setup modules	//TODO
+	//-------------------------------------------------------------------------------
+	mCpu_Setup();	// PLL and crossbar configuration
+	mLeds_Setup();	// Configuration Port leds
+	mPwm_Setup();	// FTMx configuration
+	mDelay_Setup();
+	mRfInterface_Setup();
+	mCapteurAccelMagn_Setup();
+	mCapteurGyro_Setup();
+	mCapteurPression_Setup();
+	
+	//Open des modules	//TODO
+	//-------------------------------------------------------------------------------
+	mDelay_Open();
+	mRfInterface_Open();
+	mCapteurAccelMagn_Open();
+	mCapteurPression_Open();
+	
+	
+	//Test PWM
+	mPwm_WriteVitesseMoteur(kPwmCh4,0.1);
+	mPwm_WriteVitesseMoteur(kPwmCh5,0.1);
+	mPwm_WriteVitesseMoteur(kPwmCh6,0.1);
+	mPwm_WriteVitesseMoteur(kPwmCh7,0.1);
+
+
+	
+	//Test led
+	mLeds_WriteLed(kLed3,kLedOn);
+	mLeds_WriteLed(kLed2,kLedOn);
+	mLeds_WriteLed(kLed4,kLedOn);
+	mLeds_WriteLed(kLed5,kLedOn);
+	mLeds_WriteLed(kLed6,kLedOn);
+	mLeds_WriteLed(kLed7,kLedOn);
+	mLeds_WriteLed(kLed8,kLedOn);
+	
+	
+//	aVarTestInt=mDelay_GetDelay(kPit0,1);//Delay 1ms
+	
+
+	
+/*	//Baud rate = freq bus/(ICR*MULT) = 50000000=(31*4)= 403kHz
+	I2C0_F = 0x20;
+	//Enable I2C0
+	I2C0_C1|=I2C_C1_IICEN_MASK;
+	//Transmit mode select
+	I2C0_C1|=I2C_C1_TX_MASK;
+*/
+	
+	//Round Robin
+	while(1)
+	{
+		
+				//Lecture de l'accelerometre axe après axe
+				stringConvert_UInt16Char(mCapteurAccelMagn_ReadAccelAxe(kAccelAxe_X),aVarData[0]);
+				stringConvert_UInt16Char(mCapteurAccelMagn_ReadAccelAxe(kAccelAxe_Y),aVarData[1]);
+				stringConvert_UInt16Char(mCapteurAccelMagn_ReadAccelAxe(kAccelAxe_Z),aVarData[2]);
+				
+				generateTrame(kDestAccel,aVarData, aVarTrame,3);
+				mRfInterface_SendString(aVarTrame);
+				
+				//Lecture du gyro axe après axe
+				stringConvert_UInt16Char(mCapteurGyro_ReadGyroAxe(GyroAxe_X),aVarData[0]);
+				stringConvert_UInt16Char(mCapteurGyro_ReadGyroAxe(GyroAxe_Y),aVarData[1]);
+				stringConvert_UInt16Char(mCapteurGyro_ReadGyroAxe(GyroAxe_Z),aVarData[2]);
+				
+				generateTrame(kDestGyro,aVarData, aVarTrame,3);
+				mRfInterface_SendString(aVarTrame);
+				
+				//Lecture de la pression
+				mCapteurPression_Compute();
+				aVarTestFloat=mCapteurPression_ReadPression();
+				stringConvert_UInt16Char((UInt16)aVarTestFloat,aVarData[0]);	//TODO gérer float
+
+				generateTrame(kDestPression,aVarData, aVarTrame,1);
+				mRfInterface_SendString(aVarTrame);
+				
+				//Lecture de la tension
+				aVarTestFloat=mMesureAlimentation_TensionBatterie();
+				stringConvert_UInt16Char((UInt16)aVarTestFloat,aVarData[0]); //TODO gérer float
+				generateTrame(kTensionAccu,aVarData, aVarTrame,1);
+				mRfInterface_SendString(aVarTrame);
+				
+				//Courant batterie
+				aVarTestFloat=mMesureAlimentation_CourantBatterie();
+				stringConvert_UInt16Char((UInt16)aVarTestFloat,aVarData[0]); //TODO gérer float
+				generateTrame(kCourantAccu,aVarData, aVarTrame,1);
+				mRfInterface_SendString(aVarTrame);
+
+				//Lecture de l'l'accelerometre en une fois
+//				mCapteurAccelMagn_ReadAllAxe(ADDRACCEL,kAccelAxe_X,(UInt16*) tabReturn)
+//				
+//				stringConvert_UInt16Char(tabRet[0],aVarData[0]);
+//				stringConvert_UInt16Char(tabRet[1],aVarData[1]);
+//				stringConvert_UInt16Char(tabRet[2],aVarData[2]);
+//
+//				generateTrame(kDestAccel,aVarData, aVarTrame,3);
+//				mRfInterface_SendString(aVarTrame);
+				
+				
+	}
+	
+		
+	/*
+		//Test capteur gyroscope
+		aVarTestUInt16=mCapteurGyro_ReadGyroAxe(GyroAxe_X);
+		stringConvert_UInt16Char(&aVarTestUInt16, aVarTestCharTab);
+		mRfInterface_SendString(aVarTestCharTab);
+		mRfInterface_SendByte(' ');
+		aVarTestUInt16=mCapteurGyro_ReadGyroAxe(GyroAxe_Y);
+		stringConvert_UInt16Char(&aVarTestUInt16, aVarTestCharTab);
+		mRfInterface_SendString(aVarTestCharTab);
+		mRfInterface_SendByte(' ');
+		aVarTestUInt16=mCapteurGyro_ReadGyroAxe(GyroAxe_Z);
+		stringConvert_UInt16Char(&aVarTestUInt16, aVarTestCharTab);
+		mRfInterface_SendString(aVarTestCharTab);
+		mRfInterface_SendByte('\r');
+	*/
+		
+		
+		
+		
+		
+		/*	
+		iAd_SelectChannel(kAdc0,kAdcCh4);
+		iAd_GetCompleteConvStatus(kAdc0);
+		aVarTestUInt16=iAd_GetResult(kAdc0);
+		
+		stringConvert_UInt16Char(&aVarTestUInt16,aVarTestCharTab);
+		mRfInterface_SendString(aVarTestCharTab);
+		mRfInterface_SendByte('\r');
+	*/	
+		
+
+		
+		/*
+		//Test capteur gyroscope
+		aVarTestUInt16=mCapteurGyro_ReadGyroAxe(GyroAxe_X);
+		stringConvert_UInt16Char(&aVarTestUInt16, aVarTestCharTab);
+		mRfInterface_SendString(aVarTestCharTab);
+		mRfInterface_SendByte('\r');
+		*/
+
+		/*
+		//Test capteur gyroscope
+		aVarTestUInt16=mCapteurAccelMagn_ReadMagnAxe(kMagnAxe_X);
+		stringConvert_UInt16Char(&aVarTestUInt16, aVarTestCharTab);
+		mRfInterface_SendString(aVarTestCharTab);
+		mRfInterface_SendByte('\r');
+		*/
+
+	/*	
+		mRfInterface_SendByte(mCapteurAccelMagn_ReadMagnAxe(kMagnAxe_X));
+
+		mRfInterface_SendByte(mCapteurAccelMagn_ReadMagnAxe(kMagnAxe_Y));
+
+		mRfInterface_SendByte(mCapteurAccelMagn_ReadMagnAxe(kMagnAxe_Z));
+
+	*/	
+	/*	
+		mRfInterface_SendByte(mCapteurAccelMagn_ReadAccelAxe(kAccelAxe_X));
+		mRfInterface_SendByte(mCapteurAccelMagn_ReadAccelAxe(kAccelAxe_Y));
+		mRfInterface_SendByte(mCapteurAccelMagn_ReadAccelAxe(kAccelAxe_Z));
+	*/
+
+		//Test I2C
+/*		//Master mode select, generate start
+		I2C0_C1|=I2C_C1_MST_MASK;
+		//Data
+		I2C0_D=0x00|(addrAccel<<1);
+		
+		//Master mode select, generate stop
+		I2C0_C1&=~I2C_C1_MST_MASK;
+
+
+		
+		iI2C_TransmiteModeSelect(kI2C0,kTxMode);
+		iI2C_GenerateStart(kI2C0);
+		iI2C_SendData(kI2C0, addrAccel,kWrite);
+
+//		while(1!=iI2C_ReadStatus(kI2C0,kTransferComplete));
+//	for(i=0;i<1000;i++);
+		iI2C_SendData(kI2C0,addrReg_AxeZ,kNoRW);
+	
+//		while(1!=iI2C_ReadStatus(kI2C0,kTransferComplete));
+//	for(i=0;i<1000;i++);
+		iI2C_GenerateRepeatedStart(kI2C0);
+		iI2C_SendData(kI2C0, addrAccel,kRead);
+	
+//		while(1!=iI2C_ReadStatus(kI2C0,kTransferComplete));
+//	for(i=0;i<1000;i++);
+		iI2C_TransmiteModeSelect(kI2C0,kRxMode);
+		I2C0_C1 |= I2C_C1_TXAK_MASK;
+		aVarTestInt=iI2C_ReadData(kI2C0);
+		
+	iI2C_GenerateStop(kI2C0);
+	aVarTestInt=iI2C_ReadData(kI2C0);
+	
+*/	
+//	for(i=0;i<1000;i++);
+/*----------------------------------------------------------------------------	
+		//Receiving mode select
+		I2C0_C1&=~I2C_C1_TX_MASK;
+		// Turn off ACK 
+		I2C0_C1 |= I2C_C1_TXAK_MASK;
+		//Dummy Read
+		iI2C_ReadData(kI2C0);
+//	for(i=0;i<1000;i++);
+		while(1!=iI2C_ReadStatus(kI2C0,kTransferComplete));
+		//Stop
+		iI2C_GenerateStop(kI2C0);
+		//Read
+		aVarTestInt=iI2C_ReadData(kI2C0);
+*/	
+		/*		iI2C_GenerateAck(kI2C0,kNack);
+		iI2C_GenerateClk(kI2C0);
+		while(1!=iI2C_ReadStatus(kI2C0,kTransferComplete));
+		aVarTestInt=iI2C_ReadData(kI2C0);
+		fiI2C_GenerateStop(kI2C0);
+*/		
+		
+//		mDelay_ReStart(kPit0,aVarTestInt,1);
+//		while(0==mDelay_IsDelayDone(kPit0,aVarTestInt));
+		
+		
+		//mRfInterface_SendString(aVarTestCharTab);
+		//mRfInterface_SendByte('A');
+		
+		/*aVarTestFloat=mPwm_ReadSignauxTelecommande(kPwmCh0);   
+		stringConvert_floatChar(&aVarTestFloat,&aVarTestCharTab[0]);
+		mRfInterface_SendByte('0');
+		mRfInterface_SendByte('\r');
+		mRfInterface_SendString(aVarTestCharTab);
+		mRfInterface_SendByte('\r');
+		mRfInterface_SendByte('\r');
+		*/
+		
+		/*
+		//Test FTM Inpute capture
+		aVarTestFloat=mPwm_ReadSignauxTelecommande(kPwmCh3);   
+		stringConvert_floatChar(&aVarTestFloat,&aVarTestCharTab[0]);
+		//mRfInterface_SendByte('1');
+		//mRfInterface_SendByte('\r');
+		mRfInterface_SendString(aVarTestCharTab);
+		mRfInterface_SendByte('\r');
+		//mRfInterface_SendByte('\r');
+		*/
+		
+		
+		/*
+		//Test ftm output compare
+		mPwm_WriteVitesseMoteur(kPwmCh4,mPwm_ReadSignauxTelecommande(kPwmCh0));
+		mPwm_WriteVitesseMoteur(kPwmCh5,mPwm_ReadSignauxTelecommande(kPwmCh1));
+		mPwm_WriteVitesseMoteur(kPwmCh6,mPwm_ReadSignauxTelecommande(kPwmCh2));
+		mPwm_WriteVitesseMoteur(kPwmCh7,mPwm_ReadSignauxTelecommande(kPwmCh3));
+		*/
+	//	asm(nop);
+	//}
+}

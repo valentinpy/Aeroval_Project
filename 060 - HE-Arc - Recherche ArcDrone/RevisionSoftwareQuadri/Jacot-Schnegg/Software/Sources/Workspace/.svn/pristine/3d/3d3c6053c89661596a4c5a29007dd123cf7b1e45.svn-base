@@ -1,0 +1,63 @@
+/*
+ * stringConvert.c
+ *
+ *  Created on: 3 juil. 2012
+ *      Author: favrebm1
+ */
+
+#include "stringConvert.h"
+#include <stdio.h>
+
+
+
+//------------------------------------------------------------
+// conversion d'un UInt16 en chaine de caractère
+//------------------------------------------------------------
+void stringConvert_UInt16Char(UInt16 aUInt16, UInt8 *aString)
+{
+	int dummy;
+	
+	dummy=sprintf((char*)aString,"%08d",aUInt16);
+	
+}
+
+//------------------------------------------------------------
+// conversion d'un float en chaine de caractère
+//------------------------------------------------------------
+/*void stringConvert_floatChar(float aFloat, UInt8* aString) //TODO Pourquoi coder ça comme ça ?
+{
+	int dummy;
+	float f1;
+	int d1;
+	float f2;
+	int d2;
+ 
+	
+	f1=aFloat;
+	d1 = f1;            // Get the integer part (678).
+	f2 = f1-d1;     // Get fractional part (0.01234567).
+	d2 = f2*100;   // Turn into integer (123).
+	
+	if(d2<10)
+	{
+		d2=d2*100;
+	}
+	else if(d2<100)
+	{
+		d2=d2*10;
+	}
+
+	dummy=sprintf((char*)aString,"%04d.%d",d1,d2);
+	
+	//dummy=sprintf(aString,"%03.4f",(double)f1);
+
+}*/
+
+void stringConvert_floatChar(float aFloat, UInt8* aString)
+{
+	sprintf(aString,"%04.4f",aFloat);
+}
+
+
+
+

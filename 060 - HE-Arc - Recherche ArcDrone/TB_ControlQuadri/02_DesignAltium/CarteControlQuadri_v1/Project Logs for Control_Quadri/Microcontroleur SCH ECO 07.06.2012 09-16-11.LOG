@@ -1,0 +1,6 @@
+Change Value of Parameter EtatCommande in Part C30 Old=Commandé New=Interne
+Change Value of Parameter EtatCommande in Part C31 Old=Commandé New=Interne
+Change Value of Parameter EtatCommande in Part C32 Old=Commandé New=Interne
+Change Value of Parameter EtatCommande in Part C33 Old=Commandé New=Interne
+Change Value of Parameter EtatCommande in Part G2 Old=Commandé New=Interne
+Added Parameter EtatCommande=Commandé to Part U9

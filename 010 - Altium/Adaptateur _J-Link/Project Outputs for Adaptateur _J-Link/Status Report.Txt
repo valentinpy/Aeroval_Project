@@ -1,0 +1,14 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [Adaptateur _J-Link.PrjPcb]
+   Generated File[Adaptateur _J-Link.GTL]
+   Generated File[Adaptateur _J-Link.GM1]
+   Generated File[Adaptateur _J-Link.RUL]
+   Generated File[Adaptateur _J-Link.EXTREP]
+   Generated File[Adaptateur _J-Link.REP]
+
+
+Files Generated   : 5
+Documents Printed : 0
+
+Finished Output Generation At 13:11:13 On 07.07.2015

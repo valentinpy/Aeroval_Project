@@ -1,0 +1,42 @@
+/*
+ * generateTrame.h
+ *
+ *  Created on: 14 août 2012
+ *      Author: favrebm1
+ */
+
+#ifndef GENERATETRAME_H_
+#define GENERATETRAME_H_
+
+#include "def.h"
+
+
+typedef enum{
+	kStartByte = 'A',
+	kStopByte = 'Z'
+}kTrameStartStopByteEnum;
+
+
+typedef enum
+{
+	kDestAccel = 'B',
+	kDestGyro = 'C',
+	kDestPression = 'D',
+	kDestTemperature = 'E',
+	kDestMagn = 'F',
+	kDestAltitude = 'G',
+	kTensionAccu='H',
+	kCourantAccu='I',
+	kDutyPwm='J',
+}kTrameDestEnum;
+
+typedef enum
+{
+	kUInt16 = 'I',
+	kFloat = 'F',
+}kTrameTypeEnum;
+
+void generateTrame(kTrameDestEnum aDest, UInt8 aData[4][8], UInt8* aAddrReturn,UInt8 lengthData);
+
+
+#endif /* GENERATETRAME_H_ */

@@ -1,0 +1,45 @@
+/*
+------------------------------------------------------------
+Copyright 2003-2013 Haute Ecole ARC Ingénierie,
+Switzerland. All rights reserved
+------------------------------------------------------------
+Nom du fichier : 	mRegulation.h
+Auteurs:			Alexandre Schnegg
+					Guillaume Jacot
+Date:				23.01.13
+But :	Réguler l'orientation du quadricoptère
+------------------------------------------------------------
+*/
+
+#ifndef MREGULATION_H_
+#define MREGULATION_H_
+
+#define kGAINPXZ 0.3f
+#define kGAINPYZ 0.3f
+#define kGAINIXZ 0.0f
+#define kGAINIYZ 0.0f
+#define kOFFSETMOTEUR 0.70f
+#define kDELTAMOTEUR 0.30f
+#define kANGLEMAX 25.0f
+
+/**
+ * Retourne l'erreur en fonction de la mesure et de la consigne
+ */
+float mRegulation_getError(float aConsigne,float aMesure);
+
+/**
+ * Retourne le duty cycle à appliquer au moteur en fonction de l'erreur et des gains des régulateurs (compris entre 0 et 1)
+ */
+float mRegulation_regulate(float aErreur,float aGainP,float aGainI);
+
+/**
+ * Régulateur I
+ */
+float mmRegulation_regulateI(float aErreur);
+
+/**
+ * Régulateur P
+ */
+float mRegulation_regulateP(float aErreur, float aGainP);
+
+#endif /* MREGULATION_H_ */

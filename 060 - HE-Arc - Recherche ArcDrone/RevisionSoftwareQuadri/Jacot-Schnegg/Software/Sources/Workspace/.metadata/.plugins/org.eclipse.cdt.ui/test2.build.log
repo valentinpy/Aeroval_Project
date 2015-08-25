@@ -1,0 +1,26 @@
+
+**** Build of configuration MK10DN512Z_INTERNAL_FLASH for project test2 ****
+
+C:\Freescale\CW MCU v10.2\gnu\bin\mingw32-make -j8 all 
+'Regenerating dependency file: Project_Settings/Startup_Code/kinetis_sysinit.d'
+'Regenerating dependency file: Sources/main.d'
+' '
+' '
+'Building file: ../Sources/main.c'
+'Building file: ../Project_Settings/Startup_Code/kinetis_sysinit.c'
+'Executing target #1 ../Sources/main.c'
+'Executing target #2 ../Project_Settings/Startup_Code/kinetis_sysinit.c'
+'Invoking: ARM Compiler'
+"C:/Freescale/CW MCU v10.2/MCU/ARM_Tools/Command_Line_Tools/mwccarm" -gccinc @@"Sources/main.args" -o "Sources/main.obj" -c "../Sources/main.c" -MD -gccdep
+'Invoking: ARM Compiler'
+"C:/Freescale/CW MCU v10.2/MCU/ARM_Tools/Command_Line_Tools/mwccarm" -gccinc @@"Project_Settings/Startup_Code/kinetis_sysinit.args" -o "Project_Settings/Startup_Code/kinetis_sysinit.obj" -c "../Project_Settings/Startup_Code/kinetis_sysinit.c" -MD -gccdep
+'Finished building: ../Sources/main.c'
+'Finished building: ../Project_Settings/Startup_Code/kinetis_sysinit.c'
+' '
+' '
+'Building target: test2.afx'
+'Executing target #3 test2.afx'
+'Invoking: ARM Linker'
+"C:/Freescale/CW MCU v10.2/MCU/ARM_Tools/Command_Line_Tools/mwldarm" @@"test2.args" -o "test2.afx"   
+'Finished building target: test2.afx'
+' '

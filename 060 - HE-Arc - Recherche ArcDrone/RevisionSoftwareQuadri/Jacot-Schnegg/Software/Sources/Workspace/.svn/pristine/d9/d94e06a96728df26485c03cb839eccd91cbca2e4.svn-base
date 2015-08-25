@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <math.h>
+
+#include "derivative.h" /* include peripheral declarations */
+#include "mCpu.h"		/* PLL and crossbar configuration */
+#include "mPwm.h"		/* FTMx configuration */
+#include "mLeds.h"		/* Configuration Port leds */
+#include "mRfInterface.h"
+#include "mCapteurAccelMagn.h"
+#include "mCapteurGyro.h"
+#include "mCapteurPression.h"
+#include "mMesureAlimentation.h"
+#include "mOrientationProcessing.h"
+#include "stringConvert.h"
+#include "generateTrame.h"
+#include "gMBox.h"
+#include "gInput.h"
+#include "gCompute.h"
+#include "gOutput.h"
+
+void main(void)
+{
+	bool ledState = false;
+	
+	mLeds_WriteLed(kLed2, kLedOn);
+
+	//-------------------------------------------------------------------------------
+	// Setup des modules
+	//-------------------------------------------------------------------------------
+	mCpu_Setup(); // PLL and crossbar configuration
+	mLeds_Setup(); // Configuration Port leds
+	mPwm_Setup(); // FTMx configuration
+	mDelay_Setup();
+	mRfInterface_Setup();
+	mCapteurAccelMagn_Setup();
+	mCapteurGyro_Setup();
+	mCapteurPression_Setup();
+	mMesureAlimentation_Setup();
+	//mOrientationProcessing_setup(); //TODO voir si on a vraiment besoin d'une interruption
+
+	mLeds_WriteLed(kLed3, kLedOn);
+
+	//-------------------------------------------------------------------------------
+	// Open des modules
+	//-------------------------------------------------------------------------------
+	mDelay_Open();
+	mRfInterface_Open();
+	mCapteurAccelMagn_Open();
+	mCapteurPression_Open();
+
+	mLeds_WriteLed(kLed4, kLedOn);
+
+	//-------------------------------------------------------------------------------
+	// Setup des gestionnaires
+	//-------------------------------------------------------------------------------
+	gInput_Setup();
+	gCompute_Setup();
+	gLabview_Setup();
+	gOutput_Setup();
+
+	mLeds_WriteLed(kLed5, kLedOn);
+
+	//-------------------------------------------------------------------------------
+	// Execute des gestionnaires
+	//-------------------------------------------------------------------------------
+	while (1)
+	{
+		ledState = !ledState;
+		mLeds_WriteLed(kLed6, ledState);
+
+		gInput_Execute();
+		gCompute_Execute();
+		gLabview_Execute();
+		gOutput_Execute();
+	}
+}

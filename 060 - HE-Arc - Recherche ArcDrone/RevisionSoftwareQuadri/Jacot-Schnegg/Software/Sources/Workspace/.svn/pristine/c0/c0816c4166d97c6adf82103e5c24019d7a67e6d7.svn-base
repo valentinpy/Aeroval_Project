@@ -1,0 +1,117 @@
+#include "mCapteurGyro.h"
+#include "iI2C.h"
+#include "iDio.h"
+
+#define ADDRGYRO 0x69
+
+//------------------------------------------------------------
+// Ecriture d'un registre du gyroscope
+//------------------------------------------------------------
+void mCapteurGyro_WriteByte(UInt8 aAddrModule, UInt8 aAddrReg, UInt8 aData);
+
+//------------------------------------------------------------
+// Lecture d'un registre du gyroscope
+//------------------------------------------------------------
+UInt8 mCapteurGyro_ReadByte(UInt8 aAddrModule, UInt8 aAddrReg);
+
+//------------------------------------------------------------
+// Setup
+//------------------------------------------------------------
+void mCapteurGyro_Setup(void)
+{
+	//Setup I2C
+	iI2C_Setup();
+		
+	//Set des I/O
+	iDio_SetPortDirection(kPortC, kMaskIo10, kIoOutput);
+	iDio_SetPortDirection(kPortC, kMaskIo11, kIoOutput);
+
+	//Configuration Gyroscope
+	// Axe X, Y and Z enable
+	// Power-down mode: normal mode enable
+	// ODR: 100Hz
+	// Band with: 12.5 
+	mCapteurGyro_WriteByte(ADDRGYRO, 0x20, 0x0F);
+
+}
+
+//------------------------------------------------------------
+// Open
+//------------------------------------------------------------
+void mCapteurGyro_Open(void)
+{
+	iI2C_Open();
+}
+
+//------------------------------------------------------------
+// Close
+//------------------------------------------------------------
+void mCapteurGyro_Close(void)
+{
+	iI2C_Close();
+}
+
+//------------------------------------------------------------
+// Ecriture d'un registre du gyroscope
+//------------------------------------------------------------
+void mCapteurGyro_WriteByte(UInt8 aAddrModule, UInt8 aAddrReg, UInt8 aData)
+{
+	UInt32 aTmp = 0;
+	while (iI2C_ReadStatus(kI2C1, kBUSY) == true);
+	iI2C_TransmiteModeSelect(kI2C1, kTxMode);
+	iI2C_GenerateStart(kI2C1);
+	iI2C_SendData(kI2C1, aAddrModule, kWrite);
+	i2c_Wait(kI2C1);
+	iI2C_SendData(kI2C1, aAddrReg, kNoRW);
+	i2c_Wait(kI2C1);
+	iI2C_SendData(kI2C1, aData, kNoRW);
+	i2c_Wait(kI2C1);
+	iI2C_GenerateStop(kI2C1);
+	for (aTmp = 0; aTmp < 100; aTmp++);
+}
+
+//------------------------------------------------------------
+// Lecture d'un registre du gyroscope
+//------------------------------------------------------------
+UInt8 mCapteurGyro_ReadByte(UInt8 aAddrModule, UInt8 aAddrReg)
+{
+	UInt8 aRetVal = 0;
+	UInt32 aTmp = 0;
+	while (iI2C_ReadStatus(kI2C1, kBUSY) == true);
+	iI2C_TransmiteModeSelect(kI2C1, kTxMode);
+	iI2C_GenerateStart(kI2C1);
+	iI2C_SendData(kI2C1, aAddrModule, kWrite);
+	i2c_Wait(kI2C1);
+	iI2C_SendData(kI2C1, aAddrReg, kNoRW);
+	i2c_Wait(kI2C1);
+	iI2C_GenerateRepeatedStart(kI2C1);
+	iI2C_SendData(kI2C1, aAddrModule, kRead);
+	i2c_Wait(kI2C1);
+	iI2C_TransmiteModeSelect(kI2C1, kRxMode);
+	I2C1_C1 |= I2C_C1_TXAK_MASK;
+	aRetVal = iI2C_ReadData(kI2C1);
+	i2c_Wait(kI2C1);
+	iI2C_GenerateStop(kI2C1);
+	aRetVal = iI2C_ReadData(kI2C1);
+	for (aTmp = 0; aTmp < 100; aTmp++);
+	return aRetVal;
+}
+
+//------------------------------------------------------------
+// Lecture d'une valeur du gyroscope
+// GyroAxeEnum aAxe: nom de l'axe à lire
+//------------------------------------------------------------
+UInt16 mCapteurGyro_ReadGyroAxe(GyroAxeEnum aAxe)
+{
+	UInt16 aRetVal = 0;
+
+	//Lecture byte du poid fort
+	aRetVal = mCapteurGyro_ReadByte(ADDRGYRO, aAxe);
+	//décallage du byte
+	aRetVal = aRetVal << 8;
+	//Lecture du byte de poid faible
+	aRetVal |= mCapteurGyro_ReadByte(ADDRGYRO, (aAxe - 1));
+
+	return aRetVal;
+}
+

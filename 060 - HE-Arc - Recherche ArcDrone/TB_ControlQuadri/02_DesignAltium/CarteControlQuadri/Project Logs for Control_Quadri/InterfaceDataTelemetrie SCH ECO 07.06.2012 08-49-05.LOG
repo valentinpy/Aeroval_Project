@@ -1,0 +1,4 @@
+Change Value of Parameter EtatCommande in Part C21 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part LED1 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part U7 Old=DNP New=EtatCommande
+Added Parameter EtatCommande=Interne to Part R15

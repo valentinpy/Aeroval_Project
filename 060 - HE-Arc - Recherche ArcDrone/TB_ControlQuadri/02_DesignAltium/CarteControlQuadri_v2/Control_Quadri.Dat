@@ -1,0 +1,40 @@
+Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=LibRef~String~LibRef~100|Field=Quantity~Integer~Quantity~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~Control_Quadri.PrjPCB|ReportField=ProjectFullPath~P:\Formation\010-Bachelor\040-TravailBachelor\GEL\12GEL-TB205-ControlQuadri\010-Etudiants\02_DesignAltium\CarteControlQuadri_v2\Control_Quadri.PrjPCB|ReportField=Title~Bill of Materials For Project [Control_Quadri.PrjPCB] (No PCB Document Selected)|ReportField=TotalQuantity~103|ReportField=ReportTime~11:15:10|ReportField=ReportDate~18.07.2012|ReportField=ReportDateTime~18.07.2012 11:15:10|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~Laboratoire de Systèmes Embarqués|ReportField=Address2~7, rue de la Serre|ReportField=Address3~2610 Saint-Imier / Switzerland|ReportField=Address4~|ReportField=ApprovedBy~|ReportField=Author~|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=ConfigurationParameters~|ReportField=CurrentDate~18.07.2012|ReportField=CurrentTime~11:14:55|ReportField=Date~|ReportField=DocumentFullPathAndName~P:\Formation\010-Bachelor\040-TravailBachelor\GEL\12GEL-TB205-ControlQuadri\010-Etudiants\02_DesignAltium\CarteControlQuadri_v2\SCH\Alimentation.SchDoc|ReportField=DocumentName~Alimentation.SchDoc|ReportField=DocumentNumber~|ReportField=DrawnBy~|ReportField=Engineer~|ReportField=ImagePath~|ReportField=ModifiedDate~17.07.2012|ReportField=Organization~Altium Limited|ReportField=PageSetup~Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintScale=0.24|XCorrection=1.00|YCorrection=1.00|PrintKind=0|BorderSize=5000000|LeftOffset=0|BottomOffset=0|Orientation=2|PaperLength=1000|PaperWidth=1000|Scale=100|PaperSource=7|PrintQuality=-4|MediaType=1|DitherType=10|PaperKind=A4|PrintScaleMode=1|ReportField=ProjectName~Control_Quadri.PrjPCB|ReportField=Revision~|ReportField=Rule~|ReportField=SheetNumber~|ReportField=SheetTotal~|ReportField=Time~|ReportField=Title~|ReportField=DataSourceFileName~Control_Quadri.PrjPCB|ReportField=DataSourceFullPath~P:\Formation\010-Bachelor\040-TravailBachelor\GEL\12GEL-TB205-ControlQuadri\010-Etudiants\02_DesignAltium\CarteControlQuadri_v2\Control_Quadri.PrjPCB
+3000TR|HOLDER BATTERY COIN 12MM DIA SMD|BT1|3000TR|BAT_1|1
+C2012X5R1A226M/1.25|CAPA|C1|080501|CAPA|1
+GRM21BR61E106KA73L|CAPA|C2|080501|CAPA|1
+GRM188R71E104KA01D|CAPA|C3, C4, C9, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C34, C35, C36, C37|060301|CAPA|23
+08056D106KAT2A|CAPA|C5, C10|080501|CAPA|2
+UMK212F224ZD-T|CAPA|C6|120601|CAPA|1
+C0805C475K4PACTU|CAPA|C8|080501|CAPA|1
+C0805C103K4RACTU|CAPA|C11|080501|CAPA|1
+C2012Y5V1H474Z/0.85|CAPA|C13|060301|CAPA|1
+GQM2195C1H200JB01D|CAPA|C30|060301|CAPA|1
+GQM2195C1H200JB01D|CAPA|C31|080501|CAPA|1
+GRM21A5C2E120JW01D|CAPA|C32, C33|080501|CAPA|2
+BAT54C|DIODE SCHTTKY CC 200MA 30V SOT23|D1|SOT2301|BAT54C|1
+ECS-40-20-5PX-TR||G1|Crystal|CRYSTAL|1
+ECS-.327-12.5-38||G2|Crystal2|CRYSTAL|1
+CON4||J1|SL354D|CON4|1
+CON8||J2|SL358D|CON8|1
+VLF3012ST-2R2M1R4||L1|InductanceAlim|INDUCTOR|1
+BLM21AG601SN1D|FERRITE CHIP 600 OHM 200MA 0805|L2, L3|080501|Ferrite Bead|2
+LG L29K-G2J1-24-Z||LED1, LED2, LED3, LED4, LED5, LED6, LED7, LED8|060301_led|LED|8
+ERJ-6GEYJ104V||R1, R34, R35|080501|RES|3
+ERJ-6GEYJ103V||R2, R3, R4, R5, R6, R17, R23, R31, R32|080501|RES|9
+RMCF0805JT820R||R7, R9, R11, R13, R15, R21, R22, R24, R25, R26, R27, R28, R29, R33|080501|RES|14
+ERJ-6GEYJ162V||R8, R10, R12, R14, R19|080501|RES|5
+WSLP59313L000FEB||R16|5.2x8.75|RES|1
+ERJ-6GEYJ822V||R18|080501|RES|1
+RC0603FR-071KL|RES 1.00K OHM 1/10W 1% 0603 SMD|R20, R30|060301|RES|2
+TPS62160DGK|IC BUCK SYNC ADJ 1A 8MSOP|U1|TSOP65P490-8AM|TPS62160|1
+MS5534-CM|Barometer Module|U2|MS5534B|MS5534B|1
+LSM303DLHCTR|Accéléromètre et magnétomètre|U3|LGA-14L|LSM303DLHC|1
+L3G4200DTR|Gyroscope|U4|LGA-16|L3G4200D|1
+SN74AHC14D||U5|SO1401|SN74AHC14D|1
+MIC4468ZWM||U6|SOIC127P1030-16M|MIC4468|1
+XBP24BZ7WIT-004J||U7|XBee-Pro|MaxStream XBee-PRO|1
+MAX4173TEUT+T|Amplificateur capteur de courant|U8|SOT26A-6AM|Max4173|1
+MK10DN512ZVLL10||U9|QFP100-1|MK10DN512ZVLL10|1
+CON6/CP|Connecteur contrôleur moteurs 1 (avant) & 2 (droite), Connecteur contrôleur moteurs 3 (arrière) & 4 (gauche), Connecteur récepteur télécommande cannaux 1 & 2, Connecteur récepteur télécommande cannaux 3 & 4|X1, X2, X3, X4|J2X3_2.54|CON6/CP|4
+CON10||X5, X6|SIP10|CON10|2
+FTSH-110-01-l-DV-K|CONN UNSHROUDED HDR 20POS .05"|X7|FTSH-110-01-X-DV-EJ|CON20_JTAG|1

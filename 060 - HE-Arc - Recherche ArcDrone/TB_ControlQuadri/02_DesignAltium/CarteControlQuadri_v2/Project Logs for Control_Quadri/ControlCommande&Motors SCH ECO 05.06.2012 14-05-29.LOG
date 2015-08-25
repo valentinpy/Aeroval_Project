@@ -1,0 +1,11 @@
+Change Value of Parameter Supplier Part Number 1 in Part R11 Old=RMCF0805JT820RCT-ND New=RMCF0805JT820RDKR-ND
+Added Parameter Supplier 1=Digi-Key to Part R12
+Added Parameter Supplier 1=Digi-Key to Part R13
+Added Parameter Supplier 1=Digi-Key to Part R14
+Added Parameter Supplier Part Number 1=RMCF0805JT820RDKR-ND to Part R12
+Added Parameter Supplier Part Number 1=RMCF0805JT820RDKR-ND to Part R13
+Added Parameter Supplier Part Number 1=RMCF0805JT820RDKR-ND to Part R14
+Added Parameter Value=820Ohm to Part R11
+Added Parameter Value=820Ohm to Part R12
+Added Parameter Value=820Ohm to Part R13
+Added Parameter Value=820Ohm to Part R14

@@ -1,0 +1,10 @@
+Added Component: Designator=G1(XT-5)
+Added Component: Designator=R1(080501)
+Added Pin To Net: NetName=NetG1_1 Pin=G1-1
+Added Pin To Net: NetName=NetG1_1 Pin=R1-2
+Added Net: Name=NetG1_1
+Added Pin To Net: NetName=NetG1_2 Pin=G1-4
+Added Pin To Net: NetName=NetG1_2 Pin=R1-1
+Added Net: Name=NetG1_2
+Added Class: Name=schéma
+Added Room: Name=schéma

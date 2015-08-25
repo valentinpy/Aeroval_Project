@@ -1,0 +1,66 @@
+/*
+ * mCapteurPression.h
+ *
+ *  Created on: 3 juil. 2012
+ *      Author: favrebm1
+ */
+
+#ifndef MCAPTEURPRESSION_H_
+#define MCAPTEURPRESSION_H_
+
+#include "def.h"
+#include "derivative.h"
+
+
+typedef enum
+{
+	kD1=0x0F40,
+	kD2=0x0F20,
+	kCalibWord1=0x1D50,
+	kCalibWord2=0x1D60,
+	kCalibWord3=0x1D90,
+	kCalibWord4=0x1DA0,
+	kResetSequence=0x155540
+}CapteurPressionRegistreEnum;
+
+
+
+//-----------------------------------------------------------------------------
+// capteur pression module setup
+//-----------------------------------------------------------------------------
+void mCapteurPression_Setup(void);
+
+//-----------------------------------------------------------------------------
+// capteur pression module setup
+//-----------------------------------------------------------------------------
+void mCapteurPression_Open(void);
+
+//-----------------------------------------------------------------------------
+// Lecture des valeurs et calcul de la pression
+// ATTENTION, doit toujours être exécuté avant la lecture des valeur pour les avoir à jour
+//-----------------------------------------------------------------------------
+bool mCapteurPression_Compute(void);
+
+//-----------------------------------------------------------------------------
+// Lecture la température mesurée
+//-----------------------------------------------------------------------------
+float mCapteurPression_ReadTemperature(void);
+
+//-----------------------------------------------------------------------------
+// Lecture de la pression mesurée
+//-----------------------------------------------------------------------------
+float mCapteurPression_ReadPression(void);
+
+//-----------------------------------------------------------------------------
+// Lecture de l'altitude
+//-----------------------------------------------------------------------------
+float mCapteurPression_ReadAltitude(void);
+
+//-----------------------------------------------------------------------------
+// Lecture de la pression au niveau de la mer
+//-----------------------------------------------------------------------------
+mCapteurPression_ReadSeaPression(void);
+
+
+
+#endif /* MCAPTEURPRESSION_H_ */

@@ -1,0 +1,44 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+-include ../../makefile.local
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS_QUOTED += \
+"../Sources/Utils/stringConvert.c" \
+
+C_SRCS += \
+../Sources/Utils/stringConvert.c \
+
+OBJS += \
+./Sources/Utils/stringConvert.obj \
+
+OBJS_QUOTED += \
+"./Sources/Utils/stringConvert.obj" \
+
+C_DEPS += \
+./Sources/Utils/stringConvert.d \
+
+C_DEPS_QUOTED += \
+"./Sources/Utils/stringConvert.d" \
+
+OBJS_OS_FORMAT += \
+./Sources/Utils/stringConvert.obj \
+
+
+# Each subdirectory must supply rules for building sources it contributes
+Sources/Utils/stringConvert.obj: ../Sources/Utils/stringConvert.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #2 $<'
+	@echo 'Invoking: ARM Compiler'
+	"$(ARM_ToolsDirEnv)/mwccarm" -gccinc @@"Sources/Utils/stringConvert.args" -o "Sources/Utils/stringConvert.obj" -c "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Utils/%.d: ../Sources/Utils/%.c
+	@echo 'Regenerating dependency file: $@'
+	
+	@echo ' '
+
+

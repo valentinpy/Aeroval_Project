@@ -1,0 +1,75 @@
+/*
+ * mCapteurAccelerometre.h
+ *
+ *  Created on: 6 juil. 2012
+ *      Author: favrebm1
+ */
+
+#ifndef MCAPTEURACCELEROMETRE_H_
+#define MCAPTEURACCELEROMETRE_H_
+
+#include "def.h"
+
+typedef enum
+{
+	LowPowerModeEnable=0x08,
+	ZEnable=0x04,
+	YEnable=0x02,
+	XEnable=0x01
+}CapteurAccelEnum;
+
+typedef enum
+{
+	kAccelAxe_X=0x29,
+	kAccelAxe_Y=0x2B,
+	kAccelAxe_Z=0x2D
+}AccelAxeEnum;
+
+typedef enum
+{
+	kMagnAxe_X=0x03,
+	kMagnAxe_Y=0x05,
+	kMagnAxe_Z=0x07
+}MagnAxeEnum;
+
+typedef enum
+{
+	kAccelAddr=0x19,
+	kMagnAddr=0x1E,
+}AccelMagnAddrEnum;
+
+//------------------------------------------------------------
+// Setup
+//------------------------------------------------------------
+void mCapteurAccelMagn_Setup(void);
+
+//------------------------------------------------------------
+// Open
+//------------------------------------------------------------
+void mCapteurAccelMagn_Open(void);
+
+//------------------------------------------------------------
+// Close
+//------------------------------------------------------------
+void mCapteurAccelMagn_Close(void);
+
+//------------------------------------------------------------
+// Lecture d'une valeur d'accélération
+// AccelAxeEnum aAxe: nom de l'axe à lire
+//------------------------------------------------------------
+UInt16 mCapteurAccelMagn_ReadAccelAxe(AccelAxeEnum aAxe);
+
+//------------------------------------------------------------
+// Lecture d'une valeur du magnétomètre
+// MagnAxeEnum aAxe: nom de l'axe à lire
+//------------------------------------------------------------
+UInt16 mCapteurAccelMagn_ReadMagnAxe(MagnAxeEnum aAxe);
+
+
+bool mCapteurAccelMagn_test(void);
+
+bool mCapteurAccelMagn_ReadAllMagnAxe(UInt16 *tabReturn);
+bool mCapteurAccelMagn_ReadAllAxe(AccelMagnAddrEnum aAddrModule,UInt8 aAddrReg,UInt8 *tabReturn);
+
+
+#endif /* MCAPTEURACCELEROMETRE_H_ */

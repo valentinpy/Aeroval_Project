@@ -1,0 +1,24 @@
+/*
+ * mOrientationProcessing.h
+ *
+ *  Created on: 6 janv. 2013
+ *      Author: alexandr.schnegg
+ */
+
+#ifndef MORIENTATIONPROCESSING_H_
+#define MORIENTATIONPROCESSING_H_
+
+typedef enum
+{
+	kFirstOrder, kSecondOrder,
+} filterOrderEnum;
+
+void mOrientationProcessing_setup(void);
+void mOrientationProcessing_computeSensor(UInt16 *aAccelTabIn, UInt16 *aGyroTabIn, float *aRacc, float *aGyroTab);
+void mOrientationProcessing_convertToGyroSystem(float *aRacc, float *aA);
+void mOrientationProcessing_FilterFirstOrder(float *aAngle, float *aAngleRate, float *aResult);
+float mOrientationProcessing_FilterSecondOrder(float aAngle, float aAngleRate);
+double mOrientationProcessing_RadToDeg(float aRad);
+void mOrientationProcessing_open(void);
+
+#endif /* MORIENTATIONPROCESSING_H_ */

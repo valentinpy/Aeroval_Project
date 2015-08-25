@@ -1,0 +1,158 @@
+/*
+------------------------------------------------------------
+Copyright 2003-2012 Haute école ARC Ingéniérie, Switzerland. 
+All rights reserved.
+------------------------------------------------------------
+Nom du fichier : 	def.h	
+Auteur et Date :	Monnerat Serge 23.11.2011
+
+But : Some general settings
+
+-----------------------------------------------------------------------------
+Historique:
+-----------------------------------------------------------------------------
+
+$History: $
+
+-----------------------------------------------------------------------------
+*/
+
+#ifndef DEF_H_
+#define DEF_H_
+
+
+//------------------------------------------------------------
+// Macros
+//------------------------------------------------------------
+// Enable maskable interrupts
+#define EnableInterrupts asm(" CPSIE i");
+
+// Disable maskable interrupts
+#define DisableInterrupts asm(" CPSID i");
+/***********************************************************************/
+
+//------------------------------------------------------------
+// Constants
+//------------------------------------------------------------
+// Core clock
+#define kClockCpu 		100.0 // 50MHz
+#define kClockCpukHz 	100000 // 50MHz
+
+// PIT0 period --> 1 ms
+#define kPit0Period 1 
+
+//------------------------------------------------------------
+// Type
+//------------------------------------------------------------
+// PIT enum
+typedef enum
+{
+	kPit0=0,
+	kPit1=1,
+	kPit2=2,
+	kPit3=3
+}PitEnum;
+
+//------------------------------------------------------------
+// Interrupt priority (O.highest, 16 lowest)
+//------------------------------------------------------------
+#define kPIT_IntPriority 	0x50	// Priority 5
+#define kPORTA_IntPriority 	0x20	// Priority 2
+#define kUart0_IntPriority  0x10  // Priority 1
+#define kFTM1_IntPriority	0x40
+#define kFTM0_IntPriority	0x30
+#define kFTM2_IntPriority	0x60
+
+//------------------------------------------------------------
+// bool and standard type
+//------------------------------------------------------------
+typedef int bool;
+#define TRUE 1
+#define true 1
+#define FALSE 0
+#define false 0
+
+#define PI (float)3.14159265
+
+typedef unsigned char				UInt8;  /*  8 bits */
+typedef unsigned short int	UInt16; /* 16 bits */
+typedef unsigned long int		UInt32; /* 32 bits */
+
+typedef char			    			Int8;   /*  8 bits */
+typedef short int	        	Int16;  /* 16 bits */
+typedef int		            	Int32;  /* 32 bits */
+
+typedef volatile Int8				VInt8;  /*  8 bits */
+typedef volatile Int16			VInt16; /* 16 bits */
+typedef volatile Int32			VInt32; /* 32 bits */
+
+typedef volatile UInt8			VUInt8;  /*  8 bits */
+typedef volatile UInt16			VUInt16; /* 16 bits */
+typedef volatile UInt32			VUInt32; /* 32 bits */
+
+//------------------------------------------------------------
+// FPGA memory map
+//------------------------------------------------------------
+// FPGA write from microcontroller registers base address
+#define kFpgaWrRegBaseAdr 0xA4000000
+#define kFpgaWrRegEndAdr 0xA4000068
+// FPGA read from microcontroller registers base address
+#define kFpgaRdRegBaseAdr 0xA2000000
+#define kFpgaRdRegEndAdr 0xA2000140
+
+// FPGA write from uC registers enum (R/W access)
+typedef enum
+{
+	// Fpga write from microcontroller registers (R/W access)
+	I_ADC_COARSE_PARAM					=(kFpgaWrRegBaseAdr+0),     
+	Q_ADC_COARSE_PARAM					=(kFpgaWrRegBaseAdr+4),     
+	I_ADC_FINE_PARAM						=(kFpgaWrRegBaseAdr+8),       
+	Q_ADC_FINE_PARAM						=(kFpgaWrRegBaseAdr+0xc),       
+	I_ADC_DELAY_PARAM						=(kFpgaWrRegBaseAdr+0x10),      
+	Q_ADC_DELAY_PARAM						=(kFpgaWrRegBaseAdr+0x14),      
+	I_CMP_DELAY_PARAM						=(kFpgaWrRegBaseAdr+0x18),      
+	Q_CMP_DELAY_PARAM						=(kFpgaWrRegBaseAdr+0x1c),      
+	ADC_PHASE_TO_DIST_PARAM			=(kFpgaWrRegBaseAdr+0x20),
+	CMP_PHASE_TO_DIST_PARAM			=(kFpgaWrRegBaseAdr+0x24),
+	ADC_CLEAR_RESET_DIST				=(kFpgaWrRegBaseAdr+0x28),   
+	CMP_CLEAR_RESET_DIST				=(kFpgaWrRegBaseAdr+0x2c),   
+	ADC_TRIGGER_DELAY_PARAM			=(kFpgaWrRegBaseAdr+0x30),    
+	CMP_TRIGGER_DELAY_PARAM			=(kFpgaWrRegBaseAdr+0x34),    
+	WINDOWS_GEN_DELAY_PARAM			=(kFpgaWrRegBaseAdr+0x38),
+	WINDOWS_GEN_WIDTH_PARAM			=(kFpgaWrRegBaseAdr+0x3c),
+	ADC_DTPSI_MON_EN						=(kFpgaWrRegBaseAdr+0x40),  
+	RAM_CLEAR										=(kFpgaWrRegBaseAdr+0x44),
+	RAM_WRITE_ENABLE						=(kFpgaWrRegBaseAdr+0x48),
+	RAM_SELECT									=(kFpgaWrRegBaseAdr+0x4c),
+	UART_BAUDRATE								=(kFpgaWrRegBaseAdr+0x50),
+	UART_DIST_SELECT						=(kFpgaWrRegBaseAdr+0x54),
+	WAVELENGTH_SAMPLING_RATE		=(kFpgaWrRegBaseAdr+0x58),
+	WAVELENGTH_ADC_ENABLE				=(kFpgaWrRegBaseAdr+0x5c),
+	WAVELENGTH_ADC_REQUEST			=(kFpgaWrRegBaseAdr+0x60),
+	WAVELENGTH_WIN_CENTER				=(kFpgaWrRegBaseAdr+0x64),
+	WAVELENGTH_WIN_WIDTH				=(kFpgaWrRegBaseAdr+0x68),
+	DEBUG0											=(kFpgaWrRegBaseAdr+0x1f8),
+	DEBUG1											=(kFpgaWrRegBaseAdr+0x1fc),
+	// Fpga read from microcontroller registers (Read access only)
+	I_ADC_OFFSET								=(kFpgaRdRegBaseAdr+0x0),   
+	I_ADC_AMPLITUDE							=(kFpgaRdRegBaseAdr+0x4), 
+	Q_ADC_OFFSET								=(kFpgaRdRegBaseAdr+0x8),    
+	Q_ADC_AMPLITUDE							=(kFpgaRdRegBaseAdr+0xc), 
+	I_CMP_OFFSET								=(kFpgaRdRegBaseAdr+0x10),    
+	Q_CMP_OFFSET								=(kFpgaRdRegBaseAdr+0x14),    
+	ADC_DIST										=(kFpgaRdRegBaseAdr+0x18),        
+	ADC_MOD_AMPL								=(kFpgaRdRegBaseAdr+0x1c),    
+	ADC_SPEED										=(kFpgaRdRegBaseAdr+0x20),   
+	CMP_DIST										=(kFpgaRdRegBaseAdr+0x24),        
+	CMP_MOD_AMPL								=(kFpgaRdRegBaseAdr+0x28),    
+	CMP_SPEED										=(kFpgaRdRegBaseAdr+0x2c),   
+	WAVELENGTH_ADC_VALUE				=(kFpgaRdRegBaseAdr+0x30), 
+	WAVELENGTH_SUM1_M_SUM2			=(kFpgaRdRegBaseAdr+0x34), 
+	WAVELENGTH_READY						=(kFpgaRdRegBaseAdr+0x38), 
+	ADC_DTPSI_MON_MAX						=(kFpgaRdRegBaseAdr+0x3c),    
+	ADC_DTPSI_MON_MIN						=(kFpgaRdRegBaseAdr+0x40), 
+	ADC_DTPSI_MON_STAT					=(kFpgaRdRegBaseAdr+0x44)	// MON_STAT Start address,end address (kFpgaRdRegBaseAdr+0x140)  
+}FpgaRegEnum;
+
+
+#endif

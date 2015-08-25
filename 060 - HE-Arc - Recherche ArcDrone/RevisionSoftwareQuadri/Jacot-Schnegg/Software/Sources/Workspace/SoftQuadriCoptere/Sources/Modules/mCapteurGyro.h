@@ -1,0 +1,29 @@
+#ifndef MCAPTEURGYRO_H_
+#define MCAPTEURGYRO_H_
+
+#include "def.h"
+
+typedef enum
+{
+	GyroAxe_X = 0x29,
+	GyroAxe_Y = 0x2B,
+	GyroAxe_Z = 0x2D
+}GyroAxeEnum;
+
+//------------------------------------------------------------
+// Open
+//------------------------------------------------------------
+void mCapteurGyro_Open(void);
+
+//------------------------------------------------------------
+// Close
+//------------------------------------------------------------
+void mCapteurGyro_Close(void);
+
+//------------------------------------------------------------
+// Lecture d'une valeur du gyroscope
+// GyroAxeEnum aAxe: nom de l'axe à lire
+//------------------------------------------------------------
+UInt16 mCapteurGyro_ReadGyroAxe(GyroAxeEnum aAxe);
+
+#endif /* MCAPTEURGYRO_H_ */

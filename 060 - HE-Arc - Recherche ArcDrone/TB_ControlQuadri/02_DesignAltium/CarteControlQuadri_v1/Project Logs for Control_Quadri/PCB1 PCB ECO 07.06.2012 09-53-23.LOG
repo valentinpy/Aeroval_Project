@@ -1,0 +1,9 @@
+Added Component: Designator=R20(060301)
+Added Component: Designator=R21(080501)
+Added Pin To Net: NetName=3.3V Pin=R20-1
+Added Pin To Net: NetName=NetR20_2 Pin=R20-2
+Added Pin To Net: NetName=NetC31_1 Pin=R21-1
+Added Pin To Net: NetName=NetC30_1 Pin=R21-2
+Added Pin To Net: NetName=NetU9_69 Pin=U9-69
+Added Member To Class: ClassName=Microcontroleur Member=Component R20 RC0603FR-071KL
+Added Member To Class: ClassName=Microcontroleur Member=Component R21 RMCF0805JT820R

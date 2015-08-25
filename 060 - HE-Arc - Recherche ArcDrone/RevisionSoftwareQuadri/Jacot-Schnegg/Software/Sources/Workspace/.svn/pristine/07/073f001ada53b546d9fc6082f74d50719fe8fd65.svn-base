@@ -1,0 +1,167 @@
+#include <stdio.h>
+
+#include "derivative.h" /* include peripheral declarations */
+#include "mCpu.h"		/* PLL and crossbar configuration */
+#include "mPwm.h"		/* FTMx configuration */
+#include "mLeds.h"		/* Configuration Port leds */
+#include "mRfInterface.h"
+#include "stringConvert.h"
+#include "iDio.h"
+#include "mCapteurAccelMagn.h"
+#include "mCapteurGyro.h"
+#include "iSpi.h"
+#include "mCapteurPression.h"
+#include "iAd.h"
+#include "mMesureAlimentation.h"
+#include "generateTrame.h"
+
+#define ADDRGYRO 0x69
+
+void main(void)
+{
+	UInt16 tabReturnUInt16[kNbCapteursMax];
+	float tabReturnFloat[kNbCapteursMax];
+	UInt8 aVarData[kNbCapteursMax][kNbDigitsMax];
+	UInt8 aVarTrame[kMaxTrameLength];
+
+	float aVarTestFloat = 0;
+	float aVarTestFloat1 = 0;
+	bool aVarTestBool = false;
+	UInt8 aVarTestInt = 0;
+	UInt16 aVarTestUInt16 = 0;
+
+	UInt8 aArray[12];
+	float aValSent = 34.5;
+
+	UInt32 i, j, aVarTestUInt32;
+
+	UInt8 calibW1Addr1 = 0x1d;
+	UInt8 calibW1Addr2 = 0x50;
+
+	//setup interfaces	
+	//-------------------------------------------------------------------------------
+	iCpu_SysInit();
+	iI2C_Setup();
+	iUart_Config();
+	iSpi_Setup();
+	iPit_Config(kPit0, 2);
+	iPit_StartPit(kPit0);
+	iAd_Config();
+	iAd_Cal(kAdc0);
+
+	//Open interfaces	
+	//-------------------------------------------------------------------------------
+	iI2C_Open();
+	iUart_Open();
+	iSpi_Open();
+
+	//setup modules
+	//-------------------------------------------------------------------------------
+	mCpu_Setup();	// PLL and crossbar configuration
+	mLeds_Setup();	// Configuration Port leds
+	mPwm_Setup();	// FTMx configuration
+	mDelay_Setup();
+	mRfInterface_Setup();
+	mCapteurAccelMagn_Setup();
+	mCapteurGyro_Setup();
+	mCapteurPression_Setup();
+
+	//Open des modules
+	//-------------------------------------------------------------------------------
+	mDelay_Open();
+	mRfInterface_Open();
+	mCapteurAccelMagn_Open();
+	mCapteurPression_Open();
+
+	//Test led
+	mLeds_WriteLed(kLed3, kLedOn);
+	mLeds_WriteLed(kLed2, kLedOn);
+	mLeds_WriteLed(kLed4, kLedOn);
+	mLeds_WriteLed(kLed5, kLedOn);
+	mLeds_WriteLed(kLed6, kLedOn);
+	mLeds_WriteLed(kLed7, kLedOn);
+	mLeds_WriteLed(kLed8, kLedOn);
+
+	//Round Robin
+	while (1)
+	{
+		//Lecture de l'accelerometre axe après axe
+		stringConvert_UInt16ToChar(mCapteurAccelMagn_ReadAccelAxe(kAccelAxe_X), aVarData[0]);
+		stringConvert_UInt16ToChar(mCapteurAccelMagn_ReadAccelAxe(kAccelAxe_Y), aVarData[1]);
+		stringConvert_UInt16ToChar(mCapteurAccelMagn_ReadAccelAxe(kAccelAxe_Z), aVarData[2]);
+
+		generateTrame(kDestAccel, kUInt16, aVarData, aVarTrame, 3);
+		mRfInterface_SendString(aVarTrame);
+
+		//Lecture du gyro axe après axe
+		stringConvert_UInt16ToChar(mCapteurGyro_ReadGyroAxe(GyroAxe_X), aVarData[0]);
+		stringConvert_UInt16ToChar(mCapteurGyro_ReadGyroAxe(GyroAxe_Y), aVarData[1]);
+		stringConvert_UInt16ToChar(mCapteurGyro_ReadGyroAxe(GyroAxe_Z), aVarData[2]);
+
+		generateTrame(kDestGyro, kUInt16, aVarData, aVarTrame, 3);
+		mRfInterface_SendString(aVarTrame);
+
+		//Lecture de la pression et de la température
+		if (mCapteurPression_Compute())
+		{
+			//Pression
+			aVarTestFloat = mCapteurPression_ReadPression();
+			stringConvert_FloatToChar(aVarTestFloat, aVarData[0]);
+
+			generateTrame(kDestPression, kFloat, aVarData, aVarTrame, 1);
+			mRfInterface_SendString(aVarTrame);
+
+			//Température
+			aVarTestFloat = mCapteurPression_ReadTemperature();
+			stringConvert_FloatToChar(aVarTestFloat, aVarData[0]);
+
+			generateTrame(kDestTemperature, kFloat, aVarData, aVarTrame, 1);
+			mRfInterface_SendString(aVarTrame);
+		}
+
+		//Lecture de la tension
+		aVarTestFloat = mMesureAlimentation_TensionBatterie();
+		stringConvert_FloatToChar(aVarTestFloat, aVarData[0]);
+		generateTrame(kTensionAccu, kFloat, aVarData, aVarTrame, 1);
+		mRfInterface_SendString(aVarTrame);
+
+		//Courant batterie
+		aVarTestFloat = mMesureAlimentation_CourantBatterie();
+		stringConvert_FloatToChar(aVarTestFloat * 1000, aVarData[0]);
+		generateTrame(kCourantAccu, kFloat, aVarData, aVarTrame, 1);
+		mRfInterface_SendString(aVarTrame);
+
+		//Lecture de l'accelerometre en une fois
+//		mCapteurAccelMagn_ReadAllMagnAxe(tabReturnUInt16);
+//
+//		stringConvert_UInt16ToChar(tabReturnUInt16[0], aVarData[0]);
+//		stringConvert_UInt16ToChar(tabReturnUInt16[1], aVarData[1]);
+//		stringConvert_UInt16ToChar(tabReturnUInt16[2], aVarData[2]);
+//
+//		generateTrame(kDestAccel, kUInt16, aVarData, aVarTrame, 3);
+//		mRfInterface_SendString(aVarTrame);
+
+		//Test FTM inpute capture & output compare (PWM)
+//		tabReturnFloat[0] = mPwm_ReadSignauxTelecommande(kPwmCh0);
+//		tabReturnFloat[1] = mPwm_ReadSignauxTelecommande(kPwmCh1);
+//		tabReturnFloat[2] = mPwm_ReadSignauxTelecommande(kPwmCh2);
+//		tabReturnFloat[3] = mPwm_ReadSignauxTelecommande(kPwmCh3);
+		tabReturnFloat[0] = 0.1;
+		tabReturnFloat[0] = 0.2;
+		tabReturnFloat[0] = 0.3;
+		tabReturnFloat[0] = 0.4;
+	
+		stringConvert_FloatToChar(tabReturnFloat[0], aVarData[0]);
+		stringConvert_FloatToChar(tabReturnFloat[1], aVarData[1]);
+		stringConvert_FloatToChar(tabReturnFloat[2], aVarData[2]);
+		stringConvert_FloatToChar(tabReturnFloat[3], aVarData[3]);
+		
+		generateTrame(kDutyPwm, kFloat, aVarData, aVarTrame, 4);
+		mRfInterface_SendString(aVarTrame);
+
+		mPwm_WriteVitesseMoteur(kPwmCh4, tabReturnFloat[0]);
+		mPwm_WriteVitesseMoteur(kPwmCh5, tabReturnFloat[1]);
+		mPwm_WriteVitesseMoteur(kPwmCh6, tabReturnFloat[2]);
+		mPwm_WriteVitesseMoteur(kPwmCh7, tabReturnFloat[3]);
+	}
+}

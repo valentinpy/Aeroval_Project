@@ -1,0 +1,18 @@
+Change Value of Parameter Value in Part C32 Old=12.5pF New=12pF
+Change Value of Parameter Value in Part C33 Old=12.5pF New=12pF
+Change Value of Parameter DNP in Part D1 Old= New=Commandé
+Change Value of Parameter DNP in Part L2 Old= New=Commandé
+Change Value of Parameter DNP in Part L3 Old= New=Commandé
+Added Parameter DNP=Commandé to Part C30
+Added Parameter DNP=Commandé to Part C31
+Added Parameter DNP=Commandé to Part C32
+Added Parameter DNP=Commandé to Part C33
+Added Parameter DNP=Commandé to Part G1
+Added Parameter DNP=Commandé to Part G2
+Added Parameter DNP=Commandé to Part LED2
+Added Parameter DNP=Commandé to Part LED3
+Added Parameter DNP=Commandé to Part LED4
+Added Parameter DNP=Commandé to Part LED5
+Added Parameter DNP=Commandé to Part LED6
+Added Parameter DNP=Commandé to Part LED7
+Added Parameter DNP=Commandé to Part LED8

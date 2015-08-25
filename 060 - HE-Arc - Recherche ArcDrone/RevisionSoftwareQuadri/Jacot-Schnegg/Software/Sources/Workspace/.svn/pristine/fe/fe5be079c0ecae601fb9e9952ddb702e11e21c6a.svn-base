@@ -1,0 +1,43 @@
+/*
+ * mRegulation.c
+ *
+ *  Created on: 7 janv. 2013
+ *      Author: alexandr.schnegg
+ */
+
+#include "mRegulation.h"
+#include "MK10DZ10.h"
+#include "mPwm.h"
+
+#define kGAINPXZ 0.5f
+#define kGAINPYZ 0.5f
+#define kOFFSETMOTEUR 0.5f
+#define kDELTAMOTEUR 0.2f
+
+
+float mRegulation_getError(float aConsigne,float aMesure)
+{
+	return aConsigne-aMesure;
+}
+
+/**
+ * aGainP entre 0 et 1
+ */
+float mRegulation_regulate(float aErreur,float aGainP)
+{
+	return kDELTAMOTEUR*aErreur*aGainP/(float)90;
+}
+
+void mRegulation_execute(float aConsigneXZ,float aConsigneYZ,float aMesureXZ,float aMesureYZ)
+{
+	float aErreurXZ;
+	float aErreurYZ;
+	aErreurXZ=mRegulation_getError(aConsigneXZ,aMesureXZ);
+	aErreurYZ=mRegulation_getError(aConsigneYZ,aMesureYZ);
+	
+	
+	mPwm_WriteVitesseMoteur(kPwmCh4, kOFFSETMOTEUR-mPwm_convertPercentToCmd(mRegulation_regulate(aErreurXZ,kGAINPXZ)));
+	mPwm_WriteVitesseMoteur(kPwmCh5, kOFFSETMOTEUR+mPwm_convertPercentToCmd(mRegulation_regulate(aErreurYZ,kGAINPYZ)));
+	mPwm_WriteVitesseMoteur(kPwmCh6, kOFFSETMOTEUR+mPwm_convertPercentToCmd(mRegulation_regulate(aErreurXZ,kGAINPXZ)));
+	mPwm_WriteVitesseMoteur(kPwmCh7, kOFFSETMOTEUR-mPwm_convertPercentToCmd(mRegulation_regulate(aErreurYZ,kGAINPYZ)));
+}

@@ -1,0 +1,15 @@
+/*
+ * mRegulation.h
+ *
+ *  Created on: 7 janv. 2013
+ *      Author: alexandr.schnegg
+ */
+
+#ifndef MREGULATION_H_
+#define MREGULATION_H_
+
+float mRegulation_getError(float aConsigne,float aMesure);
+float mRegulation_regulate(float aErreur,float aGainP);
+void mRegulation_execute(float aConsigneXZ,float aConsigneYZ,float aMesureXZ,float aMesureYZ);
+
+#endif /* MREGULATION_H_ */

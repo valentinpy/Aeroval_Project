@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Create method mRegulation_regulateP" description="Extract Method Refactoring" fileName="file:/D:/Documents/HES/3eme/Projet/Workspace/SoftQuadriCoptere/Sources/Modules/mRegulation.c" flags="4" id="org.eclipse.cdt.internal.ui.refactoring.extractfunction.ExtractFunctionRefactoring" name="mRegulation_regulateP" replaceDuplicates="false" selection="653,24" stamp="1357913444225" visibility="private"/>
+</session>

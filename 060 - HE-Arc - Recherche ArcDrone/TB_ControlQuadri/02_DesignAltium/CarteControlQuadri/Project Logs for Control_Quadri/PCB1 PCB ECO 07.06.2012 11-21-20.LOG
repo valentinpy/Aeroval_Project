@@ -1,0 +1,7 @@
+Added Component: Designator=J1(SL354D)
+Added Pin To Net: NetName=NetC22_1 Pin=J1-1
+Added Pin To Net: NetName=NetC22_1 Pin=J1-2
+Added Pin To Net: NetName=GND Pin=J1-3
+Added Pin To Net: NetName=GND Pin=J1-4
+Added Pin To Net: NetName=NetU9_69 Pin=U9-69
+Added Member To Class: ClassName=MesureAlimentation Member=Component J1 CON4

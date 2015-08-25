@@ -1,0 +1,8 @@
+Sources/Modules/mPwm.obj: D:\Documents\Temporaire\Workspace\SoftQuadriCoptere\Sources\Modules\mPwm.c \
+	C:\Freescale\CW\ MCU\ v10.2\MCU\ARM_EABI_Support\ewl\EWL_C\include\lib_ewl.prefix \
+	C:\Freescale\CW\ MCU\ v10.2\MCU\ARM_EABI_Support\ewl\EWL_C\include\common.prefix \
+	C:\Freescale\CW\ MCU\ v10.2\MCU\ARM_EABI_Support\ewl\EWL_C\include\ewl_c_version.h \
+	D:\Documents\Temporaire\Workspace\SoftQuadriCoptere\Sources\Modules\mPwm.h \
+	D:\Documents\Temporaire\Workspace\SoftQuadriCoptere\Sources\Utils\def.h \
+	D:\Documents\Temporaire\Workspace\SoftQuadriCoptere\Sources\Interface\iFlextimer.h \
+	D:\Documents\Temporaire\Workspace\SoftQuadriCoptere\Sources\Interface\iDio.h 

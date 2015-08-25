@@ -1,0 +1,59 @@
+/*
+ * mOrientationProcessing.c
+ *
+ *  Created on: 26 nov. 2012
+ *      Author: alexandr.schnegg
+ */
+
+#include "def.h"
+#include "mCapteurGyro.h"
+#include "mCapteurAccelMagn.h"
+#include <cmath>
+
+#define kNbCapteursMax	3
+#define kAccOffset 0
+#define kAccScale (float)4/(float)65635
+#define kGyroScale (float)500/(float)65635
+#define kGyroOffsetX (Int16)2613
+#define kGyroOffsetY (Int16)62943
+#define kGyroOffsetZ (Int16)2693
+
+/**
+ * aRacc=Racc={Rx,Ry,Rz}
+ */
+void mOrientationProcessing_readSensor(float *aRacc,float *aGyroTab)
+{
+	UInt8 i;
+	UInt16 tabReturnUInt16[kNbCapteursMax];
+	
+	//Acquisition accel
+	mCapteurAccelMagn_ReadAllAccelAxes(tabReturnUInt16);
+	
+	//Mise en forme accel
+	for(i=0;i<kNbCapteursMax;i++)
+	{
+	aRacc[i]=(float)((Int16)tabReturnUInt16[i]-kAccOffset)*kAccScale;
+	}
+	
+	//Acquisition gyro
+	tabReturnUInt16[0]=mCapteurGyro_ReadGyroAxe(GyroAxe_X);
+	tabReturnUInt16[1]=mCapteurGyro_ReadGyroAxe(GyroAxe_Y);
+	tabReturnUInt16[2]=mCapteurGyro_ReadGyroAxe(GyroAxe_Z);
+	
+	//Mise en forme gyro	
+	aGyroTab[0]=(float)((Int16)tabReturnUInt16[0]-kGyroOffsetX)*kGyroScale;
+	aGyroTab[1]=(float)((Int16)tabReturnUInt16[1]-kGyroOffsetY)*kGyroScale;
+	aGyroTab[2]=(float)((Int16)tabReturnUInt16[2]-kGyroOffsetZ)*kGyroScale;
+
+}
+
+/**
+ * Convertion du vecteur d'acceleration en angle dans le système gyroscopique
+ * aA={Axz,Axy,Ayz}
+ */
+void mOrientationProcessing_convertToGyroSystem(float *aRacc,float *aA)
+{
+	aA[0]=atan2(aRacc[0],aRacc[2]);
+	aA[1]=atan2(aRacc[0],aRacc[1]);
+	aA[2]=atan2(aRacc[1],aRacc[2]);
+}

@@ -1,0 +1,123 @@
+/*
+ * mOrientationProcessing.c
+ *
+ *  Created on: 26 nov. 2012
+ *      Author: alexandr.schnegg
+ */
+
+#include "def.h"
+#include "mCapteurGyro.h"
+#include "mCapteurAccelMagn.h"
+#include <cmath>
+#include "generateTrame.h"
+#include "def.h"
+#include "mCapteurAccelMagn.h"
+#include "mCapteurGyro.h"
+
+#define kNbCapteurs	3
+#define kAccOffset 0
+#define kAccScale (float)4/(float)65536
+#define kGyroScale (float)500/(float)65536
+#define kGyroOffsetX (Int16)2613
+#define kGyroOffsetY (Int16)62943
+#define kGyroOffsetZ (Int16)2693
+#define kDT (float)0.01
+#define kA	(float)0.98
+#define kB (float)(1-kA)
+
+/**
+ * aRacc=Racc={Rx,Ry,Rz}
+ */
+void mOrientationProcessing_readSensor(float *aRacc, float *aGyroTab)
+{
+	UInt8 i;
+	UInt16 tabReturnUInt16[kNbCapteurs];
+
+	//Acquisition accel
+	mCapteurAccelMagn_ReadAllAccelAxes(tabReturnUInt16);
+
+	//Mise en forme accel
+	for (i = 0; i < kNbCapteursMax; i++)
+	{
+		aRacc[i] = (float) ((Int16) tabReturnUInt16[i] - kAccOffset) * kAccScale;
+	}
+
+	//Acquisition gyro
+	tabReturnUInt16[0] = mCapteurGyro_ReadGyroAxe(GyroAxe_X);
+	tabReturnUInt16[1] = mCapteurGyro_ReadGyroAxe(GyroAxe_Y);
+	tabReturnUInt16[2] = mCapteurGyro_ReadGyroAxe(GyroAxe_Z);
+
+	//Mise en forme gyro	
+	aGyroTab[0] = (float) ((Int16) tabReturnUInt16[0] - kGyroOffsetX) * kGyroScale; //Correspond Ayz
+	aGyroTab[1] = (float) ((Int16) tabReturnUInt16[1] - kGyroOffsetY) * kGyroScale; //Correspond Axz
+	aGyroTab[2] = (float) ((Int16) tabReturnUInt16[2] - kGyroOffsetZ) * kGyroScale; //Correspond Ayx
+
+}
+
+/**
+ * Convertion du vecteur d'acceleration en angle dans le système gyroscopique
+ * aA={Axz,Axy,Ayz}
+ */
+void mOrientationProcessing_convertToGyroSystem(float *aRacc, float *aA)
+{
+	aA[0] = atan2(aRacc[1], aRacc[2]); //Axz gyro == Ayz accel
+	aA[1] = atan2(aRacc[0], aRacc[1]); //Ayx gyro == Axy accel
+	aA[2] = atan2(aRacc[0], aRacc[2]); //Ayz gyro == Axz accel
+}
+
+float mOrientationProcessing_Filter(float aAngle, float aAngleRate)
+{
+	static float sAngle = 0;
+	sAngle = kB * (aAngle + aAngleRate * kDT) + kA * aAngle;
+	return sAngle;
+}
+
+void mOrientationProcessing_Execute(void)
+{
+	enum stateEnum
+	{
+		kAcquire, kFilter, kSend,
+	};
+	static enum stateEnum aState = kAcquire;
+
+	static float sRaccTab[3];
+	static float sGyroTab[3];
+	static float sATab[3];
+	static Int16 sNumTempo = -1;
+	UInt8 aVarTrame[kMaxTrameLength];
+	static float sAngleTab[3];
+	UInt8 i;
+	UInt8 aVarData[kNbCapteurs][kNbDigitsMax];
+
+	switch (aState)
+	{
+	
+	case kAcquire:
+		mOrientationProcessing_readSensor(sRaccTab, sGyroTab);
+		mOrientationProcessing_convertToGyroSystem(sRaccTab, sATab);
+		aState = kFilter;
+		break;
+	case kFilter:
+		
+		for (i = 0; i < 3; i++)
+		{
+			sAngleTab[i] = mOrientationProcessing_Filter(sATab[i], sGyroTab[i]);
+		}
+		sNumTempo = mDelay_GetDelay(kPit0, kDT * 1000);
+		aState = kSend;
+		break;
+	case kSend:
+		if (mDelay_IsDelayDone(kPit0, sNumTempo))
+		{
+			for (i = 0; i < 3; i++)
+			{
+			stringConvert_FloatToChar(sAngleTab[i], aVarData[i]);
+			}
+			generateTrame(kDestAngle, kFloat, aVarData, aVarTrame, 3);
+			mRfInterface_SendString(aVarTrame);
+			aState = kAcquire;
+		}
+		break;
+	}
+}
+

@@ -1,0 +1,114 @@
+/*
+ * mRfInterface.c
+ *
+ *  Created on: 3 juil. 2012
+ *      Author: favrebm1
+ */
+
+#include "iUart.h"
+#include <stdio.h>
+
+//------------------------------------------------------------
+// UART setup de la communication RF
+//------------------------------------------------------------
+void mRfInterface_Setup(void)
+{
+
+}
+
+//------------------------------------------------------------
+// Open module RF
+//------------------------------------------------------------
+void mRfInterface_Open()
+{
+
+}
+
+//------------------------------------------------------------
+// Close module RF
+//------------------------------------------------------------
+void mRfInterface_Close()
+{
+
+}
+
+//------------------------------------------------------------
+// Envoi d'un byte par le module RF
+//------------------------------------------------------------
+void mRfInterface_SendByte(UInt8 aData)
+{
+	while(false==iUart_GetFifoStatus(kTxFifoEmpty));
+	iUart_SetData(aData);
+}
+
+//------------------------------------------------------------
+// Envoi d'un tableau de donnée par le module RF
+// UInt8 aArray[]: Un pointeur sur le tableau de donnée
+// UInt8 lengthArray: La taille du tableau
+//------------------------------------------------------------
+void mRfInterface_SendArray(UInt8 aArray[],UInt8 lengthArray)
+{
+	UInt8 i=0;
+	
+	for(i=0;i<lengthArray;i++)
+	{
+		mRfInterface_SendByte(aArray[i]);
+	}
+}
+
+//------------------------------------------------------------
+// Envoi d'une chaine de caractères au module RF
+// char *aString: Un pointeur sur une chaine de caratères
+//------------------------------------------------------------
+void mRfInterface_SendString(UInt8 *aString)
+{
+	UInt8 i=0;
+	
+	for(i=0;aString[i]!=0x00;i++)
+	{
+		mRfInterface_SendByte(aString[i]);
+	}
+}
+
+//------------------------------------------------------------
+// Lecture d'un byte dans le buffer de réception
+// UInt8 *aRetPtr: pointeur sur la variable de retour
+//Renvoie l'état de la donnée: true donnée valide/ false donnée invalide
+//------------------------------------------------------------
+bool mRfInterface_ReadByteFromBuffer(UInt8 *aRetPtr)
+{
+	bool aRet=0;
+	
+	if(false==iUart_IsBufferEmpty())
+	{
+		*aRetPtr=iUart_GetCharFromBuffer();
+		aRet=true;
+	}
+	else
+	{
+		aRet=false;
+	}
+	
+	return aRet;
+}
+
+//------------------------------------------------------------
+// Lecture d'une trame de x bytes dans le buffer de réception
+// UInt8 aTrame[]: pointeur sur le tableau de retour
+// UInt8 lengthTrame: Taille de la trame attendue
+//Attention, la fonction est bloquante lorsqu'elle ne reçois pas le bon nombre de bytes
+//------------------------------------------------------------
+void mRfInterface_ReadTrameFromBuffer(UInt8 aTrame[],UInt8 lengthTrame)
+{
+	UInt8 i=0;
+	
+		for(i=0;i<lengthTrame;i++)
+		{
+			while(true==iUart_IsBufferEmpty());
+			aTrame[i]=iUart_GetCharFromBuffer();
+		}
+
+}
+
+
+

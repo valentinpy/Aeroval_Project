@@ -1,0 +1,25 @@
+/*
+ * mRegulation.h
+ *
+ *  Created on: 7 janv. 2013
+ *      Author: alexandr.schnegg
+ */
+
+#ifndef MREGULATION_H_
+#define MREGULATION_H_
+
+#define kGAINPXZ 0.35f
+#define kGAINPYZ 0.35f
+#define kGAINIXZ 0.0f
+#define kGAINIYZ 0.0f
+#define kOFFSETMOTEUR 0.70f
+#define kDELTAMOTEUR 0.25f
+#define kANGLEMAX 45.0f
+
+float mRegulation_getError(float aConsigne,float aMesure);
+float mRegulation_regulate(float aErreur,float aGainP,float aGainI);
+void mRegulation_execute(float aConsigneXZ,float aConsigneYZ,float aMesureXZ,float aMesureYZ);
+float mmRegulation_regulateI(float aErreur);
+float mRegulation_regulateP(float aErreur, float aGainP);
+
+#endif /* MREGULATION_H_ */

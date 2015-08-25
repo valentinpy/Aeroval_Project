@@ -1,0 +1,22 @@
+Change Value of Parameter EtatCommande in Part C14 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C15 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C16 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C17 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C18 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C19 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part C20 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part R8 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part R10 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part R12 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part R14 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part U5 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part U5 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part U5 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part U5 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part U5 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part U5 Old=DNP New=EtatCommande
+Change Value of Parameter EtatCommande in Part U6 Old=DNP New=EtatCommande
+Added Parameter EtatCommande=Interne to Part R7
+Added Parameter EtatCommande=Interne to Part R9
+Added Parameter EtatCommande=Interne to Part R11
+Added Parameter EtatCommande=Interne to Part R13

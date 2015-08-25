@@ -1,0 +1,51 @@
+/*
+ ------------------------------------------------------------
+ Copyright 2003-2013 Haute Ecole ARC Ingénierie,
+ Switzerland. All rights reserved
+ ------------------------------------------------------------
+ Nom du fichier :	gOutput.c
+ Auteurs:			Alexandre Schnegg
+ Guillaume Jacot
+ Date:				23.01.13
+ Description dans le fichier gOuput.h
+ ------------------------------------------------------------
+ */
+
+#include "gMBox.h"
+#include "gOutput.h"
+#include "mRfInterface.h"
+#include "mPwm.h"
+
+//-----------------------------------------------------------------------------
+// Configuration du gestionnaire
+//-----------------------------------------------------------------------------
+void gOutput_Setup(void)
+{
+
+}
+
+//-----------------------------------------------------------------------------
+// Exécution du gestionnaire
+//-----------------------------------------------------------------------------
+void gOutput_Execute(void)
+{
+	if (!gCompute.regulationAcvtive)
+	{
+		mPwm_WriteVitesseMoteur(kPwmCh4, kToleranceZero);
+		mPwm_WriteVitesseMoteur(kPwmCh5, kToleranceZero);
+		mPwm_WriteVitesseMoteur(kPwmCh6, kToleranceZero);
+		mPwm_WriteVitesseMoteur(kPwmCh7, kToleranceZero);
+	}
+}
+
+void gOutput_ExecuteInt(void)
+{
+	if (gCompute.regulationAcvtive)
+	{
+		mPwm_WriteVitesseMoteur(kPwmCh4, gCompute.commandesMoteurs[0]);
+		mPwm_WriteVitesseMoteur(kPwmCh5, gCompute.commandesMoteurs[1]);
+		mPwm_WriteVitesseMoteur(kPwmCh6, gCompute.commandesMoteurs[2]);
+		mPwm_WriteVitesseMoteur(kPwmCh7, gCompute.commandesMoteurs[3]);
+	}
+}
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="D:\Documents\HES\3eme\Projet\Workspace" key="org.eclipse.cdt.ui.codeformatter.savepath.loadpath"/>
+	<item value="761" key="org.eclipse.cdt.uiformatter_pagemodify_dialog.preferred_height"/>
+	<item value="1" key="org.eclipse.cdt.uiformatter_page.line_wrapping_tab_page.last_category_index"/>
+	<item value="0" key="org.eclipse.cdt.uiformatter_page.white_space_tab_page.node"/>
+	<item value="482" key="org.eclipse.cdt.uiformatter_pagemodify_dialog.preferred_x"/>
+	<item value="0" key="org.eclipse.cdt.uiformatter_pagemodify_dialog.preferred_y"/>
+	<item value="1117" key="org.eclipse.cdt.uiformatter_pagemodify_dialog.preferred_width"/>
+	<item value="Default C source template" key="LastUsedSourceTemplate"/>
+	<item value="Default C header template" key="LastUsedHeaderTemplate"/>
+	<item value="0" key="org.eclipse.cdt.uiformatter_page.white_space.c_view.inner"/>
+	<section name="completion_proposal_size">
+	</section>
+	<section name="PDOMSearchPage">
+		<item value="227191" key="searchFlags"/>
+		<item value="false" key="caseSensitive"/>
+		<list key="previousPatterns">
+			<item value="kTolerance"/>
+			<item value="iPit_INTPit2"/>
+		</list>
+	</section>
+	<section name="SIMPLE_FLASH_DIALOG_SETTINGS_SECTION">
+		<item value="0" key="SIMPLE_FLASH_DIALOG_SETTINGS_FILE_OFFSET"/>
+		<item value="K10DN512Z" key="SIMPLE_FLASH_DIALOG_SETTINGS_PROCESSOR"/>
+		<item value="${workspace_loc:/SoftQuadriCoptere/MK10DN512Z_INTERNAL_FLASH/SoftQuadriCoptere.afx}" key="SIMPLE_FLASH_DIALOG_SETTINGS_FILENAME"/>
+		<item value="SoftQuadriCoptere_MK10DN512Z_INTERNAL_FLASH_PnE U-MultiLink" key="SIMPLE_FLASH_DIALOG_SETTINGS_SYSTEM"/>
+		<item value="0" key="SIMPLE_FLASH_DIALOG_SETTINGS_FLASH_CONFIGURATION_INDEX"/>
+		<list key="QUICK_FLASH_DIALOG_SETTINGS_FLASH_CONFIGURATIONS">
+			<item value="C:\Freescale\CW MCU v10.2\MCU\bin\plugins\support\TargetTask\Flash_Programmer\ARM\K10DN512Z.xml"/>
+		</list>
+	</section>
+	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration.internal">
+		<item value="513" key="size.width"/>
+		<item value="180" key="size.height"/>
+	</section>
+	<section name="CRenameRefactoringInputPage">
+		<item value="false" key="preprocessor"/>
+		<item value="false" key="macroDefinition"/>
+		<item value="3" key="scope"/>
+		<item value="false" key="comment"/>
+		<item value="false" key="references_inv"/>
+		<item value="" key="workingset"/>
+	</section>
+	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
+	</section>
+</section>

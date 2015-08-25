@@ -1,0 +1,130 @@
+#include "gMBox.h"
+#include "gCompute.h"
+#include "generateTrame.h"
+#include "mOrientationProcessing.h"
+#include "mRegulation.h"
+#include "mLeds.h"
+
+typedef enum
+{
+	kFilter, kSend,
+} stateEnum;
+
+static stateEnum aState;
+static float sRaccTab[3];
+static float sGyroTab[3];
+static float sATab[3];
+static Int16 sNumTempo;
+static float sAngleTab[3];
+
+static bool gCompute_OrientationProcessing();
+static void gCompute_Regulation();
+
+//-----------------------------------------------------------------------------
+// Configuration du gestionnaire
+//-----------------------------------------------------------------------------
+void gCompute_Setup(void)
+{
+	aState = kFilter;
+	sNumTempo = -1;
+	sAngleTab[0] = 0;
+	sAngleTab[1] = 0;
+	sAngleTab[2] = 0;
+	gCompute.regulationOK = false;
+	gCompute.moteursActifs = false;
+}
+
+//-----------------------------------------------------------------------------
+// Exécution du gestionnaire
+//-----------------------------------------------------------------------------
+void gCompute_Execute(void)
+{
+	UInt8 i;
+
+	if(gCompute.moteursActifs)
+	{
+		if(gCompute_OrientationProcessing(kFirstOrder))
+		{
+			gCompute_Regulation();
+		}
+		
+		if ((gInput.captPWMData[0] > kToleranceZero) || (gInput.captPWMData[1] > kToleranceZero) || (gInput.captPWMData[2] > kToleranceZero) || (gInput.captPWMData[3] > kToleranceZero))
+		{
+			gCompute.moteursActifs = false;
+			mLeds_WriteLed(kLed6, kLedOff);
+		}
+	}
+	else
+	{
+		if ((gInput.captPWMData[0] <= kToleranceZero) && (gInput.captPWMData[1] <= kToleranceZero) && (gInput.captPWMData[2] <= kToleranceZero) && (gInput.captPWMData[3] <= kToleranceZero))
+		{
+			gCompute.moteursActifs = true;
+			mLeds_WriteLed(kLed6, kLedOn);
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Filtrage et calcul de l'orientation
+//-----------------------------------------------------------------------------
+static bool gCompute_OrientationProcessing(filterOrderEnum aOrder)
+{
+	bool aRet = false;
+	
+	switch (aState)
+	{
+		case kFilter:
+			mOrientationProcessing_computeSensor(gInput.captAccelData, gInput.captGyroData,  sRaccTab, sGyroTab);
+			
+			if (aOrder == kFirstOrder)
+			{
+				mOrientationProcessing_FilterFirstOrder(sATab, sGyroTab, sAngleTab);
+			}
+			else if (aOrder == kSecondOrder)
+			{
+				//sAngleTab[i]=mOrientationProcessing_FilterSecondOrder(sATab[i], sGyroTab[i]);
+			}
+
+			sAngleTab[0] = mOrientationProcessing_RadToDeg(sAngleTab[0]);
+			sAngleTab[1] = mOrientationProcessing_RadToDeg(sAngleTab[1]);
+			sAngleTab[2] = mOrientationProcessing_RadToDeg(sAngleTab[2]);
+
+			sNumTempo = mDelay_GetDelay(kPit0, kDT * 1000);
+			aState = kSend;
+		case kSend:
+			if (mDelay_IsDelayDone(kPit0, sNumTempo))
+			{
+				mDelay_DelayRelease(kPit0, sNumTempo);
+				aRet = true;
+				aState = kFilter;
+			}
+			break;
+	}
+	
+	return aRet;
+}
+
+//-----------------------------------------------------------------------------
+// Régulation
+//-----------------------------------------------------------------------------
+static void gCompute_Regulation(void)
+{
+	float aErreurXZ;
+	float aErreurYZ;
+	float aRegulXZ;
+	float aRegulYZ;
+	
+	float aConsigneXZ = 0;
+	float aConsigneYZ = 0;
+
+	aErreurXZ = mRegulation_getError(aConsigneXZ, gCompute.angles[0]);
+	aErreurYZ = mRegulation_getError(aConsigneYZ, gCompute.angles[2]);
+
+	aRegulXZ = mRegulation_regulate(aErreurXZ, kGAINPXZ, kGAINIXZ);
+	aRegulYZ = mRegulation_regulate(aErreurYZ, kGAINPYZ, kGAINIYZ);
+	
+	gCompute.commandesMoteurs[0] = mPwm_convertPercentToCmd(kOFFSETMOTEUR + aRegulXZ);
+	gCompute.commandesMoteurs[1] = mPwm_convertPercentToCmd(kOFFSETMOTEUR - aRegulYZ);
+	gCompute.commandesMoteurs[2] = mPwm_convertPercentToCmd(kOFFSETMOTEUR - aRegulXZ);
+	gCompute.commandesMoteurs[3] = mPwm_convertPercentToCmd(kOFFSETMOTEUR + aRegulYZ);
+}
